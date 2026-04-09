@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>トクテイリンク | Tokutei-Link — 特定技能インドネシア人材マッチング</title>
+  <meta name="description" content="特定技能ビザ専門のインドネシア人材マッチングサービス。全19分野対応。書類審査済みの求職者のみ掲載。日本語・インドネシア語バイリンガル対応。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #1D9E75;
+      --green-dark: #0F6E56;
+      --green-darker: #085041;
+      --green-light: #E1F5EE;
+      --green-border: #5DCAA5;
+      --blue: #185FA5;
+      --blue-dark: #0C447C;
+      --blue-light: #E6F1FB;
+      --blue-border: #85B7EB;
+      --amber: #EF9F27;
+      --amber-light: #FAEEDA;
+      --amber-dark: #633806;
+      --amber-border: #FAC775;
+      --red-light: #FCEBEB;
+      --red: #E24B4A;
+      --red-dark: #A32D2D;
+      --gray-bg: #F7F6F3;
+      --gray-light: #F1EFE8;
+      --gray-mid: #D3D1C7;
+      --gray-text: #888780;
+      --gray-dark: #444441;
+      --text-primary: #1a1918;
+      --text-secondary: #5a5855;
+      --text-tertiary: #999794;
+      --border: rgba(0,0,0,0.10);
+      --border-md: rgba(0,0,0,0.18);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', 'Noto Sans', sans-serif;
+      color: var(--text-primary);
+      background: #fff;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 3rem 0; }
+    .section-divider { height: 0.5px; background: var(--border); margin: 0 1.5rem; }
+    .section-eyebrow { font-size: 11px; font-weight: 500; color: var(--green); letter-spacing: 0.07em; margin-bottom: 6px; text-transform: uppercase; }
+    .section-title { font-size: 22px; font-weight: 500; color: var(--text-primary); margin-bottom: 6px; line-height: 1.4; }
+    .section-sub { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.75rem; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+    .text-center { text-align: center; }
+
+    /* ===== NAVBAR ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--border);
+      padding: 0.875rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-icon {
+      width: 34px; height: 34px; background: var(--green);
+      border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .nav-logo-text { font-size: 15px; font-weight: 500; }
+    .nav-logo-sub { font-size: 10px; color: var(--text-secondary); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link {
+      padding: 6px 10px; font-size: 12px; color: var(--text-secondary);
+      border: none; background: none; cursor: pointer; border-radius: var(--radius-md);
+      text-align: center; line-height: 1.3;
+    }
+    .nav-link:hover { background: var(--gray-bg); }
+    .nav-link span { display: block; }
+    .nav-link .sub { font-size: 10px; color: var(--text-tertiary); }
+    .btn { padding: 7px 14px; font-size: 12px; font-weight: 500; border: none; border-radius: var(--radius-md); cursor: pointer; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover { background: var(--green-dark); }
+    .btn-outline { border: 0.5px solid var(--border-md); background: transparent; color: var(--text-secondary); }
+    .btn-outline:hover { background: var(--gray-bg); }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-blue:hover { background: var(--blue-dark); }
+
+    /* ===== HERO ===== */
+    .hero { padding: 3rem 1.5rem 2.5rem; text-align: center; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-light); border: 0.5px solid var(--green-border);
+      border-radius: 20px; padding: 4px 14px; font-size: 11px;
+      color: var(--green-dark); font-weight: 500; margin-bottom: 1.25rem; line-height: 1.5;
+    }
+    .hero-h1 { font-size: 28px; font-weight: 500; line-height: 1.4; margin-bottom: 5px; }
+    .hero-h1-id { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.25rem; }
+    .hero-sub { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 520px; margin: 0 auto 1.5rem; }
+    .search-bar {
+      display: flex; gap: 8px; max-width: 540px; margin: 0 auto 1.25rem;
+    }
+    .search-bar input {
+      flex: 1; padding: 10px 14px; font-size: 13px;
+      border: 0.5px solid var(--border-md); border-radius: var(--radius-md);
+      background: #fff; color: var(--text-primary); outline: none;
+      font-family: inherit;
+    }
+    .search-bar input:focus { border-color: var(--green); }
+    .search-bar button {
+      padding: 10px 18px; font-size: 13px; font-weight: 500;
+      border: none; border-radius: var(--radius-md); background: var(--green);
+      color: #fff; cursor: pointer; white-space: nowrap; font-family: inherit;
+    }
+    .search-bar button:hover { background: var(--green-dark); }
+    .hero-cta { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 1.75rem; }
+    .cta-btn {
+      padding: 10px 22px; font-size: 13px; font-weight: 500;
+      border: none; border-radius: var(--radius-md); cursor: pointer; line-height: 1.5; font-family: inherit;
+    }
+    .cta-btn-green { background: var(--green); color: #fff; }
+    .cta-btn-green:hover { background: var(--green-dark); }
+    .cta-btn-blue {
+      background: transparent; color: var(--blue); font-weight: 500;
+      border: 0.5px solid var(--blue); line-height: 1.5;
+    }
+    .cta-btn-blue:hover { background: var(--blue-light); }
+    .stats-row {
+      display: flex; justify-content: center;
+      border: 0.5px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden; max-width: 500px; margin: 0 auto;
+    }
+    .stat-item {
+      flex: 1; padding: 0.875rem 0.5rem; text-align: center;
+      border-right: 0.5px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-val { font-size: 20px; font-weight: 500; color: var(--green); }
+    .stat-lbl { font-size: 10px; color: var(--text-secondary); margin-top: 3px; line-height: 1.5; }
+
+    /* ===== BADGES ===== */
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 500; }
+    .badge-green { background: var(--green-light); color: var(--green-darker); }
+    .badge-blue { background: var(--blue-light); color: var(--blue-dark); }
+    .badge-gray { background: var(--gray-light); color: var(--gray-dark); }
+    .badge-amber { background: var(--amber-light); color: var(--amber-dark); }
+    .check-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 20px; padding: 3px 12px; margin-bottom: 10px;
+    }
+    .check-pill-green { background: var(--green-light); }
+    .check-pill-green span { font-size: 11px; font-weight: 500; color: var(--green-dark); }
+    .check-pill-blue { background: var(--blue-light); }
+    .check-pill-blue span { font-size: 11px; font-weight: 500; color: var(--blue); }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: #fff; border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.25rem;
+    }
+    .card-bg { background: var(--gray-bg); border-radius: var(--radius-lg); padding: 1.25rem; }
+
+    /* ===== TARGET CARDS ===== */
+    .target-card { border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+    .target-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .target-icon { width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .target-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 1rem; }
+    .target-list-item { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .target-btn {
+      width: 100%; padding: 9px; font-size: 12px; font-weight: 500;
+      border: none; border-radius: var(--radius-md); cursor: pointer; line-height: 1.4; font-family: inherit;
+    }
+    .target-btn-green { background: var(--green); color: #fff; }
+    .target-btn-green:hover { background: var(--green-dark); }
+    .target-btn-blue { background: var(--blue); color: #fff; }
+    .target-btn-blue:hover { background: var(--blue-dark); }
+
+    /* ===== PRICING ===== */
+    .pricing-card { border-radius: var(--radius-lg); overflow: hidden; border: 0.5px solid var(--border); }
+    .pricing-header { padding: 1.25rem; border-bottom: 0.5px solid var(--border); }
+    .pricing-body { padding: 1.25rem; }
+    .price-tag { font-size: 26px; font-weight: 500; line-height: 1; }
+    .price-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
+    .price-list-item { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .lock-box { background: var(--amber-light); border: 0.5px solid var(--amber); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-top: 1rem; }
+    .lock-box-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--amber-dark); margin-bottom: 8px; }
+    .lock-items { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 8px; }
+    .lock-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--amber-dark); line-height: 1.4; }
+    .lock-note { font-size: 11px; color: #854F0B; line-height: 1.6; padding-top: 8px; border-top: 0.5px solid var(--amber-border); }
+
+    /* ===== PAYMENT STEPS ===== */
+    .payment-step { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--border); }
+    .payment-step:last-child { border-bottom: none; }
+    .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--blue); flex-shrink: 0; margin-top: 1px; }
+    .step-num-hl { background: var(--green); color: #fff; }
+
+    /* ===== FLOW ===== */
+    .flow-card { text-align: center; padding: 1rem 0.75rem; }
+    .flow-num { width: 26px; height: 26px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--green-dark); margin: 0 auto 8px; }
+    .flow-num-blue { background: var(--blue-light); color: var(--blue); }
+    .flow-num-green { background: var(--green); color: #fff; }
+    .flow-icon-wrap { width: 42px; height: 42px; border-radius: var(--radius-md); background: var(--gray-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+    .flow-icon-wrap-green { background: var(--green-light); }
+    .flow-title { font-size: 12px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; }
+    .flow-sub { font-size: 10px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ===== INDUSTRY CHIPS ===== */
+    .industry-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+    .industry-chip { display: flex; align-items: center; gap: 5px; padding: 6px 11px; border: 0.5px solid var(--border); border-radius: var(--radius-md); background: #fff; }
+    .chip-ja { font-size: 12px; font-weight: 500; color: var(--text-primary); }
+    .chip-id { font-size: 10px; color: var(--text-secondary); }
+
+    /* ===== JOB CARDS ===== */
+    .job-preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .job-card { border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem; }
+    .job-card:hover { border-color: var(--green-border); cursor: pointer; }
+    .job-co { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+    .job-co-avatar { width: 26px; height: 26px; border-radius: var(--radius-md); background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 500; color: var(--green-darker); flex-shrink: 0; }
+
+    /* ===== APPEAL CARDS ===== */
+    .appeal-card { border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+    .appeal-card-g { border-left: 3px solid var(--green); }
+    .appeal-card-b { border-left: 3px solid var(--blue); }
+    .appeal-icon-wrap { width: 42px; height: 42px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+    .appeal-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 6px; line-height: 1.4; }
+    .appeal-body { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+    .appeal-tag { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; margin-top: 10px; }
+    .tag-g { background: var(--green-light); color: var(--green-dark); }
+    .tag-b { background: var(--blue-light); color: var(--blue); }
+
+    /* ===== COMPARE ===== */
+    .compare-box { border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 14px; }
+    .compare-header { background: var(--gray-bg); padding: 10px 16px; font-size: 12px; font-weight: 500; color: var(--text-secondary); border-bottom: 0.5px solid var(--border); }
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .compare-col { padding: 1rem 1.25rem; }
+    .compare-col-bad { border-right: 0.5px solid var(--border); }
+    .compare-col-title { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; margin-bottom: 10px; }
+    .compare-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.5; }
+    .compare-item:last-child { margin-bottom: 0; }
+
+    /* ===== STATS ===== */
+    .stat-appeal { background: var(--gray-bg); border-radius: var(--radius-lg); padding: 1.25rem; text-align: center; margin-bottom: 14px; }
+    .stat-a-val { font-size: 28px; font-weight: 500; color: var(--green); line-height: 1; margin-bottom: 4px; }
+    .stat-a-lbl { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+    .stat-a-note { font-size: 10px; color: var(--text-tertiary); margin-top: 3px; }
+
+    /* ===== FAQ ===== */
+    .faq-item { border-bottom: 0.5px solid var(--border); }
+    .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; cursor: pointer; gap: 10px; }
+    .faq-q:hover { color: var(--green); }
+    .faq-q-text { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+    .faq-icon { flex-shrink: 0; transition: transform 0.2s; }
+    .faq-icon.open { transform: rotate(180deg); }
+    .faq-a { font-size: 12px; color: var(--text-secondary); line-height: 1.7; padding-bottom: 13px; display: none; }
+    .faq-a.open { display: block; }
+
+    /* ===== FOOTER ===== */
+    .footer { background: var(--gray-bg); border-top: 0.5px solid var(--border); padding: 2.5rem 1.5rem 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .footer-col-title { font-size: 11px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; }
+    .footer-link { font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 5px; cursor: pointer; line-height: 1.4; }
+    .footer-link:hover { color: var(--green); }
+    .footer-bottom { padding-top: 1rem; border-top: 0.5px solid var(--border); font-size: 10px; color: var(--text-tertiary); line-height: 1.8; }
+    .license-badge { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 10px; font-weight: 500; background: var(--green-light); color: var(--green-dark); margin-right: 4px; white-space: nowrap; }
+
+    /* ===== SVG ICON HELPERS ===== */
+    .icon-green { stroke: var(--green); }
+    .icon-blue { stroke: var(--blue); }
+    .icon-red { stroke: var(--red); }
+    .icon-white { stroke: #fff; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .grid2, .job-preview-grid, .compare-grid, .footer-grid { grid-template-columns: 1fr; }
+      .grid4 { grid-template-columns: 1fr 1fr; }
+      .nav-links .nav-link .sub { display: none; }
+      .hero-h1 { font-size: 22px; }
+      .stats-row { flex-wrap: wrap; }
+      .stat-item { min-width: 50%; border-bottom: 0.5px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2L13 7H17L14 11L15.5 16L10 13L4.5 16L6 11L3 7H7L10 2Z" fill="white" opacity="0.9"/></svg>
+    </div>
+    <div>
+      <div class="nav-logo-text">トクテイリンク</div>
+      <div class="nav-logo-sub">Tokutei-Link</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link"><span>求人を探す</span><span class="sub">Cari Kerja</span></button>
+    <button class="nav-link"><span>求職者を探す</span><span class="sub">Cari Tenaga Kerja</span></button>
+    <button class="nav-link"><span>料金</span><span class="sub">Harga</span></button>
+    <button class="btn btn-outline" style="font-size:12px;line-height:1.3;">ログイン<br><span style="font-size:10px;font-weight:400;">Masuk</span></button>
+    <button class="btn btn-green" style="font-size:12px;line-height:1.3;">無料登録<br><span style="font-size:10px;font-weight:400;">Daftar</span></button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="2.5" width="10" height="7" rx="1.5" stroke="#0F6E56" stroke-width="1.2"/><path d="M3.5 6h5M6 4.5v3" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round"/></svg>
+    特定技能ビザ専門マッチングサービス / Layanan Matching Khusus Visa Tokutei Ginou
+  </div>
+  <h1 class="hero-h1">インドネシア人の特定技能人材と<br>日本企業をつなぐ</h1>
+  <p class="hero-h1-id">Menghubungkan tenaga kerja Indonesia ber-Tokutei Ginou dengan perusahaan Jepang</p>
+  <p class="hero-sub">全19分野に対応。書類審査からマッチングまでワンストップで。日本語・インドネシア語バイリンガル対応。<br>Mendukung 19 bidang. Dari verifikasi dokumen hingga matching dalam satu platform bilingual.</p>
+  <div class="search-bar">
+    <input type="text" placeholder="職種・地域・キーワード / Jabatan, wilayah, kata kunci">
+    <button>求人を探す / Cari →</button>
+  </div>
+  <div class="hero-cta">
+    <button class="cta-btn cta-btn-green">求職者として登録する（無料）<br><span style="font-size:11px;font-weight:400;">Daftar sebagai pencari kerja (gratis)</span></button>
+    <button class="cta-btn cta-btn-blue">求職者を探す<br><span style="font-size:11px;">受入企業様・登録支援機関様はこちら</span></button>
+  </div>
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-val">137名</div><div class="stat-lbl">登録求職者<br>Pencari kerja</div></div>
+    <div class="stat-item"><div class="stat-val">48社</div><div class="stat-lbl">登録企業<br>Perusahaan</div></div>
+    <div class="stat-item"><div class="stat-val">64件</div><div class="stat-lbl">公開中求人<br>Lowongan aktif</div></div>
+    <div class="stat-item"><div class="stat-val">61名</div><div class="stat-lbl">採用確定<br>Diterima bekerja</div></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== ターゲット ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:1.5rem;">
+      <div class="section-eyebrow">あなたはどちらですか？ / Anda siapa?</div>
+      <h2 class="section-title">求職者・企業、それぞれに最適な機能を提供<br><span style="font-size:14px;font-weight:400;color:var(--text-secondary);">Menyediakan fitur optimal untuk pencari kerja maupun perusahaan</span></h2>
+    </div>
+    <div class="grid2">
+      <div class="target-card">
+        <div class="target-card-header">
+          <div class="target-icon" style="background:var(--green-light);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="4" stroke="#0F6E56" stroke-width="1.3"/><path d="M2 18c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </div>
+          <div><div style="font-size:14px;font-weight:500;">求職者の方</div><div style="font-size:11px;color:var(--text-secondary);">Pencari Kerja</div></div>
+        </div>
+        <div class="check-pill check-pill-green">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5l3 3 6-6" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>完全無料 / Sepenuhnya gratis</span>
+        </div>
+        <div class="target-list">
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>日本語・インドネシア語で登録できる<br><span style="font-size:10px;color:var(--text-tertiary);">Daftar dalam Bahasa Jepang & Indonesia</span></div>
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>在留カード・パスポートをアップロード<br><span style="font-size:10px;color:var(--text-tertiary);">Unggah kartu izin tinggal & paspor</span></div>
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>全19職種・全国の求人に応募できる<br><span style="font-size:10px;color:var(--text-tertiary);">Lamar ke 19 bidang di seluruh Jepang</span></div>
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>選考状況をリアルタイムで確認<br><span style="font-size:10px;color:var(--text-tertiary);">Pantau status seleksi secara real-time</span></div>
+        </div>
+        <button class="target-btn target-btn-green">無料でプロフィールを登録する<br>Daftar profil gratis →</button>
+      </div>
+      <div class="target-card">
+        <div class="target-card-header">
+          <div class="target-icon" style="background:var(--blue-light);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="13" rx="2" stroke="#185FA5" stroke-width="1.3"/><path d="M2 9h16M7 4V2m6 2V2" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </div>
+          <div><div style="font-size:14px;font-weight:500;">受入企業・登録支援機関の方</div><div style="font-size:11px;color:var(--text-secondary);">Perusahaan & Lembaga Pendukung</div></div>
+        </div>
+        <div class="check-pill check-pill-blue">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5l3 3 6-6" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>登録・掲載無料 / Daftar & posting gratis</span>
+        </div>
+        <div class="target-list">
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>審査済みの求職者のみ検索できる<br><span style="font-size:10px;color:var(--text-tertiary);">Hanya pencari kerja yang sudah diverifikasi</span></div>
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>書類・在留資格の確認済みで安心<br><span style="font-size:10px;color:var(--text-tertiary);">Dokumen & visa sudah terverifikasi</span></div>
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>応募〜面接まですべてシステム内で完結<br><span style="font-size:10px;color:var(--text-tertiary);">Semua proses dalam sistem</span></div>
+          <div class="target-list-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>マッチング成立時のみ費用が発生<br><span style="font-size:10px;color:var(--text-tertiary);">Biaya hanya saat matching berhasil</span></div>
+        </div>
+        <button class="target-btn target-btn-blue">求職者検索のためのアカウントを開設する<br><span style="font-size:10px;font-weight:400;">Buka akun untuk mencari tenaga kerja →</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== 料金 ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:1.5rem;">
+      <div class="section-eyebrow">料金体系 / Sistem Harga</div>
+      <h2 class="section-title">シンプルな成果報酬型<br><span style="font-size:14px;font-weight:400;color:var(--text-secondary);">Bayar hanya saat berhasil</span></h2>
+      <p class="section-sub">採用できなければ費用はかかりません。成果が出た時だけお支払いください。<br>Tidak ada biaya jika tidak berhasil merekrut.</p>
+    </div>
+    <div class="grid2" style="margin-bottom:1.25rem;">
+      <div class="pricing-card">
+        <div class="pricing-header" style="background:var(--green-light);">
+          <div style="font-size:14px;font-weight:500;color:var(--green-darker);margin-bottom:8px;">求職者 / Pencari Kerja</div>
+          <div class="price-tag" style="color:var(--green-darker);">¥0</div>
+          <div style="font-size:11px;color:var(--green-dark);margin-top:4px;">完全無料 · いつでも / Sepenuhnya gratis</div>
+        </div>
+        <div class="pricing-body">
+          <div class="price-list">
+            <div class="price-list-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>プロフィール登録・書類アップロード</div>
+            <div class="price-list-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>全求人の閲覧・応募</div>
+            <div class="price-list-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>採用確定まで全て無料</div>
+          </div>
+          <button class="target-btn target-btn-green" style="font-size:12px;">今すぐ無料登録 / Daftar gratis →</button>
+        </div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-header" style="background:var(--blue-light);">
+          <div style="font-size:14px;font-weight:500;color:var(--blue-dark);margin-bottom:8px;">受入企業 / Perusahaan</div>
+          <div style="display:flex;align-items:baseline;gap:6px;">
+            <div class="price-tag" style="color:var(--blue-dark);">¥30,000</div>
+            <div style="font-size:11px;color:var(--blue);">/ 採用1名（税別）<br>per orang diterima</div>
+          </div>
+          <div style="font-size:11px;color:var(--blue);margin-top:4px;">登録・掲載・選考は無料 / Daftar, posting & seleksi gratis</div>
+        </div>
+        <div class="pricing-body">
+          <div class="price-list">
+            <div class="price-list-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>アカウント登録・審査：無料</div>
+            <div class="price-list-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>求人掲載・書類審査・面接：無料</div>
+            <div class="price-list-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>マッチング成立・入社確定時に請求</div>
+          </div>
+          <div class="lock-box">
+            <div class="lock-box-title">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="6" width="10" height="7" rx="1.5" stroke="#854F0B" stroke-width="1.2"/><path d="M4 6V4.5a3 3 0 0 1 6 0V6" stroke="#854F0B" stroke-width="1.2" stroke-linecap="round"/><circle cx="7" cy="9.5" r="1" fill="#854F0B"/></svg>
+              支払い完了まで閲覧不可
+            </div>
+            <div class="lock-items">
+              <div class="lock-item"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1.5" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3.5 4.5V3.5a2 2 0 0 1 4 0v1" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>氏名</div>
+              <div class="lock-item"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1.5" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3.5 4.5V3.5a2 2 0 0 1 4 0v1" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>メール</div>
+              <div class="lock-item"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1.5" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3.5 4.5V3.5a2 2 0 0 1 4 0v1" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>SNS URL</div>
+              <div class="lock-item"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1.5" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3.5 4.5V3.5a2 2 0 0 1 4 0v1" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>在留カード写真</div>
+              <div class="lock-item"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1.5" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3.5 4.5V3.5a2 2 0 0 1 4 0v1" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>パスポート写真</div>
+              <div class="lock-item"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1.5" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3.5 4.5V3.5a2 2 0 0 1 4 0v1" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>合格証写真</div>
+            </div>
+            <div class="lock-note">支払い完了後に上記情報が開示されます。支払い前は職種・地域・語学・試験・自己PRのみ閲覧可。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 支払いフロー -->
+    <div class="card">
+      <div style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:1rem;">企業の支払いフロー / Alur pembayaran perusahaan</div>
+      <div class="payment-step"><div class="step-num">1</div><div><div style="font-size:12px;font-weight:500;">求人掲載・選考（無料）</div><div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">職種・語学・PR文を見ながら選考。氏名・連絡先・書類写真はロック状態</div></div></div>
+      <div class="payment-step"><div class="step-num step-num-hl">2</div><div><div style="font-size:12px;font-weight:500;">銀行振込（¥33,000 税込）</div><div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">採用確定後に請求書を発行します。請求書に記載の口座へ振込をお願いします。</div></div></div>
+      <div class="payment-step"><div class="step-num">3</div><div><div style="font-size:12px;font-weight:500;">運営が入金確認・承認</div><div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">通常1〜2営業日で確認完了。承認後に情報が開示されます。</div></div></div>
+      <div class="payment-step"><div class="step-num">4</div><div><div style="font-size:12px;font-weight:500;">情報開示・入社手続き</div><div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">氏名・メール・SNS・在留カード・パスポート・合格証が閲覧可能に</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== 利用の流れ ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:1.5rem;">
+      <div class="section-eyebrow">ご利用の流れ / Cara Penggunaan</div>
+      <h2 class="section-title">登録から採用まで、4ステップ</h2>
+    </div>
+    <div style="font-size:12px;font-weight:500;color:var(--green);display:flex;align-items:center;gap:5px;margin-bottom:10px;">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#1D9E75" stroke-width="1.1"/><path d="M6.5 3.5v3l2 1.5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>
+      求職者の流れ
+    </div>
+    <div class="grid4" style="margin-bottom:1.5rem;">
+      <div class="flow-card"><div class="flow-num">1</div><div class="flow-icon-wrap"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="#1D9E75" stroke-width="1.3"/><path d="M3 17c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="flow-title">プロフィール登録</div><div class="flow-sub">書類アップロード・無料</div></div>
+      <div class="flow-card"><div class="flow-num">2</div><div class="flow-icon-wrap"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10a7 7 0 1 1 14 0 7 7 0 0 1-14 0z" stroke="#1D9E75" stroke-width="1.3"/><path d="M7 10h6M13 10l-2-2m2 2l-2 2" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="flow-title">書類審査</div><div class="flow-sub">1〜2営業日で完了</div></div>
+      <div class="flow-card"><div class="flow-num">3</div><div class="flow-icon-wrap"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="12" rx="2" stroke="#1D9E75" stroke-width="1.3"/><path d="M7 4V2m6 2V2M3 9h14" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="flow-title">求人に応募</div><div class="flow-sub">全国64件以上</div></div>
+      <div class="flow-card"><div class="flow-num">4</div><div class="flow-icon-wrap"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10l5 5L17 5" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="flow-title">採用・入社</div><div class="flow-sub">入社日まで完全無料</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:500;color:var(--blue);display:flex;align-items:center;gap:5px;margin-bottom:10px;">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1.5" width="11" height="10" rx="1.5" stroke="#378ADD" stroke-width="1.1"/><path d="M4 6.5h5M6.5 4.5v4" stroke="#378ADD" stroke-width="1.1" stroke-linecap="round"/></svg>
+      企業の流れ
+    </div>
+    <div class="grid4">
+      <div class="flow-card"><div class="flow-num flow-num-blue">1</div><div class="flow-icon-wrap"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="10" rx="2" stroke="#378ADD" stroke-width="1.3"/><path d="M3 16h14M7 16v2m6-2v2" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="flow-title">アカウント開設</div><div class="flow-sub">直接または登録支援機関経由</div></div>
+      <div class="flow-card"><div class="flow-num flow-num-blue">2</div><div class="flow-icon-wrap"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="12" rx="2" stroke="#378ADD" stroke-width="1.3"/><path d="M10 9v5M7.5 11.5H10" stroke="#378ADD" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="flow-title">求人掲載・選考</div><div class="flow-sub">掲載〜面接まで無料</div></div>
+      <div class="flow-card"><div class="flow-num flow-num-green">3</div><div class="flow-icon-wrap flow-icon-wrap-green"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1.5" y="5" width="17" height="12" rx="2" stroke="#0F6E56" stroke-width="1.3"/><path d="M1.5 10h17M6 10v7" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round"/><circle cx="13" cy="14" r="2" stroke="#0F6E56" stroke-width="1.3"/></svg></div><div class="flow-title">銀行振込・承認</div><div class="flow-sub">¥33,000（税込）採用後に請求書</div></div>
+      <div class="flow-card"><div class="flow-num flow-num-blue">4</div><div class="flow-icon-wrap"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10l5 5L17 5" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="flow-title">情報開示・入社</div><div class="flow-sub">名前・連絡先・書類が開示</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== 対応職種 ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:1.5rem;">
+      <div class="section-eyebrow">対応職種 / Bidang yang Tersedia</div>
+      <h2 class="section-title">特定技能19分野すべてに対応<br><span style="font-size:14px;font-weight:400;color:var(--text-secondary);">Mendukung semua 19 bidang Tokutei Ginou</span></h2>
+    </div>
+    <div class="industry-grid">
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">介護</span><span class="chip-id">Perawatan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">ビルクリーニング</span><span class="chip-id">Kebersihan Gedung</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">工業製品製造業</span><span class="chip-id">Manufaktur Industri</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">建設</span><span class="chip-id">Konstruksi</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">造船・船用工業</span><span class="chip-id">Perkapalan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">自動車整備</span><span class="chip-id">Perawatan Kendaraan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">航空</span><span class="chip-id">Penerbangan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">宿泊</span><span class="chip-id">Perhotelan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">農業</span><span class="chip-id">Pertanian</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">漁業</span><span class="chip-id">Perikanan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">飲食料品製造業</span><span class="chip-id">Manufaktur Makanan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">外食</span><span class="chip-id">Restoran</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">林業</span><span class="chip-id">Kehutanan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">木材産業</span><span class="chip-id">Industri Kayu</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">自動車運送業</span><span class="chip-id">Angkutan Kendaraan</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">鉄道</span><span class="chip-id">Perkeretaapian</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">物流倉庫</span><span class="chip-id">Logistik & Gudang</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">資源循環</span><span class="chip-id">Daur Ulang</span></div>
+      <div class="industry-chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#1D9E75" stroke-width="1.1"/></svg><span class="chip-ja">リネンサプライ</span><span class="chip-id">Linen Supply</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== 新着求人 ===== -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+      <div>
+        <div class="section-eyebrow">新着求人 / Lowongan Terbaru</div>
+        <h2 class="section-title" style="margin-bottom:0;">今週掲載された求人</h2>
+      </div>
+      <button class="btn btn-outline" style="font-size:12px;">すべて見る →</button>
+    </div>
+    <div class="job-preview-grid">
+      <div class="job-card"><div class="job-co"><div class="job-co-avatar">SC</div><div style="font-size:11px;color:var(--text-secondary);">サンシャインケア · Kanto</div></div><div style="font-size:13px;font-weight:500;margin-bottom:5px;">介護スタッフ（特定技能1号）</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;"><span class="badge badge-green">介護</span><span class="badge badge-blue">1号</span><span class="badge badge-gray">寮あり</span></div><div style="font-size:10px;color:var(--text-tertiary);">Saitama · 3名募集 · 2日前</div></div>
+      <div class="job-card"><div class="job-co"><div class="job-co-avatar" style="background:var(--blue-light);color:var(--blue-dark);">OS</div><div style="font-size:11px;color:var(--text-secondary);">大阪建設工業 · Kinki</div></div><div style="font-size:13px;font-weight:500;margin-bottom:5px;">建設作業員（鉄筋・型枠）</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;"><span class="badge badge-green">建設</span><span class="badge badge-blue">1号・2号</span></div><div style="font-size:10px;color:var(--text-tertiary);">Osaka · 4名 · 5日前</div></div>
+      <div class="job-card"><div class="job-co"><div class="job-co-avatar" style="background:#EAF3DE;color:#27500A;">HR</div><div style="font-size:11px;color:var(--text-secondary);">北海道リゾートホテル · Hokkaido</div></div><div style="font-size:13px;font-weight:500;margin-bottom:5px;">ホテルスタッフ（フロント）</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;"><span class="badge badge-green">宿泊</span><span class="badge badge-blue">1号</span></div><div style="font-size:10px;color:var(--text-tertiary);">Sapporo · 2名 · 1週間前</div></div>
+      <div class="job-card"><div class="job-co"><div class="job-co-avatar" style="background:var(--gray-light);color:var(--gray-dark);">TF</div><div style="font-size:11px;color:var(--text-secondary);">東洋フード工業 · Chubu</div></div><div style="font-size:13px;font-weight:500;margin-bottom:5px;">食品製造スタッフ</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;"><span class="badge badge-green">飲食料品</span><span class="badge badge-blue">1号</span><span class="badge badge-gray">寮あり</span></div><div style="font-size:10px;color:var(--text-tertiary);">Nagoya · 5名 · 1週間前</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== 企業向け訴求 ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:1.75rem;">
+      <div class="section-eyebrow">受入企業・登録支援機関の方へ / Untuk Perusahaan & Lembaga</div>
+      <h2 class="section-title">採用担当者の「困った」を解決します<br><span style="font-size:14px;font-weight:400;color:var(--text-secondary);">Menyelesaikan masalah umum dalam perekrutan tenaga kerja asing</span></h2>
+      <p class="section-sub">特定技能外国人の採用には書類管理・コミュニケーション・入管手続きなど多くの手間がかかります。<br>トクテイリンクはそれをまとめてサポートします。</p>
+    </div>
+    <div class="grid2" style="margin-bottom:14px;">
+      <div class="appeal-card appeal-card-g">
+        <div class="appeal-icon-wrap" style="background:var(--green-light);"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="2" width="16" height="18" rx="2" stroke="#0F6E56" stroke-width="1.3"/><path d="M7 7h8M7 10h8M7 13h5" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/><path d="M13 16l2 2 3-3" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="appeal-title">在留カード・書類が<br>最初から揃っている</div>
+        <div class="appeal-body">登録求職者は全員、在留カード（表・裏）・パスポート・技能評価試験合格証をアップロード済みです。採用後はそのまま入管申請に活用でき、書類収集の手間がかかりません。<br><span style="font-size:11px;color:var(--text-tertiary);">Semua pelamar sudah upload kartu, paspor & sertifikat. Langsung bisa digunakan untuk pengajuan imigrasi.</span></div>
+        <div class="appeal-tag tag-g"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>入管申請がスムーズに</div>
+      </div>
+      <div class="appeal-card appeal-card-g">
+        <div class="appeal-icon-wrap" style="background:var(--green-light);"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2C6 2 2 6 2 11s4 9 9 9 9-4 9-9-4-9-9-9z" stroke="#0F6E56" stroke-width="1.3"/><path d="M7 11l3 3 5-5" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="appeal-title">運営が書類確認済みの<br>人材のみ掲載</div>
+        <div class="appeal-body">在留資格・技能評価試験・語学力をトクテイリンク運営スタッフが目視確認。「採用してみたら書類が不備だった」というリスクを大幅に軽減します。<br><span style="font-size:11px;color:var(--text-tertiary);">Hanya pelamar yang dokumennya terverifikasi admin yang ditampilkan.</span></div>
+        <div class="appeal-tag tag-g"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>書類不備リスクを軽減</div>
+      </div>
+      <div class="appeal-card appeal-card-b">
+        <div class="appeal-icon-wrap" style="background:var(--blue-light);"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6l-4 4V6a2 2 0 0 1 2-2z" stroke="#185FA5" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 9h6M8 12h4" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div class="appeal-title">応募〜面接まで<br>サイト内で完結・記録が残る</div>
+        <div class="appeal-body">応募受付・書類確認・メッセージ・面談スケジュール調整まで、すべてトクテイリンク上で行います。やり取りが記録されるため「連絡が取れなくなった」という事態を防ぎます。<br><span style="font-size:11px;color:var(--text-tertiary);">Semua proses tercatat di sistem — tidak ada yang hilang di tengah jalan.</span></div>
+        <div class="appeal-tag tag-b"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>選考状況をいつでも確認</div>
+      </div>
+      <div class="appeal-card appeal-card-b">
+        <div class="appeal-icon-wrap" style="background:var(--blue-light);"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#185FA5" stroke-width="1.3"/><path d="M11 7v4l3 2" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div class="appeal-title">スケジュール調整から<br>Zoomリンク共有まで一括管理</div>
+        <div class="appeal-body">面談候補日時をシステムで送信→求職者が選択→確定通知が自動化されています。「日程調整のLINEが届かない」「面接に来なかった」というロスを減らせます。<br><span style="font-size:11px;color:var(--text-tertiary);">Penjadwalan wawancara dan link Zoom dikirim otomatis.</span></div>
+        <div class="appeal-tag tag-b"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>面接ドタキャン・連絡ロスを削減</div>
+      </div>
+    </div>
+
+    <!-- Before / After -->
+    <div class="compare-box">
+      <div class="compare-header">トクテイリンクを使う前と後</div>
+      <div class="compare-grid">
+        <div class="compare-col compare-col-bad">
+          <div class="compare-col-title" style="color:var(--red-dark);"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#E24B4A" stroke-width="1.2"/><path d="M5 5l6 6M11 5l-6 6" stroke="#E24B4A" stroke-width="1.3" stroke-linecap="round"/></svg>これまでの課題</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#E24B4A" stroke-width="1.1"/><path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="#E24B4A" stroke-width="1.1" stroke-linecap="round"/></svg>採用後に在留カード・パスポートを個別に収集する必要がある</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#E24B4A" stroke-width="1.1"/><path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="#E24B4A" stroke-width="1.1" stroke-linecap="round"/></svg>書類の真偽確認が難しく、不備が後から発覚することも</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#E24B4A" stroke-width="1.1"/><path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="#E24B4A" stroke-width="1.1" stroke-linecap="round"/></svg>LINEやメールで連絡が途中で途切れ、選考がストップ</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#E24B4A" stroke-width="1.1"/><path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="#E24B4A" stroke-width="1.1" stroke-linecap="round"/></svg>日程調整が個別対応で手間がかかる</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#E24B4A" stroke-width="1.1"/><path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="#E24B4A" stroke-width="1.1" stroke-linecap="round"/></svg>どの候補者がどの選考段階にいるか把握しにくい</div>
+        </div>
+        <div class="compare-col">
+          <div class="compare-col-title" style="color:var(--green-dark);"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1D9E75" stroke-width="1.2"/><path d="M4 8l3 3 5-5" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>トクテイリンクで解決</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#1D9E75" stroke-width="1.1"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>在留カード・パスポート・合格証が登録時から添付済み</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#1D9E75" stroke-width="1.1"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>運営スタッフが目視確認済みの人材のみ掲載</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#1D9E75" stroke-width="1.1"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>メッセージ・やり取りはすべてシステム内に記録</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#1D9E75" stroke-width="1.1"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>候補日時送信→求職者選択→自動確定のフローで完結</div>
+          <div class="compare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="6" stroke="#1D9E75" stroke-width="1.1"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>ダッシュボードで全候補者の選考状況を一元管理</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 実績 -->
+    <div class="stat-appeal grid3">
+      <div><div class="stat-a-val">100%</div><div class="stat-a-lbl">書類確認済み率</div><div class="stat-a-note">掲載求職者全員が在留カード・パスポート確認済み</div></div>
+      <div><div class="stat-a-val">61名</div><div class="stat-a-lbl">採用確定実績</div><div class="stat-a-note">サービス開始以来の採用確定累計数</div></div>
+      <div><div class="stat-a-val">19分野</div><div class="stat-a-lbl">全特定技能分野に対応</div><div class="stat-a-note">介護から建設・農業まで全分野カバー</div></div>
+    </div>
+
+    <!-- 訴求CTA -->
+    <div class="card-bg" style="text-align:center;">
+      <div style="font-size:14px;font-weight:500;margin-bottom:6px;">書類が揃った即戦力人材を今すぐ探す<br><span style="font-size:12px;font-weight:400;color:var(--text-secondary);">Cari tenaga kerja siap kerja dengan dokumen lengkap sekarang</span></div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:1rem;">アカウント登録・求人掲載・書類確認・面接調整まですべて無料</div>
+      <button class="btn btn-blue" style="font-size:13px;padding:11px 28px;line-height:1.5;">求職者検索のためのアカウントを開設する<br><span style="font-size:11px;font-weight:400;">Buka akun untuk mencari tenaga kerja →</span></button>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== FAQ ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:1.5rem;">
+      <div class="section-eyebrow">よくある質問 / FAQ</div>
+      <h2 class="section-title">疑問にお答えします</h2>
+    </div>
+    <div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">求職者の利用は本当に無料ですか？</span><svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="faq-a">はい、求職者の方は登録から採用確定まで完全無料です。プロフィール登録・書類アップロード・応募・選考確認、すべて費用はかかりません。</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">企業の料金はいつ発生しますか？</span><svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="faq-a">登録・掲載・書類審査・面接・内定まで完全無料です。マッチング成立（採用確定）時に1名あたり30,000円（税別）が発生します。採用できなかった場合は費用はかかりません。</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">支払い前に求職者のどんな情報が見られますか？</span><svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="faq-a open">支払い前は、希望職種・希望地域・日本語レベル・技能評価試験の結果・自己PRをご覧いただけます。氏名・メール・SNS連絡先・在留カード写真・パスポート写真・合格証写真は支払い完了後に開示されます。</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">支払い方法はどのようになっていますか？</span><svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="faq-a">銀行振込でお支払いいただきます。採用確定後に請求書を発行します。請求書に記載の振込先口座へお振り込みください。入金確認後、運営が承認することで求職者の個人情報・書類写真が開示されます。</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">登録支援機関を通じて企業登録はできますか？</span><svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="faq-a">はい、登録支援機関が企業に代わってアカウント登録・求人投稿を行うことができます。また、求職者のプロフィール代理登録も可能です。</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">インドネシアに住んでいても登録できますか？</span><svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="faq-a">はい、インドネシア在住の方も登録できます。来日前から求人を探し、企業とコンタクトを取ることが可能です。</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===== 最終CTA ===== -->
+<section class="section" style="text-align:center;padding-bottom:4rem;">
+  <div class="container">
+    <div class="section-eyebrow">さあ、始めましょう / Ayo Mulai Sekarang</div>
+    <h2 class="section-title">今すぐ無料で登録する</h2>
+    <p class="section-sub">求職者は完全無料。企業はマッチング成立時のみ¥30,000（税別）。<br>Pencari kerja gratis. Perusahaan hanya ¥30.000 (belum pajak) saat berhasil matching.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+      <button class="cta-btn cta-btn-green">求職者として登録（無料）<br><span style="font-size:11px;font-weight:400;">Daftar sebagai pencari kerja (gratis)</span></button>
+      <button class="cta-btn cta-btn-blue">求職者を探す<br><span style="font-size:11px;">受入企業様・登録支援機関様はこちら</span></button>
+    </div>
+    <div style="font-size:12px;color:var(--text-secondary);">登録支援機関の方はこちら → <a href="#" style="color:var(--blue);font-weight:500;">登録支援機関アカウントを開設する</a></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <div style="width:26px;height:26px;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2L13 7H17L14 11L15.5 16L10 13L4.5 16L6 11L3 7H7L10 2Z" fill="white" opacity="0.9"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:500;">トクテイリンク</div>
+            <div style="font-size:10px;color:var(--text-secondary);">Tokutei-Link</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-secondary);line-height:1.8;margin-bottom:10px;">特定技能ビザ専門の<br>インドネシア人材マッチングサービス</div>
+        <div style="font-size:11px;color:var(--text-secondary);line-height:1.9;">
+          <div style="font-weight:500;color:var(--text-primary);">株式会社スマイルリンク・ソリューションズ</div>
+          〒839-0809 福岡県久留米市六ツ門町17番地23<br>橘センタービル401号<br>
+          TEL：0942-35-8050　FAX：0942-35-8051
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:5px;"><span class="license-badge">有料職業紹介</span><span>40-ユ-301675</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><span class="license-badge">登録支援機関</span><span>25登-012327</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">求職者</div>
+        <a class="footer-link" href="#">求人を探す</a>
+        <a class="footer-link" href="#">プロフィール登録</a>
+        <a class="footer-link" href="#">特定技能とは</a>
+        <a class="footer-link" href="#">よくある質問</a>
+      </div>
+      <div>
+        <div class="footer-col-title">企業・受入機関</div>
+        <a class="footer-link" href="#">求職者を探す</a>
+        <a class="footer-link" href="#">求人を掲載する</a>
+        <a class="footer-link" href="#">料金について</a>
+        <a class="footer-link" href="#">お問い合わせ</a>
+      </div>
+      <div>
+        <div class="footer-col-title">登録支援機関</div>
+        <a class="footer-link" href="#">機関アカウント登録</a>
+        <a class="footer-link" href="#">求職者を代理登録する</a>
+        <a class="footer-link" href="#">求人を代理投稿する</a>
+        <a class="footer-link" href="#">紹介報酬について</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 株式会社スマイルリンク・ソリューションズ All rights reserved.<br>
+      有料職業紹介事業許可番号：40-ユ-301675　登録支援機関番号：25登-012327
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const ans = el.nextElementSibling;
+    const icon = el.querySelector('.faq-icon');
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('open'));
+    if (!isOpen) {
+      ans.classList.add('open');
+      icon.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>
