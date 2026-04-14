@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>求職者プロフィール登録 | トクテイリンク Tokutei-Link</title>
+  <meta name="description" content="特定技能ビザ専門マッチング「トクテイリンク」求職者プロフィール登録フォーム。無料で登録できます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #1D9E75; --green-dark: #0F6E56; --green-darker: #085041;
+      --green-light: #E1F5EE; --green-border: #5DCAA5;
+      --blue: #185FA5; --blue-dark: #0C447C; --blue-light: #E6F1FB; --blue-border: #85B7EB;
+      --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #633806;
+      --red: #E24B4A; --red-light: #FCEBEB; --red-dark: #A32D2D;
+      --gray-bg: #F7F6F3; --gray-light: #F1EFE8; --gray-mid: #D3D1C7;
+      --text-primary: #1a1918; --text-secondary: #5a5855; --text-tertiary: #999794;
+      --border: rgba(0,0,0,0.10); --border-md: rgba(0,0,0,0.18);
+      --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP','Noto Sans',sans-serif; color: var(--text-primary); background: var(--gray-bg); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .nav { background: #fff; border-bottom: 0.5px solid var(--border); padding: 0.875rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-icon { width: 34px; height: 34px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .nav-logo-text { font-size: 15px; font-weight: 500; }
+    .nav-logo-sub { font-size: 10px; color: var(--text-secondary); }
+
+    /* LAYOUT */
+    .page-wrap { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    .page-header { margin-bottom: 2rem; }
+    .page-title { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+    .page-sub { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* STEP INDICATOR */
+    .step-bar { display: flex; align-items: center; margin-bottom: 2rem; }
+    .step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .step-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; }
+    .step-active { background: var(--green); color: #fff; border: 2.5px solid #9FE1CB; }
+    .step-inactive { background: #fff; color: var(--text-tertiary); border: 0.5px solid var(--border-md); }
+    .step-done { background: var(--green); color: #fff; }
+    .step-label { font-size: 10px; color: var(--text-secondary); text-align: center; line-height: 1.4; }
+    .step-label.active { color: var(--green-dark); font-weight: 500; }
+    .step-line { flex: 1; height: 0.5px; background: var(--border-md); margin-bottom: 14px; }
+    .step-line.done { background: var(--green); }
+
+    /* CARD */
+    .card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 14px; }
+    .card-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
+    .card-sub { font-size: 12px; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; margin-top: 6px; }
+
+    /* FORM ELEMENTS */
+    .field { margin-bottom: 1rem; }
+    .field:last-child { margin-bottom: 0; }
+    .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); margin-bottom: 4px; }
+    .field-sub { font-size: 11px; color: var(--text-tertiary); margin-bottom: 5px; display: block; }
+    .req { color: #D85A30; font-size: 11px; margin-left: 2px; }
+    input[type=text], input[type=email], input[type=tel], input[type=url], select, textarea {
+      width: 100%; padding: 9px 12px; font-size: 13px;
+      border: 0.5px solid var(--border-md); border-radius: var(--radius-md);
+      background: #fff; color: var(--text-primary); font-family: inherit; outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--green); }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    /* CHIP SELECT */
+    .chip-wrap { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+    .chip {
+      padding: 5px 12px; border: 0.5px solid var(--border-md); border-radius: 20px;
+      cursor: pointer; background: #fff; font-size: 12px; color: var(--text-secondary);
+      font-family: inherit; transition: all 0.15s;
+    }
+    .chip:hover { border-color: var(--green-border); }
+    .chip.sel { border-color: var(--green); background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+
+    /* FILE UPLOAD */
+    .upload-zone {
+      border: 1.5px dashed var(--border-md); border-radius: var(--radius-md);
+      padding: 1.25rem; text-align: center; cursor: pointer; background: var(--gray-bg);
+      transition: all 0.15s;
+    }
+    .upload-zone:hover { border-color: var(--green-border); background: var(--green-light); }
+    .upload-zone-title { font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 3px; }
+    .upload-zone-sub { font-size: 11px; color: var(--text-tertiary); }
+    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .upload-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .upload-done { border-color: var(--green-border); background: var(--green-light); }
+    .upload-done .upload-zone-title { color: var(--green-dark); }
+
+    /* SNS ROW */
+    .sns-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .sns-label { display: flex; align-items: center; gap: 6px; width: 110px; flex-shrink: 0; font-size: 12px; color: var(--text-secondary); }
+    .sns-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* NOTICE */
+    .notice { background: var(--amber-light); border: 0.5px solid var(--amber); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12px; color: var(--amber-dark); line-height: 1.7; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; }
+    .info-box { background: var(--blue-light); border: 0.5px solid var(--blue-border); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12px; color: var(--blue-dark); line-height: 1.7; margin-bottom: 12px; }
+
+    /* BUTTONS */
+    .form-footer { display: flex; justify-content: flex-end; gap: 10px; padding-top: 1.25rem; border-top: 0.5px solid var(--border); margin-top: 1.5rem; }
+    .btn { padding: 10px 22px; font-size: 13px; font-weight: 500; border: none; border-radius: var(--radius-md); cursor: pointer; font-family: inherit; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover { background: var(--green-dark); }
+    .btn-outline { background: transparent; border: 0.5px solid var(--border-md); color: var(--text-secondary); }
+    .btn-outline:hover { background: var(--gray-bg); }
+
+    /* FREE BADGE */
+    .free-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--green-light); border: 0.5px solid var(--green-border); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--green-dark); font-weight: 500; margin-bottom: 1.25rem; }
+
+    /* REGION GRID */
+    .region-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 4px; }
+
+    /* PROGRESS */
+    .progress-wrap { margin-bottom: 1.5rem; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); margin-bottom: 5px; }
+    .progress-track { height: 6px; background: var(--gray-light); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 0.4s; }
+
+    @media (max-width: 600px) {
+      .grid2, .grid3, .upload-grid, .upload-grid-3, .region-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2L13 7H17L14 11L15.5 16L10 13L4.5 16L6 11L3 7H7L10 2Z" fill="white" opacity="0.9"/></svg>
+    </div>
+    <div>
+      <div class="nav-logo-text">トクテイリンク</div>
+      <div class="nav-logo-sub">Tokutei-Link</div>
+    </div>
+  </div>
+  <a href="index.html" style="font-size:12px;color:var(--text-secondary);">← トップへ戻る / Kembali ke halaman utama</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="free-badge">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      完全無料 / Sepenuhnya gratis
+    </div>
+    <h1 class="page-title">求職者プロフィール登録<br><span style="font-size:16px;font-weight:400;color:var(--text-secondary);">Pendaftaran Profil Pencari Kerja</span></h1>
+    <p class="page-sub" style="margin-top:6px;">書類をアップロードして登録すると、全国の特定技能求人に応募できます。登録・応募は完全無料です。<br>Upload dokumen Anda dan daftar untuk melamar lowongan Tokutei Ginou di seluruh Jepang. Gratis.</p>
+  </div>
+
+  <!-- STEP BAR -->
+  <div class="step-bar" id="step-bar">
+    <div class="step-item">
+      <div class="step-circle step-active" id="sc-1">1</div>
+      <div class="step-label active" id="sl-1">基本情報<br>Info Dasar</div>
+    </div>
+    <div class="step-line" id="line-1"></div>
+    <div class="step-item">
+      <div class="step-circle step-inactive" id="sc-2">2</div>
+      <div class="step-label" id="sl-2">スキル・希望<br>Keahlian</div>
+    </div>
+    <div class="step-line" id="line-2"></div>
+    <div class="step-item">
+      <div class="step-circle step-inactive" id="sc-3">3</div>
+      <div class="step-label" id="sl-3">書類アップロード<br>Upload Dokumen</div>
+    </div>
+    <div class="step-line" id="line-3"></div>
+    <div class="step-item">
+      <div class="step-circle step-inactive" id="sc-4">4</div>
+      <div class="step-label" id="sl-4">連絡先・SNS<br>Kontak</div>
+    </div>
+    <div class="step-line" id="line-4"></div>
+    <div class="step-item">
+      <div class="step-circle step-inactive" id="sc-5">5</div>
+      <div class="step-label" id="sl-5">確認・送信<br>Konfirmasi</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-label"><span id="prog-label">ステップ 1 / 5 — 基本情報</span><span id="prog-pct">20%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:20%;"></div></div>
+  </div>
+
+  <!-- ===== STEP 1: 基本情報 ===== -->
+  <div id="step-1">
+    <div class="card">
+      <div class="card-title">基本情報 / Informasi Dasar</div>
+      <div class="card-sub">日本語またはインドネシア語で入力してください。<br>Isi dalam Bahasa Jepang atau Indonesia.</div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>姓（ローマ字）<span class="req">*</span></label>
+          <span class="field-sub">Nama belakang (huruf Latin)</span>
+          <input type="text" placeholder="例 / Contoh：Sanjaya">
+        </div>
+        <div class="field">
+          <label>名（ローマ字）<span class="req">*</span></label>
+          <span class="field-sub">Nama depan (huruf Latin)</span>
+          <input type="text" placeholder="例 / Contoh：Budi">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>生年月日<span class="req">*</span> / Tanggal lahir</label>
+          <input type="text" placeholder="例：1995/04/15">
+        </div>
+        <div class="field">
+          <label>性別 / Jenis kelamin</label>
+          <select>
+            <option value="">選択 / Pilih</option>
+            <option>男性 / Laki-laki</option>
+            <option>女性 / Perempuan</option>
+            <option>回答しない / Tidak disebutkan</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>現在の居住地<span class="req">*</span> / Tempat tinggal saat ini</label>
+        <select>
+          <option value="">選択 / Pilih</option>
+          <option>インドネシア在住 / Tinggal di Indonesia</option>
+          <option>日本在住（北海道）/ Tinggal di Jepang (Hokkaido)</option>
+          <option>日本在住（東北）/ Tinggal di Jepang (Tohoku)</option>
+          <option>日本在住（関東）/ Tinggal di Jepang (Kanto)</option>
+          <option>日本在住（中部）/ Tinggal di Jepang (Chubu)</option>
+          <option>日本在住（近畿）/ Tinggal di Jepang (Kinki)</option>
+          <option>日本在住（中国・四国）/ Tinggal di Jepang (Chugoku/Shikoku)</option>
+          <option>日本在住（九州・沖縄）/ Tinggal di Jepang (Kyushu)</option>
+        </select>
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>自己PR（任意）/ Perkenalan diri (opsional)</label>
+        <span class="field-sub">あなたの強み・経験・日本で働きたい理由などをご記入ください。<br>Tulis keunggulan, pengalaman, dan alasan ingin bekerja di Jepang.</span>
+        <textarea rows="4" placeholder="例）介護の仕事に3年間携わり、老人ホームで食事・入浴・排泄介助を担当してきました。利用者様に寄り添う丁寧なケアを大切にしています。&#10;&#10;Contoh：Saya bekerja di bidang perawatan selama 3 tahun di panti jompo. Saya selalu berusaha memberikan perawatan yang tulus."></textarea>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-outline" onclick="window.location.href='index.html'">キャンセル / Batal</button>
+      <button class="btn btn-green" onclick="goStep(2)">次へ：スキル・希望 / Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- ===== STEP 2: スキル・希望 ===== -->
+  <div id="step-2" style="display:none;">
+    <div class="card">
+      <div class="card-title">日本語レベル / Level Bahasa Jepang<span class="req">*</span></div>
+      <div class="card-sub">お持ちの資格・試験結果を選択してください。<br>Pilih sertifikat atau hasil ujian yang Anda miliki.</div>
+      <div class="chip-wrap" id="chips-lang">
+        <button class="chip" onclick="toggleChip(this,'lang')">JLPT N1</button>
+        <button class="chip" onclick="toggleChip(this,'lang')">JLPT N2</button>
+        <button class="chip" onclick="toggleChip(this,'lang')">JLPT N3</button>
+        <button class="chip" onclick="toggleChip(this,'lang')">JLPT N4</button>
+        <button class="chip" onclick="toggleChip(this,'lang')">JLPT N5</button>
+        <button class="chip" onclick="toggleChip(this,'lang')">JFT-Basic 合格 / Lulus</button>
+        <button class="chip" onclick="toggleChip(this,'lang')">N5以下 / Di bawah N5</button>
+        <button class="chip" onclick="toggleChip(this,'lang')">受験予定 / Akan mengikuti ujian</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">技能評価試験 / Ujian Keterampilan<span class="req">*</span></div>
+      <div class="card-sub">特定技能に必要な技能評価試験の状況を選択してください。<br>Pilih status ujian keterampilan yang diperlukan untuk Tokutei Ginou.</div>
+      <div class="chip-wrap">
+        <button class="chip" onclick="toggleChip(this,'skill')">特定技能評価試験合格済み / Sudah lulus</button>
+        <button class="chip" onclick="toggleChip(this,'skill')">技能実習2号修了 / Selesai magang 2</button>
+        <button class="chip" onclick="toggleChip(this,'skill')">技能実習3号修了 / Selesai magang 3</button>
+        <button class="chip" onclick="toggleChip(this,'skill')">受験予定 / Akan mengikuti ujian</button>
+        <button class="chip" onclick="toggleChip(this,'skill')">未受験 / Belum mengikuti ujian</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">希望職種（複数選択可）<span class="req">*</span> / Bidang yang diinginkan</div>
+      <div class="card-sub">特定技能19分野から選択してください。複数選択可。<br>Pilih dari 19 bidang Tokutei Ginou. Boleh pilih lebih dari satu.</div>
+      <div class="chip-wrap">
+        <button class="chip" onclick="toggleChip(this,'job')">介護 / Perawatan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">ビルクリーニング / Kebersihan Gedung</button>
+        <button class="chip" onclick="toggleChip(this,'job')">工業製品製造業 / Manufaktur Industri</button>
+        <button class="chip" onclick="toggleChip(this,'job')">建設 / Konstruksi</button>
+        <button class="chip" onclick="toggleChip(this,'job')">造船・船用工業 / Perkapalan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">自動車整備 / Perawatan Kendaraan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">航空 / Penerbangan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">宿泊 / Perhotelan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">農業 / Pertanian</button>
+        <button class="chip" onclick="toggleChip(this,'job')">漁業 / Perikanan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">飲食料品製造業 / Manufaktur Makanan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">外食 / Restoran</button>
+        <button class="chip" onclick="toggleChip(this,'job')">林業 / Kehutanan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">木材産業 / Industri Kayu</button>
+        <button class="chip" onclick="toggleChip(this,'job')">自動車運送業 / Angkutan Kendaraan</button>
+        <button class="chip" onclick="toggleChip(this,'job')">鉄道 / Perkeretaapian</button>
+        <button class="chip" onclick="toggleChip(this,'job')">物流倉庫 / Logistik & Gudang</button>
+        <button class="chip" onclick="toggleChip(this,'job')">資源循環 / Daur Ulang</button>
+        <button class="chip" onclick="toggleChip(this,'job')">リネンサプライ / Linen Supply</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">希望勤務地（複数選択可）<span class="req">*</span> / Wilayah yang diinginkan</div>
+      <div class="region-grid">
+        <button class="chip" onclick="toggleChip(this,'region')">北海道<br><span style="font-size:10px;color:var(--text-tertiary);">Hokkaido</span></button>
+        <button class="chip" onclick="toggleChip(this,'region')">東北<br><span style="font-size:10px;color:var(--text-tertiary);">Tohoku</span></button>
+        <button class="chip" onclick="toggleChip(this,'region')">関東<br><span style="font-size:10px;color:var(--text-tertiary);">Kanto</span></button>
+        <button class="chip" onclick="toggleChip(this,'region')">中部<br><span style="font-size:10px;color:var(--text-tertiary);">Chubu</span></button>
+        <button class="chip" onclick="toggleChip(this,'region')">近畿<br><span style="font-size:10px;color:var(--text-tertiary);">Kinki</span></button>
+        <button class="chip" onclick="toggleChip(this,'region')">中国<br><span style="font-size:10px;color:var(--text-tertiary);">Chugoku</span></button>
+        <button class="chip" onclick="toggleChip(this,'region')">四国<br><span style="font-size:10px;color:var(--text-tertiary);">Shikoku</span></button>
+        <button class="chip" onclick="toggleChip(this,'region')">九州・沖縄<br><span style="font-size:10px;color:var(--text-tertiary);">Kyushu</span></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">その他希望条件 / Kondisi lain yang diinginkan</div>
+      <div class="chip-wrap">
+        <button class="chip" onclick="toggleChip(this,'cond')">寮あり希望 / Ada asrama</button>
+        <button class="chip" onclick="toggleChip(this,'cond')">送迎あり希望 / Ada antar-jemput</button>
+        <button class="chip" onclick="toggleChip(this,'cond')">残業少なめ希望 / Lembur sedikit</button>
+        <button class="chip" onclick="toggleChip(this,'cond')">土日休み希望 / Libur Sabtu-Minggu</button>
+        <button class="chip" onclick="toggleChip(this,'cond')">インドネシア語対応スタッフあり / Ada staf berbahasa Indonesia</button>
+        <button class="chip" onclick="toggleChip(this,'cond')">社会保険完備 / Asuransi lengkap</button>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-outline" onclick="goStep(1)">戻る / Kembali</button>
+      <button class="btn btn-green" onclick="goStep(3)">次へ：書類アップロード / Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- ===== STEP 3: 書類アップロード ===== -->
+  <div id="step-3" style="display:none;">
+    <div class="notice">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" style="flex-shrink:0;margin-top:1px;"><path d="M7.5 1.5L13.5 12H1.5L7.5 1.5z" stroke="#854F0B" stroke-width="1.2" stroke-linejoin="round"/><path d="M7.5 5.5v3.5M7.5 10.5v.5" stroke="#854F0B" stroke-width="1.2" stroke-linecap="round"/></svg>
+      <div>
+        書類は登録後にトクテイリンク運営スタッフが確認します。確認完了後、求人への応募が可能になります。<br>
+        <span style="font-size:11px;color:#854F0B;">Dokumen akan diperiksa oleh admin Tokutei-Link setelah pendaftaran. Setelah terverifikasi, Anda bisa melamar lowongan.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">在留カード / Kartu Izin Tinggal<span class="req">*</span></div>
+      <div class="card-sub">表面・裏面の両方をアップロードしてください。<br>Upload foto kartu bagian depan dan belakang.</div>
+      <div class="upload-grid">
+        <div class="upload-zone" onclick="fakeUpload(this,'在留カード（表）')">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin:0 auto 6px;display:block;"><rect x="2" y="4" width="24" height="18" rx="2.5" stroke="#888780" stroke-width="1.3"/><circle cx="9" cy="11" r="3" stroke="#888780" stroke-width="1.3"/><path d="M2 18l6-5 5 4 4-5 9 7" stroke="#888780" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="upload-zone-title">表面<br><span style="font-size:11px;font-weight:400;">Bagian depan</span></div>
+          <div class="upload-zone-sub">JPG / PNG / PDF</div>
+        </div>
+        <div class="upload-zone" onclick="fakeUpload(this,'在留カード（裏）')">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin:0 auto 6px;display:block;"><rect x="2" y="4" width="24" height="18" rx="2.5" stroke="#888780" stroke-width="1.3"/><path d="M6 10h16M6 14h12M6 18h8" stroke="#888780" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <div class="upload-zone-title">裏面<br><span style="font-size:11px;font-weight:400;">Bagian belakang</span></div>
+          <div class="upload-zone-sub">JPG / PNG / PDF</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">パスポート（身分事項ページ）/ Paspor (halaman identitas)<span class="req">*</span></div>
+      <div class="card-sub">写真・氏名・国籍・有効期限が確認できるページをアップロードしてください。<br>Upload halaman yang memuat foto, nama, kewarganegaraan & masa berlaku.</div>
+      <div class="upload-zone" onclick="fakeUpload(this,'パスポート')">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin:0 auto 6px;display:block;"><rect x="4" y="2" width="20" height="24" rx="2.5" stroke="#888780" stroke-width="1.3"/><circle cx="14" cy="11" r="4" stroke="#888780" stroke-width="1.3"/><path d="M7 19h14M7 22h9" stroke="#888780" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <div class="upload-zone-title">パスポート身分事項ページ / Halaman identitas paspor</div>
+        <div class="upload-zone-sub">JPG / PNG / PDF</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">技能評価試験合格証 / Sertifikat Ujian Keterampilan<span class="req">*</span></div>
+      <div class="card-sub">合格証・修了証・技能実習評価試験合格証明書などをアップロードしてください。<br>Upload sertifikat lulus ujian keterampilan atau sertifikat magang.</div>
+      <div class="upload-zone" onclick="fakeUpload(this,'合格証')">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin:0 auto 6px;display:block;"><rect x="4" y="2" width="20" height="24" rx="2.5" stroke="#888780" stroke-width="1.3"/><path d="M8 9h12M8 13h12M8 17h7" stroke="#888780" stroke-width="1.3" stroke-linecap="round"/><path d="M16 21l2.5 2.5 4-4" stroke="#888780" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="upload-zone-title">合格証・修了証 / Sertifikat kelulusan</div>
+        <div class="upload-zone-sub">JPG / PNG / PDF</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">日本語試験合格証（任意）/ Sertifikat Ujian Bahasa Jepang (opsional)</div>
+      <div class="card-sub">JLPTまたはJFT-Basicの合格証をお持ちの場合はアップロードしてください。<br>Jika punya sertifikat JLPT atau JFT-Basic, silakan upload.</div>
+      <div class="upload-zone" onclick="fakeUpload(this,'日本語試験合格証')">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin:0 auto 6px;display:block;"><rect x="4" y="2" width="20" height="24" rx="2.5" stroke="#888780" stroke-width="1.3"/><path d="M9 9h10M9 13h7" stroke="#888780" stroke-width="1.3" stroke-linecap="round"/><path d="M13 18l2 2 4-4" stroke="#888780" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="upload-zone-title">JLPT / JFT-Basic 合格証（任意）/ Opsional</div>
+        <div class="upload-zone-sub">JPG / PNG / PDF</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div style="font-weight:500;margin-bottom:4px;font-size:12px;">アップロードした書類の取り扱いについて / Kebijakan dokumen</div>
+      アップロードした書類は採用企業への情報開示には使用されません（支払い完了後に開示）。書類はSSL暗号化通信で送信され、運営スタッフのみが確認します。<br>
+      <span style="font-size:11px;color:var(--blue);">Dokumen yang diunggah tidak akan dibagikan ke perusahaan (hanya dibuka setelah pembayaran). Dokumen dikirim dengan enkripsi SSL dan hanya diperiksa oleh admin.</span>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-outline" onclick="goStep(2)">戻る / Kembali</button>
+      <button class="btn btn-green" onclick="goStep(4)">次へ：連絡先・SNS / Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- ===== STEP 4: 連絡先・SNS ===== -->
+  <div id="step-4" style="display:none;">
+    <div class="card">
+      <div class="card-title">メールアドレス / Email<span class="req">*</span></div>
+      <div class="card-sub">採用企業からの連絡先として使用します。支払い完了後に企業へ開示されます。<br>Digunakan sebagai kontak oleh perusahaan. Dibuka ke perusahaan setelah pembayaran.</div>
+      <div class="field" style="margin-bottom:0;">
+        <input type="email" placeholder="例：budi.sanjaya@gmail.com">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">SNS・連絡先 URL<span class="req">*</span></div>
+      <div class="card-sub">WhatsApp・LINE・Facebookのいずれか1つ以上を登録してください。採用企業からの面談連絡などに使用します。支払い完了後に開示されます。<br>Daftarkan minimal satu dari WhatsApp, LINE, atau Facebook. Dibuka ke perusahaan setelah pembayaran.</div>
+
+      <div class="sns-row">
+        <div class="sns-label">
+          <div class="sns-icon" style="background:#25D366;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1a6 6 0 0 1 5.2 9L13 13l-3.1-.8A6 6 0 1 1 7 1z" stroke="white" stroke-width="1.2" stroke-linejoin="round"/><path d="M5 5.5c.5 1 1.5 2.5 3.5 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          WhatsApp
+        </div>
+        <input type="tel" placeholder="+62-812-XXXX-XXXX" style="flex:1;">
+      </div>
+      <div class="sns-row">
+        <div class="sns-label">
+          <div class="sns-icon" style="background:#06C755;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2.5" stroke="white" stroke-width="1.2"/><path d="M7 5v4M5 7h4" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          LINE
+        </div>
+        <input type="url" placeholder="https://line.me/ti/p/～" style="flex:1;">
+      </div>
+      <div class="sns-row" style="margin-bottom:0;">
+        <div class="sns-label">
+          <div class="sns-icon" style="background:#1877F2;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2.5" stroke="white" stroke-width="1.2"/><path d="M8 7H6.5V10H5.5V7H4.5V6H5.5V5.5C5.5 4.5 6 4 7 4h1v1H7.5c-.3 0-.5.1-.5.5V6H8.5L8 7z" fill="white"/></svg>
+          </div>
+          Facebook
+        </div>
+        <input type="url" placeholder="https://fb.com/your.profile" style="flex:1;">
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div style="font-weight:500;margin-bottom:3px;font-size:12px;">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" style="vertical-align:middle;margin-right:4px;"><rect x="1.5" y="4" width="10" height="8" rx="1.5" stroke="#185FA5" stroke-width="1.2"/><path d="M4 4V3a2.5 2.5 0 0 1 5 0v1" stroke="#185FA5" stroke-width="1.2" stroke-linecap="round"/><circle cx="6.5" cy="8.5" r="1" fill="#185FA5"/></svg>
+        個人情報ロックについて / Tentang kunci informasi pribadi
+      </div>
+      メールアドレス・SNS連絡先は、採用企業がマッチング手数料の支払いを完了するまで開示されません。支払い前は職種・語学・試験・自己PRのみ企業に表示されます。<br>
+      <span style="font-size:11px;color:var(--blue);">Email & SNS tidak akan dibagikan ke perusahaan sebelum pembayaran selesai. Sebelum itu, hanya bidang, bahasa, ujian & PR yang terlihat.</span>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-outline" onclick="goStep(3)">戻る / Kembali</button>
+      <button class="btn btn-green" onclick="goStep(5)">次へ：確認・送信 / Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- ===== STEP 5: 確認・送信 ===== -->
+  <div id="step-5" style="display:none;">
+    <div class="card">
+      <div class="card-title">登録内容の確認 / Konfirmasi Pendaftaran</div>
+      <div class="card-sub">以下の内容で登録します。よろしければ「登録する」をクリックしてください。<br>Periksa kembali informasi di bawah ini. Jika sudah benar, klik "Daftarkan".</div>
+
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:12px;">
+          <span style="color:var(--text-secondary);">氏名 / Nama</span>
+          <span style="font-weight:500;">Budi Sanjaya</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:12px;">
+          <span style="color:var(--text-secondary);">現在の居住地</span>
+          <span style="font-weight:500;">インドネシア在住</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:12px;">
+          <span style="color:var(--text-secondary);">日本語レベル</span>
+          <span style="font-weight:500;">JLPT N3</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:12px;">
+          <span style="color:var(--text-secondary);">技能評価試験</span>
+          <span style="font-weight:500;">合格済み</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:12px;">
+          <span style="color:var(--text-secondary);">希望職種</span>
+          <span style="font-weight:500;">介護、農業</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:12px;">
+          <span style="color:var(--text-secondary);">希望地域</span>
+          <span style="font-weight:500;">Kanto、Kinki</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:12px;">
+          <span style="color:var(--text-secondary);">アップロード書類</span>
+          <span style="font-weight:500;color:var(--green);">在留カード・パスポート・合格証</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:12px;">
+          <span style="color:var(--text-secondary);">メール</span>
+          <span style="font-weight:500;">budi.sanjaya@gmail.com</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 同意チェック -->
+    <div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <label style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);cursor:pointer;font-size:12px;color:var(--text-secondary);line-height:1.6;">
+          <input type="checkbox" id="chk1" style="margin-top:2px;flex-shrink:0;width:auto;padding:0;">
+          <span>登録情報が採用企業に表示（支払い前は職種・語学・PR文のみ）されることに同意します。<br><span style="font-size:10px;color:var(--text-tertiary);">Saya menyetujui bahwa informasi saya akan ditampilkan ke perusahaan (sebelum pembayaran hanya bidang, bahasa & PR).</span></span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);cursor:pointer;font-size:12px;color:var(--text-secondary);line-height:1.6;">
+          <input type="checkbox" id="chk2" style="margin-top:2px;flex-shrink:0;width:auto;padding:0;">
+          <span>トクテイリンクの<a href="terms.html" style="color:var(--green);">利用規約</a>および<a href="privacy.html" style="color:var(--green);">プライバシーポリシー</a>に同意します。<br><span style="font-size:10px;color:var(--text-tertiary);">Saya menyetujui <a href="terms.html" style="color:var(--blue);">Syarat Penggunaan</a> dan <a href="privacy.html" style="color:var(--blue);">Kebijakan Privasi</a> Tokutei-Link.</span></span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;cursor:pointer;font-size:12px;color:var(--text-secondary);line-height:1.6;">
+          <input type="checkbox" id="chk3" style="margin-top:2px;flex-shrink:0;width:auto;padding:0;">
+          <span>アップロードした書類が本物であることを確認し、虚偽申告がないことを誓約します。<br><span style="font-size:10px;color:var(--text-tertiary);">Saya menyatakan bahwa semua dokumen yang diunggah adalah asli dan tidak ada informasi yang dipalsukan.</span></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-outline" onclick="goStep(4)">戻る / Kembali</button>
+      <button class="btn btn-green" id="submit-btn" onclick="submitForm()" disabled>登録する / Daftarkan →</button>
+    </div>
+  </div>
+
+  <!-- ===== 完了 ===== -->
+  <div id="step-done" style="display:none;text-align:center;padding:3rem 0;">
+    <div style="width:64px;height:64px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M5 15l7 7L25 8" stroke="#1D9E75" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2 style="font-size:20px;font-weight:500;margin-bottom:6px;">プロフィール登録完了！<br><span style="font-size:14px;font-weight:400;color:var(--text-secondary);">Pendaftaran profil berhasil!</span></h2>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:1.5rem;max-width:480px;margin-left:auto;margin-right:auto;">書類を確認しています。通常1〜2営業日で確認完了し、求人への応募が可能になります。メールでお知らせします。<br>Dokumen Anda sedang diperiksa. Biasanya selesai dalam 1–2 hari kerja. Anda akan diberitahu melalui email.</p>
+    <a href="jobs.html" class="btn btn-green" style="display:inline-block;text-decoration:none;">求人を見る / Lihat lowongan →</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--gray-bg);border-top:0.5px solid var(--border);padding:1.5rem;text-align:center;">
+  <div style="font-size:11px;color:var(--text-tertiary);line-height:1.8;">
+    © 2026 株式会社スマイルリンク・ソリューションズ<br>
+    有料職業紹介事業許可番号：40-ユ-301675　登録支援機関番号：25登-012327
+  </div>
+</footer>
+
+<script>
+  let currentStep = 1;
+
+  const stepLabels = [
+    '', // 0 unused
+    'ステップ 1 / 5 — 基本情報 / Info Dasar',
+    'ステップ 2 / 5 — スキル・希望 / Keahlian',
+    'ステップ 3 / 5 — 書類アップロード / Upload Dokumen',
+    'ステップ 4 / 5 — 連絡先・SNS / Kontak',
+    'ステップ 5 / 5 — 確認・送信 / Konfirmasi'
+  ];
+
+  function goStep(n) {
+    // hide current
+    document.getElementById('step-' + currentStep).style.display = 'none';
+    // show new
+    if (n <= 5) {
+      document.getElementById('step-' + n).style.display = 'block';
+    } else {
+      document.getElementById('step-done').style.display = 'block';
+    }
+    // update circles
+    for (let i = 1; i <= 5; i++) {
+      const sc = document.getElementById('sc-' + i);
+      const sl = document.getElementById('sl-' + i);
+      if (i < n) {
+        sc.className = 'step-circle step-done';
+        sc.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5 5.5-5.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        sl.className = 'step-label';
+      } else if (i === n) {
+        sc.className = 'step-circle step-active';
+        sc.textContent = i;
+        sl.className = 'step-label active';
+      } else {
+        sc.className = 'step-circle step-inactive';
+        sc.textContent = i;
+        sl.className = 'step-label';
+      }
+      if (i < 5) {
+        document.getElementById('line-' + i).className = 'step-line' + (i < n ? ' done' : '');
+      }
+    }
+    // update progress
+    const pct = n <= 5 ? Math.round(n / 5 * 100) : 100;
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-label').textContent = n <= 5 ? stepLabels[n] : '完了！';
+    currentStep = n;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleChip(el, group) {
+    el.classList.toggle('sel');
+  }
+
+  function fakeUpload(zone, name) {
+    zone.classList.add('upload-done');
+    zone.innerHTML = `
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="margin:0 auto 6px;display:block;">
+        <circle cx="14" cy="14" r="12" fill="#E1F5EE"/>
+        <path d="M8 14l4 4 8-8" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="upload-zone-title" style="color:var(--green-dark);">${name} アップロード済み ✓</div>
+      <div class="upload-zone-sub" style="color:var(--green);">クリックして変更 / Klik untuk ganti</div>
+    `;
+  }
+
+  function submitForm() {
+    goStep(6);
+  }
+
+  // チェックボックスで送信ボタン有効化
+  ['chk1','chk2','chk3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => {
+      const all = ['chk1','chk2','chk3'].every(i => document.getElementById(i).checked);
+      document.getElementById('submit-btn').disabled = !all;
+    });
+  });
+</script>
+</body>
+</html>
