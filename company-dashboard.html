@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>企業ダッシュボード | トクテイリンク Tokutei-Link</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#1D9E75;--green-dark:#0F6E56;--green-darker:#085041;--green-light:#E1F5EE;--green-border:#5DCAA5;--blue:#185FA5;--blue-dark:#0C447C;--blue-light:#E6F1FB;--blue-border:#85B7EB;--amber:#EF9F27;--amber-light:#FAEEDA;--amber-dark:#633806;--red:#E24B4A;--red-light:#FCEBEB;--red-dark:#A32D2D;--gray-bg:#F7F6F3;--gray-light:#F1EFE8;--text-primary:#1a1918;--text-secondary:#5a5855;--text-tertiary:#999794;--border:rgba(0,0,0,0.10);--border-md:rgba(0,0,0,0.18);--radius-sm:6px;--radius-md:8px;--radius-lg:12px}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:'Noto Sans JP','Noto Sans',sans-serif;color:var(--text-primary);background:var(--gray-bg);line-height:1.6;display:flex;min-height:100vh}
+
+    /* SIDEBAR NAV */
+    .sidenav{width:220px;background:#fff;border-right:0.5px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:50}
+    .sidenav-logo{padding:1.25rem 1.25rem 1rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:10px}
+    .logo-icon{width:32px;height:32px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .sidenav-section{padding:.75rem 1rem .25rem;font-size:10px;font-weight:500;color:var(--text-tertiary);letter-spacing:.06em;text-transform:uppercase}
+    .sidenav-item{display:flex;align-items:center;gap:10px;padding:.625rem 1rem;font-size:13px;color:var(--text-secondary);cursor:pointer;border-radius:var(--radius-md);margin:1px .5rem;transition:background .12s}
+    .sidenav-item:hover{background:var(--gray-bg)}
+    .sidenav-item.active{background:var(--green-light);color:var(--green-dark);font-weight:500}
+    .sidenav-item .badge-num{margin-left:auto;background:var(--green);color:#fff;font-size:10px;font-weight:500;padding:1px 7px;border-radius:20px}
+    .sidenav-item .badge-num-amber{margin-left:auto;background:var(--amber-light);color:var(--amber-dark);font-size:10px;font-weight:500;padding:1px 7px;border-radius:20px}
+    .sidenav-footer{margin-top:auto;padding:1rem;border-top:0.5px solid var(--border)}
+    .co-profile{display:flex;align-items:center;gap:8px}
+    .co-avatar-sm{width:32px;height:32px;border-radius:var(--radius-sm);background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--blue-dark);flex-shrink:0}
+
+    /* MAIN */
+    .main{margin-left:220px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+    .topbar{background:#fff;border-bottom:0.5px solid var(--border);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .topbar-title{font-size:16px;font-weight:500}
+    .topbar-right{display:flex;align-items:center;gap:10px}
+    .notif-btn{width:34px;height:34px;border-radius:var(--radius-md);border:0.5px solid var(--border-md);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+    .notif-dot{width:8px;height:8px;background:var(--red);border-radius:50%;position:absolute;top:6px;right:6px;border:1.5px solid #fff}
+    .btn{padding:8px 16px;font-size:12px;font-weight:500;border:none;border-radius:var(--radius-md);cursor:pointer;font-family:inherit}
+    .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green-dark)}
+    .btn-outline{background:transparent;border:0.5px solid var(--border-md);color:var(--text-secondary)}.btn-outline:hover{background:var(--gray-bg)}
+    .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-dark)}
+
+    .content{padding:1.5rem;flex:1}
+
+    /* KPI */
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:1.25rem}
+    .kpi-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem}
+    .kpi-label{font-size:11px;color:var(--text-tertiary);margin-bottom:4px}
+    .kpi-val{font-size:26px;font-weight:500;line-height:1;margin-bottom:4px}
+    .kpi-sub{font-size:11px;color:var(--text-secondary)}
+    .kpi-trend-up{color:var(--green-dark);font-size:11px}
+    .kpi-trend-down{color:var(--red-dark);font-size:11px}
+
+    /* CARDS */
+    .card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:10px;border-bottom:0.5px solid var(--border)}
+    .card-title{font-size:14px;font-weight:500;display:flex;align-items:center;gap:7px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+    /* BADGE */
+    .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500}
+    .badge-green{background:var(--green-light);color:var(--green-darker)}
+    .badge-blue{background:var(--blue-light);color:var(--blue-dark)}
+    .badge-gray{background:var(--gray-light);color:#444441}
+    .badge-amber{background:var(--amber-light);color:var(--amber-dark)}
+    .badge-red{background:var(--red-light);color:var(--red-dark)}
+
+    /* STATUS PILL */
+    .sp{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+    .sp .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+    .sp-new{background:var(--blue-light);color:var(--blue-dark)}.sp-new .dot{background:var(--blue)}
+    .sp-reviewing{background:var(--amber-light);color:var(--amber-dark)}.sp-reviewing .dot{background:var(--amber)}
+    .sp-scheduled{background:var(--green-light);color:var(--green-dark)}.sp-scheduled .dot{background:var(--green)}
+    .sp-offered{background:#EAF3DE;color:#27500A}.sp-offered .dot{background:#639922}
+    .sp-pending{background:var(--amber-light);color:var(--amber-dark)}.sp-pending .dot{background:var(--amber)}
+    .sp-paid{background:var(--green-light);color:var(--green-dark)}.sp-paid .dot{background:var(--green)}
+    .sp-open{background:var(--green-light);color:var(--green-dark)}.sp-open .dot{background:var(--green)}
+    .sp-closed{background:var(--gray-light);color:#444441}.sp-closed .dot{background:#999}
+
+    /* TABLE */
+    .table-wrap{overflow:hidden}
+    table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+    thead{background:var(--gray-bg)}
+    th{padding:8px 10px;text-align:left;font-size:11px;font-weight:500;color:var(--text-secondary);border-bottom:0.5px solid var(--border);white-space:nowrap}
+    td{padding:9px 10px;border-bottom:0.5px solid var(--border);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--gray-bg)}
+    .action-btn{padding:4px 10px;font-size:11px;border:0.5px solid var(--border-md);border-radius:var(--radius-sm);background:transparent;color:var(--text-secondary);cursor:pointer;white-space:nowrap;font-family:inherit}
+    .action-btn:hover{background:var(--gray-bg)}
+    .action-btn-green{border-color:var(--green-border);color:var(--green-dark)}.action-btn-green:hover{background:var(--green-light)}
+    .action-btn-blue{border-color:var(--blue-border);color:var(--blue)}.action-btn-blue:hover{background:var(--blue-light)}
+
+    /* APPLICANT CARD */
+    .applicant-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem;cursor:pointer;transition:border-color .15s}
+    .applicant-card:hover{border-color:var(--green-border)}
+    .applicant-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+    .applicant-id{font-size:13px;font-weight:500}
+    .applicant-meta{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+    .applicant-actions{display:flex;gap:6px;flex-wrap:wrap}
+
+    /* PROGRESS */
+    .prog-track{height:5px;background:var(--gray-light);border-radius:3px;overflow:hidden;margin-top:4px}
+    .prog-fill{height:100%;border-radius:3px;background:var(--green)}
+
+    /* NOTICE */
+    .notice-amber{background:var(--amber-light);border:0.5px solid var(--amber);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--amber-dark);line-height:1.7;display:flex;align-items:flex-start;gap:8px}
+    .notice-blue{background:var(--blue-light);border:0.5px solid var(--blue-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--blue-dark);line-height:1.7;display:flex;align-items:flex-start;gap:8px}
+    .notice-green{background:var(--green-light);border:0.5px solid var(--green-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--green-dark);line-height:1.7;display:flex;align-items:flex-start;gap:8px}
+
+    /* MODAL */
+    .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1.5rem}
+    .modal-bg.show{display:flex}
+    .modal{background:#fff;border-radius:var(--radius-lg);padding:1.75rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+    .modal-title{font-size:16px;font-weight:500;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+    .modal-close{border:none;background:transparent;font-size:18px;cursor:pointer;color:var(--text-secondary)}
+    .detail-row{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:0.5px solid var(--border)}
+    .detail-row:last-child{border-bottom:none}
+    .lock-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:0.5px solid var(--border)}
+    .lock-icon{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--amber-dark);background:var(--amber-light);padding:2px 8px;border-radius:20px}
+    .field-group{margin-bottom:12px}
+    .field-group label{display:block;font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px}
+    .field-group input,.field-group select,.field-group textarea{width:100%;padding:8px 12px;font-size:13px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:#fff;font-family:inherit;outline:none}
+    .field-group input:focus,.field-group select:focus,.field-group textarea:focus{border-color:var(--green)}
+    .modal-btns{display:flex;gap:8px;margin-top:1.25rem}
+    .modal-btns button{flex:1}
+
+    /* TABS */
+    .tab-bar{display:flex;gap:2px;background:var(--gray-bg);border-radius:var(--radius-md);padding:3px;margin-bottom:1.25rem}
+    .tab-btn{flex:1;padding:7px 8px;font-size:12px;font-weight:500;border:none;border-radius:var(--radius-sm);background:transparent;color:var(--text-secondary);cursor:pointer;font-family:inherit;text-align:center}
+    .tab-btn.active{background:#fff;color:var(--text-primary);border:0.5px solid var(--border)}
+    .tab-content{display:none}.tab-content.active{display:block}
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR NAV -->
+<nav class="sidenav">
+  <div class="sidenav-logo">
+    <div class="logo-icon"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 2L13 7H17L14 11L15.5 16L10 13L4.5 16L6 11L3 7H7L10 2Z" fill="white" opacity="0.9"/></svg></div>
+    <div><div style="font-size:13px;font-weight:500">トクテイリンク</div><div style="font-size:10px;color:var(--text-secondary)">企業アカウント</div></div>
+  </div>
+
+  <div class="sidenav-section">メインメニュー</div>
+  <div class="sidenav-item active" onclick="switchTab('dashboard')">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+    ダッシュボード
+  </div>
+  <div class="sidenav-item" onclick="switchTab('applicants')">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 13c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    応募者一覧
+    <span class="badge-num">7</span>
+  </div>
+  <div class="sidenav-item" onclick="switchTab('jobs')">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="2" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 7.5h5M5 5.5h5M5 9.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    求人管理
+  </div>
+  <div class="sidenav-item" onclick="switchTab('schedule')">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="3" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 7h12M5 3V1.5m5 1.5V1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    面談スケジュール
+    <span class="badge-num-amber">2</span>
+  </div>
+  <div class="sidenav-item" onclick="switchTab('payment')">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 7h13M5 7v5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="11" cy="10.5" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+    支払い管理
+    <span class="badge-num-amber">1</span>
+  </div>
+
+  <div class="sidenav-section">設定</div>
+  <div class="sidenav-item" onclick="switchTab('settings')">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M7.5 1v1.5M7.5 12.5V14M14 7.5h-1.5M2.5 7.5H1M12 3l-1 1M4 11l-1 1M12 12l-1-1M4 4l-1-1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    企業設定
+  </div>
+
+  <div class="sidenav-footer">
+    <div class="co-profile">
+      <div class="co-avatar-sm">SC</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">サンシャインケア</div>
+        <div style="font-size:10px;color:var(--text-tertiary)">受入企業</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div id="topbar-title" class="topbar-title">ダッシュボード</div>
+    <div class="topbar-right">
+      <button class="notif-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6v3L2 11h12l-1.5-2V6C12.5 3.5 10.5 1.5 8 1.5z" stroke="currentColor" stroke-width="1.2"/><path d="M6.5 11v.5a1.5 1.5 0 0 0 3 0V11" stroke="currentColor" stroke-width="1.2"/></svg><div class="notif-dot"></div></button>
+      <button class="btn btn-green" onclick="showPostJobModal()">＋ 求人を投稿する</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== ダッシュボード ===== -->
+    <div id="tab-dashboard" class="tab-content active">
+
+      <!-- 支払い待ちバナー -->
+      <div class="notice-amber" style="margin-bottom:1.25rem">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="8" cy="8" r="7" stroke="#854F0B" stroke-width="1.2"/><path d="M8 5v4M8 10.5v.5" stroke="#854F0B" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div>
+          <div style="font-weight:500;margin-bottom:2px">支払い待ちの案件があります</div>
+          TL-2026-0042（サンシャインケア介護スタッフ採用）のマッチング手数料 <strong>¥33,000（税込）</strong> の振込が未完了です。振込後、応募者の氏名・連絡先・書類が開示されます。
+          <button onclick="switchTab('payment')" style="margin-left:8px;padding:3px 10px;font-size:11px;border:0.5px solid var(--amber);border-radius:20px;background:transparent;color:var(--amber-dark);cursor:pointer;font-family:inherit">支払いへ →</button>
+        </div>
+      </div>
+
+      <!-- KPI -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">掲載中求人</div>
+          <div class="kpi-val" style="color:var(--green)">3件</div>
+          <div class="kpi-sub">うち応募受付中 3件</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">総応募者数</div>
+          <div class="kpi-val">12名</div>
+          <div class="kpi-sub kpi-trend-up">↑ 先月比 +4名</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">選考中</div>
+          <div class="kpi-val" style="color:var(--blue)">7名</div>
+          <div class="kpi-sub">面談調整中 2名含む</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">採用確定</div>
+          <div class="kpi-val" style="color:var(--green-dark)">2名</div>
+          <div class="kpi-sub">支払い待ち 1件</div>
+        </div>
+      </div>
+
+      <div class="grid2" style="gap:12px">
+
+        <!-- 最近の応募者 -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="3" stroke="#1D9E75" stroke-width="1.2"/><path d="M1 13c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>
+              最近の応募者
+            </div>
+            <button class="action-btn" onclick="switchTab('applicants')">すべて見る →</button>
+          </div>
+          <table style="table-layout:auto">
+            <colgroup><col style="width:30%"><col style="width:30%"><col style="width:20%"><col></colgroup>
+            <thead><tr><th>管理番号</th><th>希望職種</th><th>日本語</th><th>ステータス</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">TL-2026-0051</td><td><span class="badge badge-green">介護</span></td><td><span class="badge badge-gray">N3</span></td><td><span class="sp sp-new"><span class="dot"></span>新着</span></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0049</td><td><span class="badge badge-green">介護</span></td><td><span class="badge badge-gray">N4</span></td><td><span class="sp sp-reviewing"><span class="dot"></span>審査中</span></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0047</td><td><span class="badge badge-green">建設</span></td><td><span class="badge badge-gray">N3</span></td><td><span class="sp sp-scheduled"><span class="dot"></span>面談設定済</span></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0042</td><td><span class="badge badge-green">介護</span></td><td><span class="badge badge-gray">N3</span></td><td><span class="sp sp-offered"><span class="dot"></span>採用確定</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 掲載中求人 -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M5 7h4M5 5h4M5 9h2" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>
+              掲載中求人
+            </div>
+            <button class="action-btn" onclick="switchTab('jobs')">管理 →</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="padding:10px;background:var(--gray-bg);border-radius:var(--radius-md)">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                <div style="font-size:13px;font-weight:500">介護スタッフ（特定技能1号）</div>
+                <span class="sp sp-open"><span class="dot"></span>募集中</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">Saitama · 3名募集</div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:4px"><span>充足率</span><span style="color:var(--green);font-weight:500">67%（2/3名）</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:67%"></div></div>
+            </div>
+            <div style="padding:10px;background:var(--gray-bg);border-radius:var(--radius-md)">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                <div style="font-size:13px;font-weight:500">建設作業員（1号・2号）</div>
+                <span class="sp sp-open"><span class="dot"></span>募集中</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">Osaka · 4名募集</div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:4px"><span>充足率</span><span style="color:var(--green);font-weight:500">25%（1/4名）</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:25%"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 面談スケジュール -->
+      <div class="card" style="margin-top:12px">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="10" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M1.5 6.5h11M5 2.5V1m4 1.5V1" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>
+            今後の面談スケジュール
+          </div>
+          <button class="action-btn" onclick="switchTab('schedule')">すべて見る →</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:12px;padding:10px;border:0.5px solid var(--border);border-radius:var(--radius-md)">
+            <div style="text-align:center;min-width:44px"><div style="font-size:18px;font-weight:500;color:var(--blue)">16</div><div style="font-size:10px;color:var(--text-tertiary)">4月・Wed</div></div>
+            <div style="width:0.5px;height:36px;background:var(--border)"></div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:500">オンライン面談 — TL-2026-0049</div>
+              <div style="font-size:11px;color:var(--text-secondary)">14:00–15:00 · Zoom · 介護スタッフ候補</div>
+            </div>
+            <span class="badge badge-blue">明日</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px;border:0.5px solid var(--border);border-radius:var(--radius-md)">
+            <div style="text-align:center;min-width:44px"><div style="font-size:18px;font-weight:500;color:var(--green)">22</div><div style="font-size:10px;color:var(--text-tertiary)">4月・Tue</div></div>
+            <div style="width:0.5px;height:36px;background:var(--border)"></div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:500">オンライン面談 — TL-2026-0047</div>
+              <div style="font-size:11px;color:var(--text-secondary)">10:00–11:00 · Zoom · 建設作業員候補</div>
+            </div>
+            <span class="badge badge-gray">6日後</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== 応募者一覧 ===== -->
+    <div id="tab-applicants" class="tab-content">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+        <div>
+          <div style="font-size:16px;font-weight:500">応募者一覧</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">全12名 / 支払い前は管理番号のみ表示</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <select style="padding:7px 10px;font-size:12px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:#fff;font-family:inherit;color:var(--text-secondary)">
+            <option>すべての求人</option>
+            <option>介護スタッフ（1号）</option>
+            <option>建設作業員（1号・2号）</option>
+          </select>
+          <select style="padding:7px 10px;font-size:12px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:#fff;font-family:inherit;color:var(--text-secondary)">
+            <option>すべてのステータス</option>
+            <option>新着</option><option>審査中</option><option>面談調整中</option><option>採用確定</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="notice-amber" style="margin-bottom:1.25rem">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" style="flex-shrink:0;margin-top:1px"><rect x="2" y="5.5" width="11" height="8" rx="1.5" stroke="#854F0B" stroke-width="1.2"/><path d="M4.5 5.5V4a3 3 0 0 1 6 0v1.5" stroke="#854F0B" stroke-width="1.2" stroke-linecap="round"/><circle cx="7.5" cy="9.5" r="1" fill="#854F0B"/></svg>
+        <div>氏名・メール・SNS・在留カード・パスポート・合格証写真は<strong>マッチング手数料（¥33,000税込）の支払い完了後</strong>に開示されます。支払い前は管理番号・職種・語学レベル・試験・自己PRのみ閲覧可能です。</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+
+        <!-- 採用確定・支払い待ち -->
+        <div class="applicant-card" style="border-color:var(--amber);background:rgba(250,238,218,0.2)">
+          <div class="applicant-header">
+            <div>
+              <div class="applicant-id">TL-2026-0042</div>
+              <div style="font-size:11px;color:var(--text-secondary)">介護スタッフ（1号） · 応募日：2026/04/08</div>
+            </div>
+            <span class="sp sp-offered"><span class="dot"></span>採用確定・支払い待ち</span>
+          </div>
+          <div class="applicant-meta">
+            <span class="badge badge-green">介護</span>
+            <span class="badge badge-gray">JLPT N3</span>
+            <span class="badge badge-gray">試験合格済み</span>
+            <span class="badge badge-amber">⚠ 支払い後に個人情報開示</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.7">介護老人保健施設での経験3年。食事・入浴・排泄介助を担当。利用者様との丁寧なコミュニケーションを大切にしています。（自己PRより抜粋）</div>
+          <div class="applicant-actions">
+            <button class="action-btn action-btn-green" onclick="switchTab('payment')">¥33,000 を支払って情報開示</button>
+            <button class="action-btn" onclick="showApplicantModal('TL-2026-0042')">詳細を見る</button>
+          </div>
+        </div>
+
+        <!-- 面談設定済み -->
+        <div class="applicant-card">
+          <div class="applicant-header">
+            <div>
+              <div class="applicant-id">TL-2026-0049</div>
+              <div style="font-size:11px;color:var(--text-secondary)">介護スタッフ（1号） · 応募日：2026/04/10</div>
+            </div>
+            <span class="sp sp-scheduled"><span class="dot"></span>面談設定済み</span>
+          </div>
+          <div class="applicant-meta">
+            <span class="badge badge-green">介護</span>
+            <span class="badge badge-gray">JLPT N4</span>
+            <span class="badge badge-gray">試験合格済み</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;line-height:1.7">介護施設で2年の経験。日本語学習に積極的でN3取得を目指して勉強中。チームワークを大切にしています。</div>
+          <div style="font-size:11px;color:var(--blue);background:var(--blue-light);padding:5px 10px;border-radius:var(--radius-sm);margin-bottom:10px">📅 面談予定：2026/04/16（水）14:00–15:00 · Zoom</div>
+          <div class="applicant-actions">
+            <button class="action-btn" onclick="showApplicantModal('TL-2026-0049')">詳細を見る</button>
+            <button class="action-btn action-btn-blue">採用を確定する</button>
+            <button class="action-btn">不採用にする</button>
+          </div>
+        </div>
+
+        <!-- 審査中 -->
+        <div class="applicant-card">
+          <div class="applicant-header">
+            <div>
+              <div class="applicant-id">TL-2026-0051</div>
+              <div style="font-size:11px;color:var(--text-secondary)">介護スタッフ（1号） · 応募日：2026/04/13</div>
+            </div>
+            <span class="sp sp-new"><span class="dot"></span>新着</span>
+          </div>
+          <div class="applicant-meta">
+            <span class="badge badge-green">介護</span>
+            <span class="badge badge-gray">JLPT N3</span>
+            <span class="badge badge-gray">技能実習2号修了</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.7">技能実習で介護を3年経験。日本の高齢者施設での文化や仕事の進め方に慣れています。継続して働きたい。</div>
+          <div class="applicant-actions">
+            <button class="action-btn" onclick="showApplicantModal('TL-2026-0051')">詳細を見る</button>
+            <button class="action-btn action-btn-green" onclick="showScheduleModal()">面談を設定する</button>
+            <button class="action-btn">不採用にする</button>
+          </div>
+        </div>
+
+        <!-- 建設 -->
+        <div class="applicant-card">
+          <div class="applicant-header">
+            <div>
+              <div class="applicant-id">TL-2026-0047</div>
+              <div style="font-size:11px;color:var(--text-secondary)">建設作業員（1号・2号） · 応募日：2026/04/11</div>
+            </div>
+            <span class="sp sp-scheduled"><span class="dot"></span>面談設定済み</span>
+          </div>
+          <div class="applicant-meta">
+            <span class="badge badge-green">建設</span>
+            <span class="badge badge-gray">JLPT N3</span>
+            <span class="badge badge-gray">試験合格済み</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;line-height:1.7">鉄筋工として3年の経験。型枠作業も対応可能。安全意識を高く持って業務に取り組みます。</div>
+          <div style="font-size:11px;color:var(--blue);background:var(--blue-light);padding:5px 10px;border-radius:var(--radius-sm);margin-bottom:10px">📅 面談予定：2026/04/22（火）10:00–11:00 · Zoom</div>
+          <div class="applicant-actions">
+            <button class="action-btn" onclick="showApplicantModal('TL-2026-0047')">詳細を見る</button>
+            <button class="action-btn action-btn-blue">採用を確定する</button>
+            <button class="action-btn">不採用にする</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== 求人管理 ===== -->
+    <div id="tab-jobs" class="tab-content">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+        <div style="font-size:16px;font-weight:500">求人管理</div>
+        <button class="btn btn-green" onclick="showPostJobModal()">＋ 求人を投稿する</button>
+      </div>
+      <div class="card table-wrap">
+        <table>
+          <colgroup><col style="width:28%"><col style="width:10%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:14%"></colgroup>
+          <thead><tr><th>求人タイトル</th><th>職種</th><th>勤務地</th><th>募集数</th><th>応募数</th><th>ステータス</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div style="font-weight:500;font-size:13px">介護スタッフ（特定技能1号）</div><div style="font-size:10px;color:var(--text-tertiary)">掲載日：2026/04/12</div></td>
+              <td><span class="badge badge-green">介護</span></td>
+              <td style="font-size:11px;color:var(--text-secondary)">Saitama</td>
+              <td style="font-size:12px;font-weight:500;text-align:center">3名</td>
+              <td style="font-size:12px;font-weight:500;text-align:center">7名</td>
+              <td><span class="sp sp-open"><span class="dot"></span>掲載中</span></td>
+              <td><button class="action-btn" style="margin-right:4px">編集</button><button class="action-btn">終了</button></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:500;font-size:13px">建設作業員（鉄筋・型枠）1号・2号</div><div style="font-size:10px;color:var(--text-tertiary)">掲載日：2026/04/10</div></td>
+              <td><span class="badge badge-green">建設</span></td>
+              <td style="font-size:11px;color:var(--text-secondary)">Osaka</td>
+              <td style="font-size:12px;font-weight:500;text-align:center">4名</td>
+              <td style="font-size:12px;font-weight:500;text-align:center">3名</td>
+              <td><span class="sp sp-open"><span class="dot"></span>掲載中</span></td>
+              <td><button class="action-btn" style="margin-right:4px">編集</button><button class="action-btn">終了</button></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:500;font-size:13px">ホテルスタッフ（フロント）特定技能1号</div><div style="font-size:10px;color:var(--text-tertiary)">掲載日：2026/03/15</div></td>
+              <td><span class="badge badge-green">宿泊</span></td>
+              <td style="font-size:11px;color:var(--text-secondary)">Sapporo</td>
+              <td style="font-size:12px;font-weight:500;text-align:center">2名</td>
+              <td style="font-size:12px;font-weight:500;text-align:center">5名</td>
+              <td><span class="sp sp-closed"><span class="dot"></span>締切済</span></td>
+              <td><button class="action-btn">再掲載</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 面談スケジュール ===== -->
+    <div id="tab-schedule" class="tab-content">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+        <div style="font-size:16px;font-weight:500">面談スケジュール</div>
+        <button class="btn btn-green" onclick="showScheduleModal()">＋ 面談を設定する</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="notice-blue">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="7.5" cy="7.5" r="6" stroke="#185FA5" stroke-width="1.2"/><path d="M7.5 4.5v4l2 1.5" stroke="#185FA5" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div>面談の日程調整はシステム内で完結します。候補日時を送信すると求職者が選択し、確定後にZoomリンクが共有されます。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:13px;font-weight:500;margin-bottom:1rem;color:var(--text-primary);display:flex;align-items:center;gap:6px">
+            <div style="width:10px;height:10px;background:var(--amber);border-radius:50%"></div>
+            2026年4月16日（水）— 明日
+          </div>
+          <div style="padding:12px;background:var(--blue-light);border:0.5px solid var(--blue-border);border-radius:var(--radius-md)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <div style="font-size:14px;font-weight:500">オンライン面談</div>
+              <span class="badge badge-blue">確定済み</span>
+            </div>
+            <div style="font-size:12px;color:var(--blue-dark);line-height:1.8">
+              時刻：14:00–15:00<br>
+              応募者番号：TL-2026-0049（介護スタッフ候補）<br>
+              形式：Zoom<br>
+              Zoomリンク：<span style="font-size:11px;word-break:break-all">https://zoom.us/j/99999999</span>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:8px">
+              <button class="action-btn">リマインダーを送る</button>
+              <button class="action-btn action-btn-blue">Zoomを開く</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:13px;font-weight:500;margin-bottom:1rem;color:var(--text-primary);display:flex;align-items:center;gap:6px">
+            <div style="width:10px;height:10px;background:var(--green);border-radius:50%"></div>
+            2026年4月22日（火）
+          </div>
+          <div style="padding:12px;background:var(--green-light);border:0.5px solid var(--green-border);border-radius:var(--radius-md)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <div style="font-size:14px;font-weight:500">オンライン面談</div>
+              <span class="badge badge-green">確定済み</span>
+            </div>
+            <div style="font-size:12px;color:var(--green-dark);line-height:1.8">
+              時刻：10:00–11:00<br>
+              応募者番号：TL-2026-0047（建設作業員候補）<br>
+              形式：Zoom<br>
+              Zoomリンク：<span style="font-size:11px;word-break:break-all">https://zoom.us/j/88888888</span>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:8px">
+              <button class="action-btn">リマインダーを送る</button>
+              <button class="action-btn action-btn-green">Zoomを開く</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 支払い管理 ===== -->
+    <div id="tab-payment" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">支払い管理</div>
+      <div class="notice-amber" style="margin-bottom:1.25rem">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="7.5" cy="7.5" r="6" stroke="#854F0B" stroke-width="1.2"/><path d="M7.5 4.5v4M7.5 10v.5" stroke="#854F0B" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div>
+          <div style="font-weight:500;margin-bottom:3px">TL-2026-0042 — 支払い手続きをお願いします</div>
+          採用確定後に請求書を発行しました。<strong>請求書に記載の口座</strong>へ ¥33,000（税込）をお振り込みください。振込後に「振込報告」を行うと、運営が確認後に応募者の情報を開示します。
+        </div>
+      </div>
+      <div class="card table-wrap">
+        <table>
+          <colgroup><col style="width:16%"><col style="width:20%"><col style="width:14%"><col style="width:14%"><col style="width:14%"><col style="width:22%"></colgroup>
+          <thead><tr><th>採用者番号</th><th>採用した求人</th><th>採用確定日</th><th>請求金額</th><th>ステータス</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr style="background:rgba(250,238,218,0.3)">
+              <td style="font-weight:500">TL-2026-0042</td>
+              <td style="font-size:11px;color:var(--text-secondary)">介護スタッフ（1号）</td>
+              <td style="font-size:11px">2026/04/12</td>
+              <td style="font-size:13px;font-weight:500;color:var(--amber-dark)">¥33,000<div style="font-size:10px;font-weight:400;color:var(--text-tertiary)">（税込）</div></td>
+              <td><span class="sp sp-pending"><span class="dot"></span>振込待ち</span></td>
+              <td>
+                <button class="action-btn" style="margin-right:4px">請求書を見る</button>
+                <button class="action-btn action-btn-green" onclick="showPaymentModal()">振込報告をする</button>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">TL-2026-0031</td>
+              <td style="font-size:11px;color:var(--text-secondary)">介護スタッフ（1号）</td>
+              <td style="font-size:11px">2026/03/20</td>
+              <td style="font-size:13px;font-weight:500">¥33,000<div style="font-size:10px;font-weight:400;color:var(--text-tertiary)">（税込）</div></td>
+              <td><span class="sp sp-paid"><span class="dot"></span>支払い済み</span></td>
+              <td><button class="action-btn">詳細</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 企業設定 ===== -->
+    <div id="tab-settings" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">企業設定</div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-header"><div class="card-title">企業基本情報</div><button class="action-btn action-btn-green">編集する</button></div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">会社名</span><span style="font-weight:500">サンシャインケア株式会社</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">業種</span><span style="font-weight:500">介護・福祉</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">所在地</span><span style="font-weight:500">埼玉県さいたま市浦和区</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">担当者名</span><span style="font-weight:500">田中 太郎</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">メールアドレス</span><span style="font-weight:500">tanaka@sunshine-care.co.jp</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0"><span style="color:var(--text-secondary)">登録支援機関</span><span style="font-weight:500">スマイルリンク・ソリューションズ</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">通知設定</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text-secondary)">
+          <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">新着応募者の通知 <input type="checkbox" checked style="width:auto;accent-color:var(--green)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">面談リマインダー（前日） <input type="checkbox" checked style="width:auto;accent-color:var(--green)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">支払い期限のリマインダー <input type="checkbox" checked style="width:auto;accent-color:var(--green)"></label>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- 応募者詳細モーダル -->
+<div class="modal-bg" id="applicant-modal">
+  <div class="modal">
+    <div class="modal-title">
+      応募者詳細 — <span id="modal-applicant-id"></span>
+      <button class="modal-close" onclick="document.getElementById('applicant-modal').classList.remove('show')">×</button>
+    </div>
+    <div class="notice-amber" style="margin-bottom:1rem;font-size:11px">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" style="flex-shrink:0;margin-top:1px"><rect x="1.5" y="4.5" width="10" height="8" rx="1.2" stroke="#854F0B" stroke-width="1.1"/><path d="M4 4.5V3a3 3 0 0 1 6 0v1.5" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>
+      <span>氏名・連絡先・書類写真はマッチング手数料（¥33,000）の支払い完了後に開示されます。</span>
+    </div>
+    <div style="background:var(--gray-bg);border-radius:var(--radius-md);padding:12px;margin-bottom:1rem">
+      <div class="detail-row"><span style="color:var(--text-secondary)">管理番号</span><span style="font-weight:500" id="modal-id2"></span></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">氏名</span><div class="lock-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3 4.5V3a2 2 0 0 1 4 0v1.5" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>支払い後に開示</div></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">希望職種</span><span><span class="badge badge-green">介護 / Perawatan</span></span></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">日本語レベル</span><span style="font-weight:500">JLPT N3</span></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">技能評価試験</span><span style="font-weight:500">合格済み ✓</span></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">希望地域</span><span style="font-weight:500">Kanto、Kinki</span></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">在留カード</span><div class="lock-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3 4.5V3a2 2 0 0 1 4 0v1.5" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>支払い後に開示</div></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">パスポート</span><div class="lock-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="4.5" width="8" height="5.5" rx="1" stroke="#854F0B" stroke-width="1.1"/><path d="M3 4.5V3a2 2 0 0 1 4 0v1.5" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>支払い後に開示</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:6px">自己PR</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;background:var(--gray-bg);padding:10px;border-radius:var(--radius-md);margin-bottom:1rem">介護老人保健施設での経験3年。食事・入浴・排泄介助を担当。利用者様との丁寧なコミュニケーションを大切にしています。日本語N3を活かして、ご家族との会話も積極的に行ってきました。</div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="document.getElementById('applicant-modal').classList.remove('show')">閉じる</button>
+      <button class="btn btn-green" onclick="showScheduleModal()">面談を設定する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 面談設定モーダル -->
+<div class="modal-bg" id="schedule-modal">
+  <div class="modal">
+    <div class="modal-title">面談を設定する<button class="modal-close" onclick="document.getElementById('schedule-modal').classList.remove('show')">×</button></div>
+    <div class="field-group"><label>応募者番号</label><input type="text" value="TL-2026-0051" readonly style="background:var(--gray-bg)"></div>
+    <div class="field-group"><label>候補日時①<span style="color:#D85A30">*</span></label><div style="display:flex;gap:8px"><input type="text" placeholder="2026/04/20" style="flex:1"><input type="text" placeholder="14:00" style="width:80px"></div></div>
+    <div class="field-group"><label>候補日時②</label><div style="display:flex;gap:8px"><input type="text" placeholder="2026/04/21" style="flex:1"><input type="text" placeholder="10:00" style="width:80px"></div></div>
+    <div class="field-group"><label>候補日時③</label><div style="display:flex;gap:8px"><input type="text" placeholder="2026/04/22" style="flex:1"><input type="text" placeholder="15:00" style="width:80px"></div></div>
+    <div class="field-group"><label>ZoomリンクURL</label><input type="text" placeholder="https://zoom.us/j/..."></div>
+    <div class="notice-blue" style="font-size:11px">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="6.5" cy="6.5" r="5.5" stroke="#185FA5" stroke-width="1.1"/><path d="M6.5 4v3l2 1" stroke="#185FA5" stroke-width="1.1" stroke-linecap="round"/></svg>
+      <span>候補日時を送信すると求職者がシステム内で選択します。確定後に双方へ通知されます。</span>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="document.getElementById('schedule-modal').classList.remove('show')">キャンセル</button>
+      <button class="btn btn-green" onclick="document.getElementById('schedule-modal').classList.remove('show')">候補日時を送信する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 求人投稿モーダル -->
+<div class="modal-bg" id="post-job-modal">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-title">求人を投稿する<button class="modal-close" onclick="document.getElementById('post-job-modal').classList.remove('show')">×</button></div>
+    <div class="field-group"><label>求人タイトル<span style="color:#D85A30">*</span></label><input type="text" placeholder="例：介護スタッフ（特定技能1号）"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="field-group"><label>職種<span style="color:#D85A30">*</span></label><select><option>選択してください</option><option>介護</option><option>建設</option><option>農業</option><option>宿泊</option><option>飲食料品製造業</option></select></div>
+      <div class="field-group"><label>特定技能区分<span style="color:#D85A30">*</span></label><select><option>特定技能1号</option><option>特定技能2号</option><option>1号・2号共通</option></select></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="field-group"><label>勤務地（都道府県）<span style="color:#D85A30">*</span></label><input type="text" placeholder="例：埼玉県さいたま市"></div>
+      <div class="field-group"><label>募集人数<span style="color:#D85A30">*</span></label><input type="text" placeholder="例：3"></div>
+    </div>
+    <div class="field-group"><label>登録支援機関の選択<span style="color:#D85A30">*</span></label>
+      <select>
+        <option>スマイルリンク・ソリューションズ（弊社に委託）</option>
+        <option>自社の登録支援機関を利用する</option>
+      </select>
+      <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px">スマイルリンクを選択の場合：マッチング手数料無料・一時金¥300,000（税別）</div>
+    </div>
+    <div class="field-group"><label>企業名の公開設定</label>
+      <select>
+        <option>公開する</option>
+        <option>非公開（応募後に開示）</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="document.getElementById('post-job-modal').classList.remove('show')">キャンセル</button>
+      <button class="btn btn-green" onclick="document.getElementById('post-job-modal').classList.remove('show')">投稿する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 振込報告モーダル -->
+<div class="modal-bg" id="payment-modal">
+  <div class="modal">
+    <div class="modal-title">振込報告<button class="modal-close" onclick="document.getElementById('payment-modal').classList.remove('show')">×</button></div>
+    <div style="background:var(--gray-bg);border-radius:var(--radius-md);padding:12px;margin-bottom:1rem;font-size:12px">
+      <div class="detail-row"><span style="color:var(--text-secondary)">採用者番号</span><span style="font-weight:500">TL-2026-0042</span></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">請求金額</span><span style="font-weight:500;color:var(--amber-dark)">¥33,000（税込）</span></div>
+      <div class="detail-row"><span style="color:var(--text-secondary)">振込先</span><span style="font-weight:500;font-size:11px">請求書に記載の口座をご確認ください</span></div>
+    </div>
+    <div class="field-group"><label>振込日<span style="color:#D85A30">*</span></label><input type="text" placeholder="例：2026/04/15"></div>
+    <div class="field-group"><label>振込金額<span style="color:#D85A30">*</span></label><input type="text" placeholder="33000"></div>
+    <div class="field-group"><label>備考（任意）</label><textarea rows="2" placeholder="振込名義など"></textarea></div>
+    <div class="notice-blue" style="font-size:11px">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="6.5" cy="6.5" r="5.5" stroke="#185FA5" stroke-width="1.1"/><path d="M6.5 4v3l2 1" stroke="#185FA5" stroke-width="1.1" stroke-linecap="round"/></svg>
+      <span>報告後、運営が入金を確認します（通常1〜2営業日）。確認完了後に応募者の個人情報・書類写真が開示されます。</span>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="document.getElementById('payment-modal').classList.remove('show')">キャンセル</button>
+      <button class="btn btn-green" onclick="document.getElementById('payment-modal').classList.remove('show')">振込報告を送信する</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tabTitles = {
+    dashboard:'ダッシュボード',
+    applicants:'応募者一覧',
+    jobs:'求人管理',
+    schedule:'面談スケジュール',
+    payment:'支払い管理',
+    settings:'企業設定'
+  };
+  function switchTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sidenav-item').forEach(i => i.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    document.querySelectorAll('.sidenav-item').forEach(i => {
+      if(i.getAttribute('onclick') && i.getAttribute('onclick').includes("'" + id + "'")) i.classList.add('active');
+    });
+    document.getElementById('topbar-title').textContent = tabTitles[id] || id;
+  }
+  function showApplicantModal(id) {
+    document.getElementById('modal-applicant-id').textContent = id;
+    document.getElementById('modal-id2').textContent = id;
+    document.getElementById('applicant-modal').classList.add('show');
+  }
+  function showScheduleModal() {
+    document.getElementById('applicant-modal').classList.remove('show');
+    document.getElementById('schedule-modal').classList.add('show');
+  }
+  function showPostJobModal() { document.getElementById('post-job-modal').classList.add('show'); }
+  function showPaymentModal() { document.getElementById('payment-modal').classList.add('show'); }
+  document.querySelectorAll('.modal-bg').forEach(m => {
+    m.addEventListener('click', e => { if(e.target === m) m.classList.remove('show'); });
+  });
+</script>
+</body>
+</html>
