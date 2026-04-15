@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>介護スタッフ（特定技能1号）- サンシャインケア | トクテイリンク</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#1D9E75;--green-dark:#0F6E56;--green-darker:#085041;--green-light:#E1F5EE;--green-border:#5DCAA5;--blue:#185FA5;--blue-dark:#0C447C;--blue-light:#E6F1FB;--blue-border:#85B7EB;--amber:#EF9F27;--amber-light:#FAEEDA;--amber-dark:#633806;--gray-bg:#F7F6F3;--gray-light:#F1EFE8;--text-primary:#1a1918;--text-secondary:#5a5855;--text-tertiary:#999794;--border:rgba(0,0,0,0.10);--border-md:rgba(0,0,0,0.18);--radius-sm:6px;--radius-md:8px;--radius-lg:12px}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:'Noto Sans JP','Noto Sans',sans-serif;color:var(--text-primary);background:var(--gray-bg);line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    .nav{background:#fff;border-bottom:0.5px solid var(--border);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo-icon{width:34px;height:34px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .btn{padding:7px 16px;font-size:12px;font-weight:500;border:none;border-radius:var(--radius-md);cursor:pointer;font-family:inherit}
+    .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green-dark)}
+    .btn-outline{background:transparent;border:0.5px solid var(--border-md);color:var(--text-secondary)}.btn-outline:hover{background:var(--gray-bg)}
+    .breadcrumb{max-width:1000px;margin:0 auto;padding:.875rem 1.5rem;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-tertiary)}
+    .breadcrumb a:hover{color:var(--green-dark)}
+    .page-wrap{max-width:1000px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:1fr 300px;gap:1.25rem;align-items:start}
+    .main-col{display:flex;flex-direction:column;gap:12px}
+    .card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem}
+    .card-title{font-size:14px;font-weight:500;padding-bottom:10px;border-bottom:0.5px solid var(--border);margin-bottom:1rem;display:flex;align-items:center;gap:7px}
+    .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
+    .badge-green{background:var(--green-light);color:var(--green-darker)}
+    .badge-blue{background:var(--blue-light);color:var(--blue-dark)}
+    .badge-gray{background:var(--gray-light);color:#444441}
+    .badge-amber{background:var(--amber-light);color:var(--amber-dark)}
+    .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem}
+    .job-header-top{display:flex;gap:14px;align-items:flex-start;margin-bottom:1rem}
+    .co-avatar{width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:500;flex-shrink:0}
+    .job-header-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding-top:1rem;border-top:0.5px solid var(--border)}
+    .meta-item{text-align:center}
+    .meta-label{font-size:10px;color:var(--text-tertiary);margin-bottom:3px}
+    .meta-val{font-size:15px;font-weight:500}
+    .detail-table{width:100%;border-collapse:collapse;font-size:13px}
+    .detail-table tr{border-bottom:0.5px solid var(--border)}
+    .detail-table tr:last-child{border-bottom:none}
+    .detail-table th{width:140px;padding:10px 0;font-weight:500;color:var(--text-secondary);vertical-align:top;font-size:12px}
+    .detail-table td{padding:10px 0 10px 12px;line-height:1.8}
+    .req-item{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:8px}
+    .req-item:last-child{margin-bottom:0}
+    .req-ok{width:18px;height:18px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .req-want{width:18px;height:18px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .welfare-grid{display:flex;flex-wrap:wrap;gap:8px}
+    .welfare-item{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--gray-bg);border-radius:var(--radius-md);font-size:12px;color:var(--text-secondary)}
+    .co-row{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:0.5px solid var(--border)}
+    .co-row:last-child{border-bottom:none}
+    .similar-card{display:flex;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--border);cursor:pointer}
+    .similar-card:last-child{border-bottom:none}
+    .similar-card:hover .sim-title{color:var(--green-dark)}
+    .sim-avatar{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+    .sim-title{font-size:13px;font-weight:500;margin-bottom:3px;line-height:1.4}
+    .sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:10px}
+    .apply-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem}
+    .apply-btn-main{width:100%;padding:12px;font-size:14px;font-weight:500;border:none;border-radius:var(--radius-md);background:var(--green);color:#fff;cursor:pointer;font-family:inherit;margin-bottom:8px;line-height:1.4}
+    .apply-btn-main:hover{background:var(--green-dark)}
+    .apply-btn-save{width:100%;padding:10px;font-size:13px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:transparent;color:var(--text-secondary);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px}
+    .apply-btn-save:hover{background:var(--gray-bg)}
+    .progress-wrap{margin:10px 0}
+    .progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:4px}
+    .progress-track{height:6px;background:var(--gray-light);border-radius:3px;overflow:hidden}
+    .progress-fill{height:100%;border-radius:3px;background:var(--green)}
+    .apply-stat{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:0.5px solid var(--border)}
+    .apply-stat:last-child{border-bottom:none}
+    .lock-notice{background:var(--amber-light);border:0.5px solid var(--amber);border-radius:var(--radius-md);padding:10px 12px;font-size:11px;color:var(--amber-dark);line-height:1.7;margin-top:10px}
+    .info-box{background:var(--blue-light);border:0.5px solid var(--blue-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--blue-dark);line-height:1.7}
+    .id-text{font-size:11px;color:var(--text-tertiary);display:block;margin-top:2px}
+    .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1.5rem}
+    .modal-bg.show{display:flex}
+    .modal{background:#fff;border-radius:var(--radius-lg);padding:1.75rem;width:100%;max-width:420px}
+    .modal-btns{display:flex;gap:8px;margin-top:1.25rem}
+    .modal-btns button{flex:1}
+    @media(max-width:700px){.page-wrap{grid-template-columns:1fr}.sidebar{position:static}.job-header-meta{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2L13 7H17L14 11L15.5 16L10 13L4.5 16L6 11L3 7H7L10 2Z" fill="white" opacity="0.9"/></svg></div>
+    <div><div style="font-size:15px;font-weight:500">トクテイリンク</div><div style="font-size:10px;color:var(--text-secondary)">Tokutei-Link</div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <a href="jobs.html" style="font-size:12px;color:var(--text-secondary)">求人一覧</a>
+    <button class="btn btn-outline">ログイン / Masuk</button>
+    <button class="btn btn-green" onclick="showApplyModal()">応募する / Lamar</button>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">トップ</a><span style="color:var(--text-tertiary)">›</span>
+  <a href="jobs.html">求人一覧</a><span style="color:var(--text-tertiary)">›</span>
+  <span style="color:var(--text-secondary)">介護スタッフ（特定技能1号）- サンシャインケア</span>
+</div>
+
+<div class="page-wrap">
+  <div class="main-col">
+
+    <!-- ヘッダー -->
+    <div class="card">
+      <div class="job-header-top">
+        <div class="co-avatar" style="background:var(--green-light);color:var(--green-darker)">SC</div>
+        <div style="flex:1">
+          <div style="font-size:20px;font-weight:500;line-height:1.4;margin-bottom:3px">介護スタッフ（特定技能1号）</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:5px">Staf Perawatan (Tokutei Ginou Gou 1)</div>
+          <div style="font-size:14px;font-weight:500;color:var(--green-dark);margin-bottom:4px">サンシャインケア株式会社</div>
+          <div style="font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:4px">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1A4 4 0 0 1 10 5C10 8 6 11 6 11S2 8 2 5A4 4 0 0 1 6 1z" stroke="currentColor" stroke-width="1.1"/><circle cx="6" cy="5" r="1.3" fill="currentColor"/></svg>
+            埼玉県さいたま市 / Saitama-shi, Kanto
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:10px;color:var(--text-tertiary)">掲載番号</div>
+          <div style="font-size:12px;font-weight:500;color:var(--text-secondary)">TL-JOB-0042</div>
+          <div style="font-size:10px;color:var(--text-tertiary);margin-top:4px">2日前に掲載</div>
+        </div>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-green">介護 / Perawatan</span>
+        <span class="badge badge-blue">特定技能1号</span>
+        <span class="badge badge-gray">寮あり</span>
+        <span class="badge badge-gray">社会保険完備</span>
+        <span class="badge badge-gray">インドネシア語対応スタッフ</span>
+        <span class="badge badge-amber">おすすめ</span>
+      </div>
+      <div class="job-header-meta">
+        <div class="meta-item"><div class="meta-label">募集人数</div><div class="meta-val">3名</div></div>
+        <div class="meta-item"><div class="meta-label">現在の応募者</div><div class="meta-val">7名</div></div>
+        <div class="meta-item"><div class="meta-label">充足率</div><div class="meta-val" style="color:var(--green)">67%</div></div>
+        <div class="meta-item"><div class="meta-label">応募締切</div><div class="meta-val" style="font-size:13px">2026/06/30</div></div>
+      </div>
+    </div>
+
+    <!-- 仕事内容 -->
+    <div class="card">
+      <div class="card-title"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="2" width="11" height="11" rx="2" stroke="#1D9E75" stroke-width="1.2"/><path d="M5 7.5h5M5 5.5h5M5 9.5h3" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>仕事内容 / Deskripsi Pekerjaan</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;margin-bottom:1rem">介護老人保健施設（定員80名）において、利用者様の日常生活を支援するお仕事です。<span class="id-text">Pekerjaan mendukung kehidupan sehari-hari penghuni di fasilitas perawatan lanjut usia (kapasitas 80 orang).</span></div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>食事介助・配膳・下膳<span class="id-text">Bantuan makan, penyajian & pengangkutan makanan</span></div></div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>入浴介助・清拭<span class="id-text">Bantuan mandi & perawatan kebersihan tubuh</span></div></div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>排泄介助（トイレ誘導・おむつ交換）<span class="id-text">Bantuan toilet & penggantian popok</span></div></div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>移乗・移動介助<span class="id-text">Bantuan perpindahan & mobilisasi</span></div></div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>レクリエーション活動の補助・記録業務<span class="id-text">Membantu kegiatan rekreasi & pencatatan</span></div></div>
+    </div>
+
+    <!-- 求人詳細 -->
+    <div class="card">
+      <div class="card-title"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M7.5 5v3l2 1.5" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>求人詳細 / Detail Lowongan</div>
+      <table class="detail-table">
+        <tr><th>雇用形態<br><span style="font-size:10px;font-weight:400;color:var(--text-tertiary)">Jenis kerja</span></th><td>正社員（特定技能） / Karyawan tetap</td></tr>
+        <tr><th>給与<br><span style="font-size:10px;font-weight:400;color:var(--text-tertiary)">Gaji</span></th><td>月給 <strong>195,000円〜230,000円</strong>（税込）<br><span style="font-size:11px;color:var(--text-secondary)">Gaji bulanan ¥195.000–¥230.000</span><br><span style="font-size:11px;color:var(--text-tertiary)">※試用期間3ヶ月：185,000円</span></td></tr>
+        <tr><th>勤務時間<br><span style="font-size:10px;font-weight:400;color:var(--text-tertiary)">Jam kerja</span></th><td>早番 07:00–16:00 / 日勤 09:00–18:00<br>遅番 11:00–20:00 / 夜勤 16:00–翌09:00（月4〜5回）<br><span style="font-size:11px;color:var(--text-secondary)">Shift pagi/siang/sore/malam (4–5 malam/bulan)</span></td></tr>
+        <tr><th>休日・休暇<br><span style="font-size:10px;font-weight:400;color:var(--text-tertiary)">Hari libur</span></th><td>月8〜10日休み・年間休日105日<br>有給休暇（入社6ヶ月後に10日付与）<br><span style="font-size:11px;color:var(--text-secondary)">8–10 hari libur/bulan. Cuti 10 hari setelah 6 bulan.</span></td></tr>
+        <tr><th>勤務地<br><span style="font-size:10px;font-weight:400;color:var(--text-tertiary)">Lokasi</span></th><td>埼玉県さいたま市浦和区仲町2-3-1<br><span style="font-size:11px;color:var(--text-secondary)">JR浦和駅 徒歩8分 / 8 menit dari Stasiun Urawa</span></td></tr>
+        <tr><th>入社可能日<br><span style="font-size:10px;font-weight:400;color:var(--text-tertiary)">Mulai kerja</span></th><td>2026年8月1日以降（応相談）/ Mulai Agustus 2026</td></tr>
+      </table>
+    </div>
+
+    <!-- 応募要件 -->
+    <div class="card">
+      <div class="card-title"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1.5l1.5 3 3.5.5-2.5 2.5.6 3.5L7.5 9.5l-3.1 1.5.6-3.5L2.5 5l3.5-.5z" stroke="#1D9E75" stroke-width="1.2" stroke-linejoin="round"/></svg>応募要件 / Persyaratan Pelamar</div>
+      <div style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:8px">必須要件 / Wajib</div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>介護技能評価試験合格、または技能実習2号・3号修了<span class="id-text">Lulus ujian keterampilan perawatan atau selesai magang teknis 2/3</span></div></div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>JLPT N4以上またはJFT-Basic合格<span class="id-text">JLPT N4 ke atas atau lulus JFT-Basic</span></div></div>
+      <div class="req-item"><div class="req-ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>特定技能1号（介護）取得資格があること<span class="id-text">Memenuhi syarat visa Tokutei Ginou Gou 1 (Perawatan)</span></div></div>
+      <div style="font-size:12px;font-weight:500;color:var(--text-secondary);margin:12px 0 8px">歓迎要件（なくても可）/ Diutamakan</div>
+      <div class="req-item"><div class="req-want"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>介護福祉士資格保持者<span class="id-text">Pemegang sertifikasi Kaigo Fukushishi</span></div></div>
+      <div class="req-item"><div class="req-want"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>JLPT N3以上・介護施設での実務経験1年以上<span class="id-text">JLPT N3+ / Pengalaman kerja di fasilitas perawatan 1 tahun+</span></div></div>
+    </div>
+
+    <!-- 待遇・福利厚生 -->
+    <div class="card">
+      <div class="card-title"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2C5 2 2.5 4 2.5 6.5c0 3.5 5 6.5 5 6.5s5-3 5-6.5C12.5 4 10 2 7.5 2z" stroke="#1D9E75" stroke-width="1.2"/></svg>待遇・福利厚生 / Tunjangan & Fasilitas</div>
+      <div class="welfare-grid">
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="9" rx="1.5" stroke="#1D9E75" stroke-width="1.1"/><path d="M5 3V2a2 2 0 0 1 4 0v1" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>寮完備（月15,000円・光熱費込）</div>
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11z" stroke="#1D9E75" stroke-width="1.1"/><path d="M7 4.5v3l2 1.5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>社会保険完備（健康・厚生年金・雇用・労災）</div>
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l2.5 2.5 5.5-5.5" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>交通費全額支給</div>
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="3" stroke="#1D9E75" stroke-width="1.1"/><path d="M1 13c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>インドネシア語対応スタッフ在籍</div>
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="1.5" stroke="#1D9E75" stroke-width="1.1"/><path d="M5 7h4M7 5v4" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>日本語教室（週2回・無料）</div>
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5l1.2 3.6 3.8.3-2.8 2.4 1 3.7L7 9.5l-3.2 2-.9-3.7-2.8-2.4 3.8-.3z" stroke="#1D9E75" stroke-width="1.1" stroke-linejoin="round"/></svg>介護福祉士取得支援制度</div>
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 11L7 3l5 8H2z" stroke="#1D9E75" stroke-width="1.1" stroke-linejoin="round"/></svg>入社時引越し費用補助（上限5万円）</div>
+        <div class="welfare-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="8" rx="1.5" stroke="#1D9E75" stroke-width="1.1"/><path d="M5 4V3a2 2 0 0 1 4 0v1" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>制服・ユニフォーム貸与</div>
+      </div>
+    </div>
+
+    <!-- 登録支援機関 -->
+    <div class="card">
+      <div class="card-title"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="2" width="12" height="11" rx="2" stroke="#1D9E75" stroke-width="1.2"/><path d="M5 7h5M5 9.5h3M5 4.5h5" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>登録支援機関 / Lembaga Pendukung</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;margin-bottom:10px">この求人は <strong style="color:var(--text-primary)">株式会社スマイルリンク・ソリューションズ</strong>（登録支援機関番号：25登-012327）が登録支援機関として支援します。<span class="id-text">Lowongan ini didukung oleh SmileLink Solutions Co., Ltd. sebagai lembaga pendukung.</span></div>
+      <div class="info-box">
+        <div style="font-weight:500;margin-bottom:4px;font-size:12px">サポート内容 / Layanan</div>
+        事前ガイダンス・出入国手続き・住居確保・生活オリエンテーション・日本語習得支援・相談窓口（インドネシア語対応）など、入国から生活安定まで総合的にサポートします。<span style="font-size:11px;color:var(--blue);display:block;margin-top:4px">Dukungan komprehensif: keimigrasian, tempat tinggal, orientasi, bahasa Jepang, konsultasi (Bahasa Indonesia tersedia).</span>
+      </div>
+    </div>
+
+    <!-- 会社情報 -->
+    <div class="card">
+      <div class="card-title"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="3" width="11" height="10" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M2 7h11M6 3V2m3 1V2" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>会社情報 / Informasi Perusahaan</div>
+      <div class="co-row"><span style="color:var(--text-secondary)">会社名</span><span style="font-weight:500">サンシャインケア株式会社</span></div>
+      <div class="co-row"><span style="color:var(--text-secondary)">業種</span><span style="font-weight:500">介護・福祉</span></div>
+      <div class="co-row"><span style="color:var(--text-secondary)">従業員数</span><span style="font-weight:500">約320名</span></div>
+      <div class="co-row"><span style="color:var(--text-secondary)">設立</span><span style="font-weight:500">2003年</span></div>
+      <div class="co-row"><span style="color:var(--text-secondary)">所在地</span><span style="font-weight:500">埼玉県さいたま市</span></div>
+      <div class="co-row"><span style="color:var(--text-secondary)">施設数</span><span style="font-weight:500">5施設（関東エリア）</span></div>
+      <div class="co-row"><span style="color:var(--text-secondary)">外国人採用実績</span><span style="font-weight:500">12名（インドネシア人含む）</span></div>
+    </div>
+
+    <!-- 類似求人 -->
+    <div class="card">
+      <div class="card-title"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 12V4l5.5-2.5L13 4v8l-5.5 2.5L2 12z" stroke="#1D9E75" stroke-width="1.2" stroke-linejoin="round"/></svg>類似求人 / Lowongan Serupa</div>
+      <a class="similar-card" href="job-detail.html"><div class="sim-avatar" style="background:var(--green-light);color:var(--green-darker)">NK</div><div style="flex:1"><div class="sim-title">介護スタッフ（特定技能1号）</div><div style="font-size:11px;color:var(--text-secondary)">日本ケアサービス株式会社 · 東京都新宿区 · 2名募集</div><div style="margin-top:4px"><span class="badge badge-green" style="font-size:10px">介護</span></div></div></a>
+      <a class="similar-card" href="job-detail.html"><div class="sim-avatar" style="background:var(--green-light);color:var(--green-darker)">YM</div><div style="flex:1"><div class="sim-title">介護士スタッフ（特定技能1号・2号）</div><div style="font-size:11px;color:var(--text-secondary)">横浜メディカルケア · 神奈川県横浜市 · 4名募集</div><div style="margin-top:4px"><span class="badge badge-green" style="font-size:10px">介護</span><span class="badge badge-blue" style="font-size:10px;margin-left:4px">1号・2号</span></div></div></a>
+      <a class="similar-card" href="job-detail.html" style="border:none"><div class="sim-avatar" style="background:var(--green-light);color:var(--green-darker)">OS</div><div style="flex:1"><div class="sim-title">デイサービス介護スタッフ（特定技能1号）</div><div style="font-size:11px;color:var(--text-secondary)">大阪シニアケア株式会社 · 大阪府大阪市 · 2名募集</div><div style="margin-top:4px"><span class="badge badge-green" style="font-size:10px">介護</span><span class="badge badge-gray" style="font-size:10px;margin-left:4px">寮あり</span></div></div></a>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="apply-card">
+      <div style="font-size:14px;font-weight:500;margin-bottom:10px">この求人に応募する<br><span style="font-size:12px;font-weight:400;color:var(--text-secondary)">Lamar lowongan ini</span></div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>充足率</span><span style="color:var(--green);font-weight:500">67%（2/3名）</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width:67%"></div></div>
+      </div>
+      <button class="apply-btn-main" onclick="showApplyModal()">応募する（無料）<br><span style="font-size:11px;font-weight:400">Lamar sekarang (gratis)</span></button>
+      <button class="apply-btn-save" id="save-btn" onclick="toggleSave()">
+        <svg id="save-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5C5 1.5 2.5 3 2.5 5.5c0 3.5 4.5 6.5 4.5 6.5s4.5-3 4.5-6.5C11.5 3 9 1.5 7 1.5z" stroke="currentColor" stroke-width="1.2"/></svg>
+        気になる / Simpan
+      </button>
+      <div style="margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border)">
+        <div class="apply-stat"><span style="color:var(--text-secondary)">応募者数</span><span style="font-weight:500">7名</span></div>
+        <div class="apply-stat"><span style="color:var(--text-secondary)">残り募集数</span><span style="font-weight:500;color:var(--green)">1名</span></div>
+        <div class="apply-stat"><span style="color:var(--text-secondary)">応募締切</span><span style="font-weight:500">2026/06/30</span></div>
+        <div class="apply-stat"><span style="color:var(--text-secondary)">掲載日</span><span style="font-weight:500">2026/04/12</span></div>
+      </div>
+      <div class="lock-notice">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:4px"><rect x="1.5" y="5.5" width="9" height="6" rx="1.2" stroke="#854F0B" stroke-width="1.1"/><path d="M3.5 5.5V4a2 2 0 0 1 4 0v1.5" stroke="#854F0B" stroke-width="1.1" stroke-linecap="round"/></svg>
+        マッチング手数料（¥33,000税込）支払い完了後、企業に連絡先が開示されます。<span style="color:#854F0B;font-size:10px;display:block;margin-top:3px">Kontak dibuka ke perusahaan setelah pembayaran ¥33.000.</span>
+      </div>
+    </div>
+    <div class="apply-card" style="padding:1rem">
+      <div style="font-size:11px;color:var(--text-tertiary);margin-bottom:6px">求人番号 / Nomor Lowongan</div>
+      <div style="font-size:14px;font-weight:500;margin-bottom:10px">TL-JOB-0042</div>
+      <div style="display:flex;gap:6px">
+        <button onclick="copyLink()" id="copy-btn" style="flex:1;padding:7px 0;font-size:11px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:transparent;color:var(--text-secondary);cursor:pointer;font-family:inherit">🔗 URLをコピー</button>
+        <a href="jobs.html" style="flex:1;padding:7px 0;font-size:11px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:transparent;color:var(--text-secondary);cursor:pointer;font-family:inherit;text-align:center;display:block">← 求人一覧</a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- APPLY MODAL -->
+<div class="modal-bg" id="apply-modal">
+  <div class="modal">
+    <div style="font-size:16px;font-weight:500;margin-bottom:10px">応募手続き / Proses Lamaran</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem">この求人に応募するには、まずプロフィール登録が必要です。登録は無料です。<span style="font-size:11px;color:var(--text-tertiary);display:block;margin-top:4px">Untuk melamar, daftarkan profil Anda. Gratis.</span></div>
+    <div style="background:var(--gray-bg);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:1.25rem;font-size:12px;color:var(--text-secondary)">
+      <div style="font-weight:500;color:var(--text-primary);margin-bottom:4px">応募する求人</div>
+      <div>介護スタッフ（特定技能1号）</div>
+      <div style="color:var(--green-dark)">サンシャインケア株式会社 · Saitama</div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="hideApplyModal()">キャンセル</button>
+      <button class="btn btn-green" onclick="window.location.href='register.html'">登録して応募する →</button>
+    </div>
+  </div>
+</div>
+
+<footer style="background:var(--gray-bg);border-top:0.5px solid var(--border);padding:1.5rem;text-align:center">
+  <div style="font-size:11px;color:var(--text-tertiary);line-height:1.8">© 2026 株式会社スマイルリンク・ソリューションズ<br>有料職業紹介事業許可番号：40-ユ-301675　登録支援機関番号：25登-012327</div>
+</footer>
+
+<script>
+  function showApplyModal(){document.getElementById('apply-modal').classList.add('show')}
+  function hideApplyModal(){document.getElementById('apply-modal').classList.remove('show')}
+  document.getElementById('apply-modal').addEventListener('click',function(e){if(e.target===this)hideApplyModal()})
+  let saved=false
+  function toggleSave(){
+    saved=!saved
+    const btn=document.getElementById('save-btn'),icon=document.getElementById('save-icon')
+    btn.style.background=saved?'#FCEBEB':'';btn.style.borderColor=saved?'#F09595':'';btn.style.color=saved?'#A32D2D':''
+    icon.setAttribute('fill',saved?'#E24B4A':'none')
+    btn.lastChild.textContent=saved?' 気になる済み / Tersimpan':' 気になる / Simpan'
+  }
+  function copyLink(){
+    navigator.clipboard.writeText(window.location.href).then(()=>{
+      const btn=document.getElementById('copy-btn')
+      btn.textContent='✓ コピーしました'
+      setTimeout(()=>btn.textContent='🔗 URLをコピー',2000)
+    })
+  }
+</script>
+</body>
+</html>
