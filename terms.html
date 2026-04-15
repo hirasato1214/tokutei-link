@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>利用規約 | トクテイリンク Tokutei-Link</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#1D9E75;--green-dark:#0F6E56;--green-light:#E1F5EE;--green-border:#5DCAA5;--gray-bg:#F7F6F3;--gray-light:#F1EFE8;--text-primary:#1a1918;--text-secondary:#5a5855;--text-tertiary:#999794;--border:rgba(0,0,0,0.10);--border-md:rgba(0,0,0,0.18);--radius-md:8px;--radius-lg:12px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Noto Sans JP','Noto Sans',sans-serif;color:var(--text-primary);background:#fff;line-height:1.8}
+    a{color:var(--green-dark);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* NAV */
+    .nav{background:#fff;border-bottom:0.5px solid var(--border);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo-icon{width:32px;height:32px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center}
+
+    /* LAYOUT */
+    .container{max-width:760px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .doc-header{margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:2px solid var(--green)}
+    .doc-title{font-size:28px;font-weight:500;margin-bottom:8px}
+    .doc-meta{font-size:13px;color:var(--text-secondary)}
+    .doc-lead{font-size:14px;color:var(--text-secondary);line-height:1.9;margin-top:1rem;padding:1rem 1.25rem;background:var(--gray-bg);border-radius:var(--radius-md);border-left:3px solid var(--green)}
+
+    /* TOC */
+    .toc{background:var(--gray-bg);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:2.5rem}
+    .toc-title{font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:10px}
+    .toc-list{display:flex;flex-direction:column;gap:4px}
+    .toc-item{font-size:13px;color:var(--green-dark)}
+
+    /* ARTICLE */
+    .article-section{margin-bottom:2.5rem}
+    .section-title{font-size:18px;font-weight:500;color:var(--text-primary);margin-bottom:1rem;padding-bottom:8px;border-bottom:0.5px solid var(--border);display:flex;align-items:baseline;gap:10px}
+    .section-num{font-size:13px;color:var(--green-dark);font-weight:500;background:var(--green-light);padding:2px 10px;border-radius:20px;white-space:nowrap}
+    .article-text{font-size:14px;color:var(--text-secondary);line-height:1.9;margin-bottom:1rem}
+    .article-text:last-child{margin-bottom:0}
+    .article-list{margin:0.75rem 0 1rem 1.25rem;display:flex;flex-direction:column;gap:6px}
+    .article-list li{font-size:14px;color:var(--text-secondary);line-height:1.8}
+    .article-sublist{margin:0.5rem 0 0 1.25rem;display:flex;flex-direction:column;gap:4px}
+    .article-sublist li{font-size:13px;color:var(--text-tertiary);line-height:1.7}
+    .highlight-box{background:var(--green-light);border:0.5px solid var(--green-border);border-radius:var(--radius-md);padding:1rem 1.25rem;margin:1rem 0;font-size:14px;color:#085041;line-height:1.8}
+    .warn-box{background:#FAEEDA;border:0.5px solid #EF9F27;border-radius:var(--radius-md);padding:1rem 1.25rem;margin:1rem 0;font-size:13px;color:#633806;line-height:1.8}
+
+    /* FOOTER */
+    .footer{background:var(--gray-bg);border-top:0.5px solid var(--border);padding:1.5rem;text-align:center;font-size:11px;color:var(--text-tertiary);line-height:1.8}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 2L13 7H17L14 11L15.5 16L10 13L4.5 16L6 11L3 7H7L10 2Z" fill="white" opacity="0.9"/></svg></div>
+    <div>
+      <div style="font-size:14px;font-weight:500">トクテイリンク</div>
+      <div style="font-size:10px;color:var(--text-secondary)">Tokutei-Link</div>
+    </div>
+  </div>
+  <a href="index.html" style="font-size:12px;color:var(--text-secondary)">← トップへ戻る</a>
+</nav>
+
+<div class="container">
+  <div class="doc-header">
+    <div class="doc-title">利用規約</div>
+    <div class="doc-meta">制定日：2026年4月1日　最終改定日：2026年4月1日</div>
+    <div class="doc-lead">
+      本利用規約（以下「本規約」といいます）は、株式会社スマイルリンク・ソリューションズ（以下「当社」といいます）が提供するインドネシア人特定技能人材マッチングサービス「トクテイリンク（Tokutei-Link）」（以下「本サービス」といいます）の利用条件を定めるものです。本サービスをご利用いただく前に、必ず本規約をお読みください。本サービスに登録された時点で、本規約の内容に同意したものとみなします。
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">目次</div>
+    <div class="toc-list">
+      <a class="toc-item" href="#s1">第1条（定義）</a>
+      <a class="toc-item" href="#s2">第2条（サービスの概要）</a>
+      <a class="toc-item" href="#s3">第3条（利用登録）</a>
+      <a class="toc-item" href="#s4">第4条（禁止事項）</a>
+      <a class="toc-item" href="#s5">第5条（料金・支払い）</a>
+      <a class="toc-item" href="#s6">第6条（情報ロック・開示）</a>
+      <a class="toc-item" href="#s7">第7条（紹介報酬）</a>
+      <a class="toc-item" href="#s8">第8条（個人情報の取り扱い）</a>
+      <a class="toc-item" href="#s9">第9条（免責事項）</a>
+      <a class="toc-item" href="#s10">第10条（サービスの変更・停止）</a>
+      <a class="toc-item" href="#s11">第11条（登録の取消し）</a>
+      <a class="toc-item" href="#s12">第12条（準拠法・管轄裁判所）</a>
+    </div>
+  </div>
+
+  <div class="article-section" id="s1">
+    <div class="section-title"><span class="section-num">第1条</span>定義</div>
+    <div class="article-text">本規約において使用する用語の定義は以下の通りです。</div>
+    <ol class="article-list">
+      <li>「本サービス」とは、当社が運営するインドネシア人特定技能人材と受入企業をマッチングするウェブサービス「トクテイリンク（Tokutei-Link）」をいいます。</li>
+      <li>「求職者」とは、本サービスに求職者として登録したインドネシア国籍を有する特定技能ビザ（または取得資格のある）人材をいいます。</li>
+      <li>「受入企業」とは、本サービスに企業として登録し、求職者の採用を希望する法人または個人事業主をいいます。</li>
+      <li>「登録支援機関」とは、受入企業または求職者に代わって本サービスを利用する、特定技能に係る登録支援機関をいいます。</li>
+      <li>「マッチング」とは、受入企業が求職者の採用を確定したことをいいます。</li>
+      <li>「マッチング手数料」とは、マッチング成立時に受入企業が当社に支払う報酬をいいます。</li>
+      <li>「紹介報酬」とは、登録支援機関が代理登録した求職者がマッチングした場合に当社が当該登録支援機関に支払う報酬をいいます。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s2">
+    <div class="section-title"><span class="section-num">第2条</span>サービスの概要</div>
+    <div class="article-text">本サービスは、特定技能ビザに対応したインドネシア人材と日本の受入企業をつなぐマッチングプラットフォームです。主な機能は以下の通りです。</div>
+    <ol class="article-list">
+      <li>求職者のプロフィール登録・書類アップロード機能</li>
+      <li>受入企業による求職者の検索・閲覧機能</li>
+      <li>求人情報の掲載・管理機能</li>
+      <li>応募受付・選考状況管理機能</li>
+      <li>オンライン面談スケジュール調整機能</li>
+      <li>マッチング手数料の振込・情報開示管理機能</li>
+      <li>登録支援機関による代理登録・代理投稿機能</li>
+    </ol>
+    <div class="highlight-box">本サービスは求職者・受入企業・登録支援機関の三者を対象としています。求職者の利用は完全無料です。受入企業は登録・掲載・選考まで無料で、マッチング成立時のみ手数料が発生します。</div>
+  </div>
+
+  <div class="article-section" id="s3">
+    <div class="section-title"><span class="section-num">第3条</span>利用登録</div>
+    <ol class="article-list">
+      <li>本サービスを利用するためには、当社の定める方法によりアカウント登録を行い、当社の審査を経て承認される必要があります。</li>
+      <li>求職者として登録するためには、以下の書類をアップロードする必要があります。
+        <ul class="article-sublist">
+          <li>在留カード（表・裏）またはパスポート</li>
+          <li>特定技能評価試験合格証または技能実習修了証明書</li>
+          <li>日本語試験合格証（JLPT・JFT-Basicいずれか）</li>
+        </ul>
+      </li>
+      <li>受入企業として登録するためには、当社が定める企業情報を登録し、当社の審査を受ける必要があります。</li>
+      <li>登録支援機関として登録するためには、登録支援機関番号その他当社が定める情報を提出する必要があります。</li>
+      <li>虚偽の情報を登録した場合、当社は当該アカウントの利用を停止または削除することができます。</li>
+      <li>登録者は、登録情報に変更が生じた場合、速やかに更新する義務を負います。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s4">
+    <div class="section-title"><span class="section-num">第4条</span>禁止事項</div>
+    <div class="article-text">利用者は、本サービスの利用にあたり、以下の行為を行ってはなりません。</div>
+    <ol class="article-list">
+      <li>虚偽の情報を登録し、または第三者を欺く行為</li>
+      <li>本サービスを通じて知り得た情報を、マッチング目的以外で使用する行為</li>
+      <li>当社の許可なく、本サービス外での採用交渉を行う行為</li>
+      <li>本サービスのシステムに不正アクセスし、または障害を与える行為</li>
+      <li>他の利用者の個人情報を無断で収集・利用する行為</li>
+      <li>求職者への差別的取り扱い、ハラスメントその他人権侵害にあたる行為</li>
+      <li>法令、本規約または公序良俗に違反する行為</li>
+      <li>当社または第三者の知的財産権を侵害する行為</li>
+      <li>その他当社が不適切と判断する行為</li>
+    </ol>
+    <div class="warn-box">禁止事項に違反した場合、当社はアカウントの停止・削除、損害賠償の請求その他の措置を取ることができます。</div>
+  </div>
+
+  <div class="article-section" id="s5">
+    <div class="section-title"><span class="section-num">第5条</span>料金・支払い</div>
+    <ol class="article-list">
+      <li>求職者による本サービスの利用は、登録から採用確定まで完全無料です。</li>
+      <li>受入企業は、マッチング成立（採用確定）時に以下のマッチング手数料を支払う義務を負います。
+        <ul class="article-sublist">
+          <li>自社の登録支援機関を利用する場合：金30,000円（消費税別）= 金33,000円（消費税込）/ 1名</li>
+          <li>当社を登録支援機関として利用する場合：マッチング手数料無料・一時金300,000円（消費税別）/ 1名・支援委託費23,000円（消費税別）/ 月・1名</li>
+        </ul>
+      </li>
+      <li>マッチング手数料の支払い方法は銀行振込のみとします。採用確定後に当社が発行する請求書に記載の口座へお振り込みください。</li>
+      <li>振込報告後、当社が入金を確認した時点で求職者の個人情報（氏名・メールアドレス・SNS連絡先・在留カード・パスポート・合格証写真）が受入企業に開示されます。</li>
+      <li>一度支払われたマッチング手数料は、原則として返金されません。ただし、当社の責に帰すべき事由により採用が不成立となった場合はこの限りではありません。</li>
+      <li>マッチング手数料は採用確定後30日以内にお支払いください。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s6">
+    <div class="section-title"><span class="section-num">第6条</span>情報ロック・開示</div>
+    <ol class="article-list">
+      <li>求職者の以下の情報は、受入企業によるマッチング手数料の支払い完了・当社の承認まで、受入企業に開示されません。
+        <ul class="article-sublist">
+          <li>氏名（フルネーム）</li>
+          <li>メールアドレス</li>
+          <li>SNS連絡先URL（WhatsApp・LINE・Facebook等）</li>
+          <li>在留カード写真（表・裏）</li>
+          <li>パスポート写真</li>
+          <li>技能評価試験合格証写真</li>
+        </ul>
+      </li>
+      <li>支払い前に受入企業が閲覧できる情報は、希望職種・希望地域・日本語レベル・技能評価試験の結果・自己PRのみです。選考および面談は管理番号（TL-YYYY-NNNN形式）で行われます。</li>
+      <li>当社の入金確認・承認後、直ちに上記情報が受入企業に開示されます。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s7">
+    <div class="section-title"><span class="section-num">第7条</span>紹介報酬</div>
+    <ol class="article-list">
+      <li>登録支援機関が代理登録した求職者が採用確定し、かつ受入企業からのマッチング手数料の入金が確認された場合、当社は当該登録支援機関に対して紹介報酬を支払います。</li>
+      <li>紹介報酬の金額は、金20,000円（消費税別）= 金22,000円（消費税込）/ 1名とします。</li>
+      <li>紹介報酬の振込期限は、マッチング手数料の入金確認月の翌月末日とします。</li>
+      <li>紹介報酬は、登録支援機関があらかじめ本サービスに登録した銀行口座に振り込まれます。</li>
+      <li>求人の代理投稿のみを行った場合（求職者の代理登録を行っていない場合）は、紹介報酬の対象外です。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s8">
+    <div class="section-title"><span class="section-num">第8条</span>個人情報の取り扱い</div>
+    <div class="article-text">当社は、本サービスを通じて取得した個人情報を、別途定める「プライバシーポリシー」に従い適切に管理・取り扱います。</div>
+    <ol class="article-list">
+      <li>求職者の個人情報（氏名・連絡先・書類写真等）は、マッチング手数料の支払い完了まで受入企業に提供されません。</li>
+      <li>当社は、在留カード・パスポートその他の書類情報を、SSL暗号化通信により送受信し、厳重に管理します。</li>
+      <li>当社は、法令に基づく場合を除き、利用者の同意なく第三者に個人情報を提供しません。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s9">
+    <div class="section-title"><span class="section-num">第9条</span>免責事項</div>
+    <ol class="article-list">
+      <li>当社は、本サービスを通じてマッチングした求職者と受入企業の間で生じたトラブル（労働条件・就労環境・雇用契約の内容等に関するもの）について、法令に定める場合を除き、責任を負いません。</li>
+      <li>当社は、求職者が提出した書類の真正性・有効性について最善の確認を行いますが、その完全な保証はできません。</li>
+      <li>当社は、天災・感染症・通信障害その他不可抗力によるサービスの停止・遅延について責任を負いません。</li>
+      <li>当社は、本サービスを通じて受入企業に開示された求職者情報が第三者に漏洩した場合（受入企業側の管理不備による場合を含む）、当社の責に帰すべき事由がない限り責任を負いません。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s10">
+    <div class="section-title"><span class="section-num">第10条</span>サービスの変更・停止</div>
+    <ol class="article-list">
+      <li>当社は、利用者への事前通知なく本サービスの内容を変更することがあります。</li>
+      <li>当社は、以下の場合に本サービスの全部または一部を一時停止することがあります。
+        <ul class="article-sublist">
+          <li>システムの保守・点検を行う場合</li>
+          <li>天災・障害その他の緊急事態が発生した場合</li>
+          <li>その他やむを得ない事由がある場合</li>
+        </ul>
+      </li>
+      <li>当社は、本サービスを廃止する場合、原則として30日以上前に利用者に通知します。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s11">
+    <div class="section-title"><span class="section-num">第11条</span>登録の取消し</div>
+    <ol class="article-list">
+      <li>利用者は、当社所定の方法により、いつでも本サービスの登録を取り消すことができます。</li>
+      <li>当社は、利用者が以下のいずれかに該当する場合、事前通知なく登録を取り消すことがあります。
+        <ul class="article-sublist">
+          <li>本規約に違反した場合</li>
+          <li>登録情報に虚偽があることが判明した場合</li>
+          <li>長期間にわたり本サービスを利用しない場合</li>
+          <li>その他当社が不適切と判断した場合</li>
+        </ul>
+      </li>
+      <li>登録取消し後も、取消し前に成立したマッチングに係る支払い義務は消滅しません。</li>
+    </ol>
+  </div>
+
+  <div class="article-section" id="s12">
+    <div class="section-title"><span class="section-num">第12条</span>準拠法・管轄裁判所</div>
+    <ol class="article-list">
+      <li>本規約は日本法に準拠し、日本法に従って解釈されます。</li>
+      <li>本サービスに関連して利用者と当社の間で生じた紛争については、福岡地方裁判所を第一審の専属的合意管轄裁判所とします。</li>
+    </ol>
+  </div>
+
+  <div style="border-top:0.5px solid var(--border);padding-top:1.5rem;margin-top:1rem;font-size:13px;color:var(--text-tertiary)">
+    <div style="font-weight:500;color:var(--text-secondary);margin-bottom:4px">附則</div>
+    本規約は2026年4月1日より施行します。
+  </div>
+</div>
+
+<footer class="footer">
+  © 2026 株式会社スマイルリンク・ソリューションズ<br>
+  有料職業紹介事業許可番号：40-ユ-301675　登録支援機関番号：25登-012327<br>
+  〒839-0809 福岡県久留米市六ツ門町17番地23 橘センタービル401号　TEL：0942-35-8050
+</footer>
+</body>
+</html>
