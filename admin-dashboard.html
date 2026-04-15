@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理者ダッシュボード | トクテイリンク Tokutei-Link</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#1D9E75;--green-dark:#0F6E56;--green-darker:#085041;--green-light:#E1F5EE;--green-border:#5DCAA5;--blue:#185FA5;--blue-dark:#0C447C;--blue-light:#E6F1FB;--blue-border:#85B7EB;--amber:#EF9F27;--amber-light:#FAEEDA;--amber-dark:#633806;--red:#E24B4A;--red-light:#FCEBEB;--red-dark:#A32D2D;--gray-bg:#F7F6F3;--gray-light:#F1EFE8;--text-primary:#1a1918;--text-secondary:#5a5855;--text-tertiary:#999794;--border:rgba(0,0,0,0.10);--border-md:rgba(0,0,0,0.18);--radius-sm:6px;--radius-md:8px;--radius-lg:12px}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:'Noto Sans JP','Noto Sans',sans-serif;color:var(--text-primary);background:var(--gray-bg);line-height:1.6;display:flex;min-height:100vh}
+
+    /* SIDENAV */
+    .sidenav{width:220px;background:#1a1918;display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:50}
+    .sidenav-logo{padding:1.25rem 1.25rem 1rem;border-bottom:0.5px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px}
+    .logo-icon{width:32px;height:32px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .logo-text{font-size:13px;font-weight:500;color:#fff}
+    .logo-sub{font-size:10px;color:rgba(255,255,255,0.4)}
+    .sidenav-section{padding:.875rem 1rem .3rem;font-size:10px;font-weight:500;color:rgba(255,255,255,0.3);letter-spacing:.07em;text-transform:uppercase}
+    .sidenav-item{display:flex;align-items:center;gap:10px;padding:.625rem 1rem;font-size:13px;color:rgba(255,255,255,0.55);cursor:pointer;border-radius:var(--radius-md);margin:1px .5rem;transition:background .12s}
+    .sidenav-item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.85)}
+    .sidenav-item.active{background:var(--green);color:#fff;font-weight:500}
+    .sidenav-item svg{opacity:.7;flex-shrink:0}
+    .sidenav-item.active svg{opacity:1}
+    .nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:500;padding:1px 7px;border-radius:20px;min-width:20px;text-align:center}
+    .nav-badge-amber{margin-left:auto;background:var(--amber-light);color:var(--amber-dark);font-size:10px;font-weight:500;padding:1px 7px;border-radius:20px}
+    .sidenav-footer{margin-top:auto;padding:1rem;border-top:0.5px solid rgba(255,255,255,0.08)}
+    .admin-profile{display:flex;align-items:center;gap:8px}
+    .admin-avatar{width:30px;height:30px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#fff;flex-shrink:0}
+
+    /* MAIN */
+    .main{margin-left:220px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+    .topbar{background:#fff;border-bottom:0.5px solid var(--border);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .topbar-title{font-size:16px;font-weight:500;white-space:nowrap}
+    .topbar-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .notif-btn{width:34px;height:34px;border-radius:var(--radius-md);border:0.5px solid var(--border-md);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;flex-shrink:0}
+    .notif-dot{width:8px;height:8px;background:var(--red);border-radius:50%;position:absolute;top:6px;right:6px;border:1.5px solid #fff}
+    .btn{padding:8px 16px;font-size:12px;font-weight:500;border:none;border-radius:var(--radius-md);cursor:pointer;font-family:inherit;white-space:nowrap}
+    .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green-dark)}
+    .btn-outline{background:transparent;border:0.5px solid var(--border-md);color:var(--text-secondary)}.btn-outline:hover{background:var(--gray-bg)}
+    .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-dark)}
+    .btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-dark)}
+    .content{padding:1.5rem;flex:1}
+
+    /* KPI */
+    .kpi-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+    .kpi-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem}
+    .kpi-label{font-size:10px;color:var(--text-tertiary);margin-bottom:4px}
+    .kpi-val{font-size:24px;font-weight:500;line-height:1;margin-bottom:3px}
+    .kpi-sub{font-size:11px;color:var(--text-secondary)}
+    .kpi-up{color:var(--green-dark);font-size:11px}
+
+    /* CARDS */
+    .card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:10px;border-bottom:0.5px solid var(--border)}
+    .card-title{font-size:14px;font-weight:500;display:flex;align-items:center;gap:7px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    /* BADGE / STATUS */
+    .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500}
+    .badge-green{background:var(--green-light);color:var(--green-darker)}
+    .badge-blue{background:var(--blue-light);color:var(--blue-dark)}
+    .badge-gray{background:var(--gray-light);color:#444441}
+    .badge-amber{background:var(--amber-light);color:var(--amber-dark)}
+    .badge-red{background:var(--red-light);color:var(--red-dark)}
+    .sp{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+    .sp .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+    .sp-pending{background:var(--amber-light);color:var(--amber-dark)}.sp-pending .dot{background:var(--amber)}
+    .sp-approved{background:var(--green-light);color:var(--green-dark)}.sp-approved .dot{background:var(--green)}
+    .sp-rejected{background:var(--red-light);color:var(--red-dark)}.sp-rejected .dot{background:var(--red)}
+    .sp-active{background:var(--green-light);color:var(--green-dark)}.sp-active .dot{background:var(--green)}
+    .sp-inactive{background:var(--gray-light);color:#444441}.sp-inactive .dot{background:#999}
+    .sp-new{background:var(--blue-light);color:var(--blue-dark)}.sp-new .dot{background:var(--blue)}
+    .sp-paid{background:#EAF3DE;color:#27500A}.sp-paid .dot{background:#639922}
+    .sp-waiting{background:var(--amber-light);color:var(--amber-dark)}.sp-waiting .dot{background:var(--amber)}
+
+    /* TABLE */
+    .table-wrap{overflow:hidden}
+    table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+    thead{background:var(--gray-bg)}
+    th{padding:8px 10px;text-align:left;font-size:11px;font-weight:500;color:var(--text-secondary);border-bottom:0.5px solid var(--border);white-space:nowrap}
+    td{padding:9px 10px;border-bottom:0.5px solid var(--border);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--gray-bg)}
+    .abt{padding:4px 10px;font-size:11px;border:0.5px solid var(--border-md);border-radius:var(--radius-sm);background:transparent;color:var(--text-secondary);cursor:pointer;white-space:nowrap;font-family:inherit;margin-right:3px}
+    .abt:hover{background:var(--gray-bg)}
+    .abt-g{border-color:var(--green-border);color:var(--green-dark)}.abt-g:hover{background:var(--green-light)}
+    .abt-b{border-color:var(--blue-border);color:var(--blue)}.abt-b:hover{background:var(--blue-light)}
+    .abt-r{border-color:#F09595;color:var(--red-dark)}.abt-r:hover{background:var(--red-light)}
+
+    /* NOTICE */
+    .notice-amber{background:var(--amber-light);border:0.5px solid var(--amber);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--amber-dark);line-height:1.7;display:flex;align-items:flex-start;gap:8px;margin-bottom:12px}
+
+    /* TABS */
+    .tab-bar{display:flex;gap:2px;background:var(--gray-bg);border-radius:var(--radius-md);padding:3px;margin-bottom:1.25rem}
+    .tab-btn{padding:7px 14px;font-size:12px;font-weight:500;border:none;border-radius:var(--radius-sm);background:transparent;color:var(--text-secondary);cursor:pointer;font-family:inherit;white-space:nowrap}
+    .tab-btn.active{background:#fff;color:var(--text-primary);border:0.5px solid var(--border)}
+    .tab-content{display:none}.tab-content.active{display:block}
+
+    /* MODAL */
+    .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1.5rem}
+    .modal-bg.show{display:flex}
+    .modal{background:#fff;border-radius:var(--radius-lg);padding:1.75rem;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+    .modal-title{font-size:15px;font-weight:500;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+    .modal-close{border:none;background:transparent;font-size:18px;cursor:pointer;color:var(--text-secondary)}
+    .modal-row{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:0.5px solid var(--border)}
+    .modal-row:last-child{border-bottom:none}
+    .modal-btns{display:flex;gap:8px;margin-top:1.25rem}
+    .modal-btns button{flex:1}
+    .info-box{background:var(--blue-light);border:0.5px solid var(--blue-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--blue-dark);line-height:1.7;margin-bottom:12px}
+  </style>
+</head>
+<body>
+
+<!-- SIDENAV -->
+<nav class="sidenav">
+  <div class="sidenav-logo">
+    <div class="logo-icon"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 2L13 7H17L14 11L15.5 16L10 13L4.5 16L6 11L3 7H7L10 2Z" fill="white" opacity="0.9"/></svg></div>
+    <div><div class="logo-text">トクテイリンク</div><div class="logo-sub">管理者パネル</div></div>
+  </div>
+
+  <div class="sidenav-section">概要</div>
+  <div class="sidenav-item active" onclick="switchTab('dashboard',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+    ダッシュボード
+  </div>
+
+  <div class="sidenav-section">審査・承認</div>
+  <div class="sidenav-item" onclick="switchTab('jobseekers',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="5.5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 13.5c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    求職者管理
+    <span class="nav-badge">3</span>
+  </div>
+  <div class="sidenav-item" onclick="switchTab('companies',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="3.5" width="11" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M2 7.5h11M6 3.5V2m3 1.5V2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    企業アカウント管理
+    <span class="nav-badge">2</span>
+  </div>
+  <div class="sidenav-item" onclick="switchTab('jobs',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="2" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 7.5h5M5 5.5h5M5 9.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    求人掲載管理
+  </div>
+  <div class="sidenav-item" onclick="switchTab('payment',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 7h13M5 7v5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="11" cy="10.5" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+    入金確認・承認
+    <span class="nav-badge">2</span>
+  </div>
+  <div class="sidenav-item" onclick="switchTab('referral',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1.5l1.5 3.5 3.5.5-2.5 2.5.6 3.5L7.5 9.5l-3.1 2 .6-3.5L2.5 5.5l3.5-.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+    紹介報酬管理
+    <span class="nav-badge-amber">1</span>
+  </div>
+
+  <div class="sidenav-section">管理</div>
+  <div class="sidenav-item" onclick="switchTab('agencies',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="2" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 7h5M5 9.5h3M5 4.5h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    登録支援機関管理
+  </div>
+  <div class="sidenav-item" onclick="switchTab('settings',this)">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M7.5 1v1.5M7.5 12.5V14M14 7.5h-1.5M2.5 7.5H1M12 3l-1 1M4 11l-1 1M12 12l-1-1M4 4l-1-1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    システム設定
+  </div>
+
+  <div class="sidenav-footer">
+    <div class="admin-profile">
+      <div class="admin-avatar">管</div>
+      <div><div style="font-size:12px;font-weight:500;color:#fff">管理者</div><div style="font-size:10px;color:rgba(255,255,255,0.4)">SmileLink admin</div></div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div id="topbar-title" class="topbar-title">ダッシュボード</div>
+    <div class="topbar-right">
+      <div style="font-size:12px;color:var(--text-secondary)">2026年4月15日（水）</div>
+      <button class="notif-btn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1.5C5 1.5 3 3.5 3 6v3L1.5 11h12L12 9V6C12 3.5 10 1.5 7.5 1.5z" stroke="currentColor" stroke-width="1.2"/><path d="M6 11v.5a1.5 1.5 0 0 0 3 0V11" stroke="currentColor" stroke-width="1.2"/></svg><div class="notif-dot"></div></button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== ダッシュボード ===== -->
+    <div id="tab-dashboard" class="tab-content active">
+      <!-- KPI -->
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label">登録求職者数</div><div class="kpi-val" style="color:var(--green)">137名</div><div class="kpi-up">↑ 今月 +12名</div></div>
+        <div class="kpi-card"><div class="kpi-label">登録企業数</div><div class="kpi-val">48社</div><div class="kpi-sub kpi-up">↑ 今月 +3社</div></div>
+        <div class="kpi-card"><div class="kpi-label">公開中求人</div><div class="kpi-val">64件</div><div class="kpi-sub">うち応募受付中 58件</div></div>
+        <div class="kpi-card"><div class="kpi-label">採用確定（累計）</div><div class="kpi-val" style="color:var(--green-dark)">61名</div><div class="kpi-up">↑ 今月 +4名</div></div>
+        <div class="kpi-card"><div class="kpi-label">今月売上</div><div class="kpi-val" style="color:var(--blue)">¥132,000</div><div class="kpi-sub">4件 × ¥33,000</div></div>
+      </div>
+
+      <!-- 要対応バナー -->
+      <div class="notice-amber">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="7.5" cy="7.5" r="6" stroke="#854F0B" stroke-width="1.2"/><path d="M7.5 4.5v4M7.5 10v.5" stroke="#854F0B" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div><span style="font-weight:500">要対応の作業があります：</span>書類審査待ち <strong>3名</strong>、企業審査待ち <strong>2社</strong>、入金確認待ち <strong>2件</strong>、紹介報酬送金待ち <strong>1件</strong></div>
+      </div>
+
+      <div class="grid2" style="gap:12px;margin-bottom:12px">
+        <!-- 書類審査待ち -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="3" stroke="#1D9E75" stroke-width="1.2"/><path d="M1 13c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>書類審査待ち</div>
+            <button class="abt" onclick="switchTab('jobseekers',document.querySelector('[onclick*=jobseekers]'))">すべて →</button>
+          </div>
+          <table style="table-layout:auto">
+            <colgroup><col style="width:32%"><col style="width:28%"><col style="width:20%"><col></colgroup>
+            <thead><tr><th>管理番号</th><th>希望職種</th><th>登録日</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">TL-2026-0055</td><td><span class="badge badge-green">介護</span></td><td style="font-size:11px">04/15</td><td><button class="abt abt-g" onclick="showReviewModal('TL-2026-0055')">審査</button></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0054</td><td><span class="badge badge-green">建設</span></td><td style="font-size:11px">04/14</td><td><button class="abt abt-g" onclick="showReviewModal('TL-2026-0054')">審査</button></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0053</td><td><span class="badge badge-green">農業</span></td><td style="font-size:11px">04/13</td><td><button class="abt abt-g" onclick="showReviewModal('TL-2026-0053')">審査</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 入金確認待ち -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8.5" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M1 6.5h12M5 6.5v5" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>入金確認・承認待ち</div>
+            <button class="abt" onclick="switchTab('payment',document.querySelector('[onclick*=payment]'))">すべて →</button>
+          </div>
+          <table style="table-layout:auto">
+            <colgroup><col style="width:28%"><col style="width:28%"><col style="width:20%"><col></colgroup>
+            <thead><tr><th>採用者番号</th><th>企業名</th><th>金額</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">TL-2026-0042</td><td style="font-size:11px">サンシャインケア</td><td style="font-size:12px;font-weight:500;color:var(--amber-dark)">¥33,000</td><td><button class="abt abt-g" onclick="showPaymentApproveModal('TL-2026-0042')">承認</button></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0039</td><td style="font-size:11px">大阪建設工業</td><td style="font-size:12px;font-weight:500;color:var(--amber-dark)">¥33,000</td><td><button class="abt abt-g" onclick="showPaymentApproveModal('TL-2026-0039')">承認</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 月次チャート（簡易） -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12V6l3-3 3 4 3-5 1 8" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>月次推移（採用確定数・売上）</div>
+          <span style="font-size:11px;color:var(--text-tertiary)">直近6ヶ月</span>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:10px;height:120px;padding:0 0.5rem">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+            <div style="font-size:10px;color:var(--text-tertiary)">¥66k</div>
+            <div style="width:100%;background:var(--green-light);border-radius:4px 4px 0 0;flex:0 0 40px;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:500;color:var(--green-dark)">2</span></div>
+            <div style="font-size:10px;color:var(--text-tertiary)">11月</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+            <div style="font-size:10px;color:var(--text-tertiary)">¥99k</div>
+            <div style="width:100%;background:var(--green-light);border-radius:4px 4px 0 0;flex:0 0 60px;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:500;color:var(--green-dark)">3</span></div>
+            <div style="font-size:10px;color:var(--text-tertiary)">12月</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+            <div style="font-size:10px;color:var(--text-tertiary)">¥66k</div>
+            <div style="width:100%;background:var(--green-light);border-radius:4px 4px 0 0;flex:0 0 40px;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:500;color:var(--green-dark)">2</span></div>
+            <div style="font-size:10px;color:var(--text-tertiary)">1月</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+            <div style="font-size:10px;color:var(--text-tertiary)">¥132k</div>
+            <div style="width:100%;background:var(--green);border-radius:4px 4px 0 0;flex:0 0 80px;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:500;color:#fff">4</span></div>
+            <div style="font-size:10px;color:var(--text-tertiary)">2月</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+            <div style="font-size:10px;color:var(--text-tertiary)">¥99k</div>
+            <div style="width:100%;background:var(--green-light);border-radius:4px 4px 0 0;flex:0 0 60px;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:500;color:var(--green-dark)">3</span></div>
+            <div style="font-size:10px;color:var(--text-tertiary)">3月</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+            <div style="font-size:10px;color:var(--text-tertiary)">¥132k</div>
+            <div style="width:100%;background:var(--blue);border-radius:4px 4px 0 0;flex:0 0 80px;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:500;color:#fff">4</span></div>
+            <div style="font-size:10px;color:var(--text-secondary);font-weight:500">4月</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:8px;font-size:11px;color:var(--text-secondary)">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--green);display:inline-block"></span>今月</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--blue);display:inline-block"></span>今月（確定分）</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 求職者管理 ===== -->
+    <div id="tab-jobseekers" class="tab-content">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+        <div><div style="font-size:16px;font-weight:500">求職者管理</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px">登録求職者 137名 / 書類審査待ち 3名</div></div>
+      </div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchSubTab('js-pending',this)">審査待ち <span style="background:var(--red);color:#fff;padding:1px 6px;border-radius:10px;font-size:10px;margin-left:4px">3</span></button>
+        <button class="tab-btn" onclick="switchSubTab('js-approved',this)">承認済み</button>
+        <button class="tab-btn" onclick="switchSubTab('js-rejected',this)">却下済み</button>
+      </div>
+
+      <div id="sub-js-pending">
+        <div class="card table-wrap">
+          <table>
+            <colgroup><col style="width:14%"><col style="width:12%"><col style="width:12%"><col style="width:14%"><col style="width:14%"><col style="width:12%"><col style="width:22%"></colgroup>
+            <thead><tr><th>管理番号</th><th>希望職種</th><th>日本語</th><th>技能試験</th><th>登録支援機関</th><th>登録日</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr style="background:rgba(250,238,218,0.25)">
+                <td style="font-weight:500">TL-2026-0055</td>
+                <td><span class="badge badge-green">介護</span></td>
+                <td><span class="badge badge-gray">N3</span></td>
+                <td><span class="badge badge-green">合格済み</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">ジャカルタ人材</td>
+                <td style="font-size:11px">04/15</td>
+                <td>
+                  <button class="abt abt-b" onclick="showReviewModal('TL-2026-0055')">書類確認</button>
+                  <button class="abt abt-g" onclick="approveJobseeker(this)">承認</button>
+                  <button class="abt abt-r">却下</button>
+                </td>
+              </tr>
+              <tr style="background:rgba(250,238,218,0.25)">
+                <td style="font-weight:500">TL-2026-0054</td>
+                <td><span class="badge badge-green">建設</span></td>
+                <td><span class="badge badge-gray">N3</span></td>
+                <td><span class="badge badge-green">実習2号修了</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">自己登録</td>
+                <td style="font-size:11px">04/14</td>
+                <td>
+                  <button class="abt abt-b" onclick="showReviewModal('TL-2026-0054')">書類確認</button>
+                  <button class="abt abt-g" onclick="approveJobseeker(this)">承認</button>
+                  <button class="abt abt-r">却下</button>
+                </td>
+              </tr>
+              <tr style="background:rgba(250,238,218,0.25)">
+                <td style="font-weight:500">TL-2026-0053</td>
+                <td><span class="badge badge-green">農業</span></td>
+                <td><span class="badge badge-gray">JFT-Basic</span></td>
+                <td><span class="badge badge-amber">試験予定</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">バリ島ケア支援</td>
+                <td style="font-size:11px">04/13</td>
+                <td>
+                  <button class="abt abt-b" onclick="showReviewModal('TL-2026-0053')">書類確認</button>
+                  <button class="abt abt-g" onclick="approveJobseeker(this)">承認</button>
+                  <button class="abt abt-r">却下</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="sub-js-approved" style="display:none">
+        <div class="card table-wrap">
+          <table>
+            <colgroup><col style="width:14%"><col style="width:12%"><col style="width:12%"><col style="width:14%"><col style="width:14%"><col style="width:12%"><col style="width:22%"></colgroup>
+            <thead><tr><th>管理番号</th><th>希望職種</th><th>日本語</th><th>技能試験</th><th>登録支援機関</th><th>承認日</th><th>ステータス</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">TL-2026-0052</td><td><span class="badge badge-green">介護</span></td><td><span class="badge badge-gray">N4</span></td><td><span class="badge badge-green">合格済み</span></td><td style="font-size:11px;color:var(--text-secondary)">自己登録</td><td style="font-size:11px">04/12</td><td><span class="sp sp-active"><span class="dot"></span>掲載中</span></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0051</td><td><span class="badge badge-green">介護</span></td><td><span class="badge badge-gray">N3</span></td><td><span class="badge badge-green">実習2号修了</span></td><td style="font-size:11px;color:var(--text-secondary)">ジャカルタ人材</td><td style="font-size:11px">04/11</td><td><span class="sp sp-active"><span class="dot"></span>応募中</span></td></tr>
+              <tr><td style="font-weight:500">TL-2026-0042</td><td><span class="badge badge-green">介護</span></td><td><span class="badge badge-gray">N3</span></td><td><span class="badge badge-green">合格済み</span></td><td style="font-size:11px;color:var(--text-secondary)">ジャカルタ人材</td><td style="font-size:11px">04/08</td><td><span class="sp sp-paid"><span class="dot"></span>採用確定</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="sub-js-rejected" style="display:none">
+        <div style="text-align:center;padding:3rem;color:var(--text-tertiary);font-size:13px">却下済みの求職者はいません</div>
+      </div>
+    </div>
+
+    <!-- ===== 企業アカウント管理 ===== -->
+    <div id="tab-companies" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">企業アカウント管理</div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchSubTab('co-pending',this)">審査待ち <span style="background:var(--red);color:#fff;padding:1px 6px;border-radius:10px;font-size:10px;margin-left:4px">2</span></button>
+        <button class="tab-btn" onclick="switchSubTab('co-approved',this)">承認済み</button>
+      </div>
+      <div id="sub-co-pending">
+        <div class="card table-wrap">
+          <table>
+            <colgroup><col style="width:22%"><col style="width:14%"><col style="width:16%"><col style="width:14%"><col style="width:14%"><col style="width:20%"></colgroup>
+            <thead><tr><th>会社名</th><th>業種</th><th>担当者名</th><th>登録支援機関</th><th>申請日</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr style="background:rgba(250,238,218,0.25)">
+                <td><div style="font-weight:500;font-size:13px">株式会社東京メディカル</div><div style="font-size:10px;color:var(--text-tertiary)">東京都新宿区</div></td>
+                <td><span class="badge badge-green">介護</span></td>
+                <td style="font-size:12px">鈴木 一郎</td>
+                <td style="font-size:11px;color:var(--text-secondary)">スマイルリンク</td>
+                <td style="font-size:11px">04/14</td>
+                <td>
+                  <button class="abt abt-b" onclick="showCompanyModal()">詳細確認</button>
+                  <button class="abt abt-g" onclick="approveCompany(this)">承認</button>
+                  <button class="abt abt-r">却下</button>
+                </td>
+              </tr>
+              <tr style="background:rgba(250,238,218,0.25)">
+                <td><div style="font-weight:500;font-size:13px">福岡農業株式会社</div><div style="font-size:10px;color:var(--text-tertiary)">福岡県久留米市</div></td>
+                <td><span class="badge badge-green">農業</span></td>
+                <td style="font-size:12px">山田 花子</td>
+                <td style="font-size:11px;color:var(--text-secondary)">自社登録支援</td>
+                <td style="font-size:11px">04/13</td>
+                <td>
+                  <button class="abt abt-b" onclick="showCompanyModal()">詳細確認</button>
+                  <button class="abt abt-g" onclick="approveCompany(this)">承認</button>
+                  <button class="abt abt-r">却下</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="sub-co-approved" style="display:none">
+        <div class="card table-wrap">
+          <table>
+            <colgroup><col style="width:24%"><col style="width:12%"><col style="width:14%"><col style="width:12%"><col style="width:12%"><col style="width:13%"><col style="width:13%"></colgroup>
+            <thead><tr><th>会社名</th><th>業種</th><th>登録支援機関</th><th>掲載求人数</th><th>採用数</th><th>登録日</th><th>ステータス</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500;font-size:13px">サンシャインケア</td><td><span class="badge badge-green">介護</span></td><td style="font-size:11px">スマイルリンク</td><td style="text-align:center;font-weight:500">2件</td><td style="text-align:center;font-weight:500">2名</td><td style="font-size:11px">03/20</td><td><span class="sp sp-active"><span class="dot"></span>有効</span></td></tr>
+              <tr><td style="font-weight:500;font-size:13px">大阪建設工業</td><td><span class="badge badge-green">建設</span></td><td style="font-size:11px">自社</td><td style="text-align:center;font-weight:500">1件</td><td style="text-align:center;font-weight:500">0名</td><td style="font-size:11px">03/15</td><td><span class="sp sp-active"><span class="dot"></span>有効</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 求人掲載管理 ===== -->
+    <div id="tab-jobs" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">求人掲載管理</div>
+      <div class="card table-wrap">
+        <table>
+          <colgroup><col style="width:26%"><col style="width:14%"><col style="width:14%"><col style="width:10%"><col style="width:10%"><col style="width:12%"><col style="width:14%"></colgroup>
+          <thead><tr><th>求人タイトル</th><th>企業名</th><th>職種</th><th>募集数</th><th>応募数</th><th>ステータス</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td><div style="font-weight:500;font-size:13px">介護スタッフ（特定技能1号）</div><div style="font-size:10px;color:var(--text-tertiary)">TL-JOB-0042</div></td><td style="font-size:12px">サンシャインケア</td><td><span class="badge badge-green">介護</span></td><td style="text-align:center;font-weight:500">3</td><td style="text-align:center;font-weight:500">7</td><td><span class="sp sp-active"><span class="dot"></span>掲載中</span></td><td><button class="abt abt-b">詳細</button><button class="abt abt-r">非公開</button></td></tr>
+            <tr><td><div style="font-weight:500;font-size:13px">建設作業員（鉄筋・型枠）</div><div style="font-size:10px;color:var(--text-tertiary)">TL-JOB-0041</div></td><td style="font-size:12px">大阪建設工業</td><td><span class="badge badge-green">建設</span></td><td style="text-align:center;font-weight:500">4</td><td style="text-align:center;font-weight:500">3</td><td><span class="sp sp-active"><span class="dot"></span>掲載中</span></td><td><button class="abt abt-b">詳細</button><button class="abt abt-r">非公開</button></td></tr>
+            <tr><td><div style="font-weight:500;font-size:13px">食品製造スタッフ</div><div style="font-size:10px;color:var(--text-tertiary)">TL-JOB-0040</div></td><td style="font-size:12px">東洋フード工業</td><td><span class="badge badge-green">飲食料品製造</span></td><td style="text-align:center;font-weight:500">5</td><td style="text-align:center;font-weight:500">2</td><td><span class="sp sp-active"><span class="dot"></span>掲載中</span></td><td><button class="abt abt-b">詳細</button><button class="abt abt-r">非公開</button></td></tr>
+            <tr><td><div style="font-weight:500;font-size:13px">ホテルスタッフ（フロント）</div><div style="font-size:10px;color:var(--text-tertiary)">TL-JOB-0035</div></td><td style="font-size:12px">北海道リゾートホテル</td><td><span class="badge badge-green">宿泊</span></td><td style="text-align:center;font-weight:500">2</td><td style="text-align:center;font-weight:500">5</td><td><span class="sp sp-inactive"><span class="dot"></span>締切済</span></td><td><button class="abt abt-b">詳細</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 入金確認・承認 ===== -->
+    <div id="tab-payment" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">入金確認・承認</div>
+      <div class="info-box">
+        <div style="font-weight:500;margin-bottom:3px;font-size:12px">入金承認フロー</div>
+        企業が振込報告を送信 → 管理者が入金を確認 → 「承認」ボタンをクリック → 求職者の個人情報・書類写真が企業に開示されます。
+      </div>
+      <div class="card table-wrap">
+        <table>
+          <colgroup><col style="width:14%"><col style="width:16%"><col style="width:14%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:20%"></colgroup>
+          <thead><tr><th>採用者番号</th><th>企業名</th><th>採用求人</th><th>振込報告日</th><th>振込金額</th><th>ステータス</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr style="background:rgba(250,238,218,0.25)">
+              <td style="font-weight:500">TL-2026-0042</td>
+              <td style="font-size:12px;font-weight:500">サンシャインケア</td>
+              <td style="font-size:11px;color:var(--text-secondary)">介護スタッフ（1号）</td>
+              <td style="font-size:11px">04/14</td>
+              <td style="font-size:12px;font-weight:500;color:var(--amber-dark)">¥33,000</td>
+              <td><span class="sp sp-waiting"><span class="dot"></span>確認待ち</span></td>
+              <td>
+                <button class="abt abt-b" onclick="showPaymentApproveModal('TL-2026-0042')">詳細確認</button>
+                <button class="abt abt-g" onclick="approvePayment(this)">承認・開示</button>
+              </td>
+            </tr>
+            <tr style="background:rgba(250,238,218,0.25)">
+              <td style="font-weight:500">TL-2026-0039</td>
+              <td style="font-size:12px;font-weight:500">大阪建設工業</td>
+              <td style="font-size:11px;color:var(--text-secondary)">建設作業員（1号・2号）</td>
+              <td style="font-size:11px">04/13</td>
+              <td style="font-size:12px;font-weight:500;color:var(--amber-dark)">¥33,000</td>
+              <td><span class="sp sp-waiting"><span class="dot"></span>確認待ち</span></td>
+              <td>
+                <button class="abt abt-b" onclick="showPaymentApproveModal('TL-2026-0039')">詳細確認</button>
+                <button class="abt abt-g" onclick="approvePayment(this)">承認・開示</button>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">TL-2026-0031</td>
+              <td style="font-size:12px;font-weight:500">サンシャインケア</td>
+              <td style="font-size:11px;color:var(--text-secondary)">介護スタッフ（1号）</td>
+              <td style="font-size:11px">03/22</td>
+              <td style="font-size:12px;font-weight:500">¥33,000</td>
+              <td><span class="sp sp-paid"><span class="dot"></span>承認済み</span></td>
+              <td><button class="abt">詳細</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 紹介報酬管理 ===== -->
+    <div id="tab-referral" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">紹介報酬管理</div>
+      <div class="info-box" style="margin-bottom:1.25rem">
+        <div style="font-weight:500;margin-bottom:3px;font-size:12px">紹介報酬について</div>
+        登録支援機関が代理登録した求職者が採用確定した場合、マッチング手数料（¥33,000税込）の入金確認月の<strong>翌月末まで</strong>に紹介報酬 <strong>¥22,000（税込）</strong> を登録支援機関の登録口座へ振り込みます。
+      </div>
+      <div class="card table-wrap">
+        <table>
+          <colgroup><col style="width:14%"><col style="width:18%"><col style="width:14%"><col style="width:13%"><col style="width:12%"><col style="width:13%"><col style="width:16%"></colgroup>
+          <thead><tr><th>採用者番号</th><th>登録支援機関</th><th>採用企業</th><th>入金確認日</th><th>振込期限</th><th>ステータス</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr style="background:rgba(250,238,218,0.25)">
+              <td style="font-weight:500">TL-2026-0042</td>
+              <td><div style="font-size:12px;font-weight:500">ジャカルタ人材</div><div style="font-size:10px;color:var(--text-tertiary)">25登-099001</div></td>
+              <td style="font-size:11px;color:var(--text-secondary)">サンシャインケア</td>
+              <td style="font-size:11px">2026/04/10</td>
+              <td><span style="font-size:11px;background:var(--amber-light);color:var(--amber-dark);padding:2px 7px;border-radius:20px">5/31</span></td>
+              <td><span class="sp sp-waiting"><span class="dot"></span>振込待ち</span></td>
+              <td>
+                <button class="abt abt-b" onclick="showReferralModal()">詳細確認</button>
+                <button class="abt abt-g" onclick="approveReferral(this)">振込完了</button>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">TL-2026-0031</td>
+              <td><div style="font-size:12px;font-weight:500">ジャカルタ人材</div><div style="font-size:10px;color:var(--text-tertiary)">25登-099001</div></td>
+              <td style="font-size:11px;color:var(--text-secondary)">サンシャインケア</td>
+              <td style="font-size:11px">2026/03/20</td>
+              <td><span style="font-size:11px;color:var(--text-tertiary)">4/30</span></td>
+              <td><span class="sp sp-paid"><span class="dot"></span>振込済み</span></td>
+              <td><button class="abt">詳細</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 登録支援機関管理 ===== -->
+    <div id="tab-agencies" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">登録支援機関管理</div>
+      <div class="card table-wrap">
+        <table>
+          <colgroup><col style="width:22%"><col style="width:16%"><col style="width:14%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:12%"></colgroup>
+          <thead><tr><th>機関名</th><th>登録番号</th><th>担当者名</th><th>代理登録数</th><th>採用確定数</th><th>紹介報酬累計</th><th>ステータス</th></tr></thead>
+          <tbody>
+            <tr><td><div style="font-weight:500;font-size:13px">株式会社ジャカルタ人材サービス</div></td><td style="font-size:11px;color:var(--text-secondary)">25登-099001</td><td style="font-size:12px">田中 誠</td><td style="text-align:center;font-weight:500">18名</td><td style="text-align:center;font-weight:500">7名</td><td style="text-align:right;font-size:12px;font-weight:500;color:var(--green-dark)">¥154,000</td><td><span class="sp sp-active"><span class="dot"></span>有効</span></td></tr>
+            <tr><td><div style="font-weight:500;font-size:13px">バリ島ケア支援事務所</div></td><td style="font-size:11px;color:var(--text-secondary)">25登-099012</td><td style="font-size:12px">山本 京子</td><td style="text-align:center;font-weight:500">9名</td><td style="text-align:center;font-weight:500">3名</td><td style="text-align:right;font-size:12px;font-weight:500;color:var(--green-dark)">¥66,000</td><td><span class="sp sp-active"><span class="dot"></span>有効</span></td></tr>
+            <tr><td><div style="font-weight:500;font-size:13px">スラバヤ就労支援センター</div></td><td style="font-size:11px;color:var(--text-secondary)">25登-099031</td><td style="font-size:12px">佐藤 健</td><td style="text-align:center;font-weight:500">5名</td><td style="text-align:center;font-weight:500">1名</td><td style="text-align:right;font-size:12px;font-weight:500;color:var(--green-dark)">¥22,000</td><td><span class="sp sp-active"><span class="dot"></span>有効</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== システム設定 ===== -->
+    <div id="tab-settings" class="tab-content">
+      <div style="font-size:16px;font-weight:500;margin-bottom:1.25rem">システム設定</div>
+      <div class="grid2" style="gap:12px">
+        <div class="card">
+          <div class="card-header"><div class="card-title">料金設定</div><button class="abt abt-b">編集</button></div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">マッチング手数料（自社登録支援）</span><span style="font-weight:500">¥30,000（税別）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">税込金額</span><span style="font-weight:500">¥33,000</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">紹介報酬</span><span style="font-weight:500">¥20,000（税別）＝¥22,000（税込）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0"><span style="color:var(--text-secondary)">紹介報酬振込期限</span><span style="font-weight:500">入金確認月の翌月末</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">振込先口座</div><button class="abt abt-b">編集</button></div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">銀行名</span><span style="font-weight:500">西日本シティ銀行</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">支店名</span><span style="font-weight:500">杷木支店</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">口座種別</span><span style="font-weight:500">普通預金</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">口座番号</span><span style="font-weight:500">3041431</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0"><span style="color:var(--text-secondary)">口座名義</span><span style="font-weight:500;font-size:11px">カ）スマイルリンク.ソリューションズ</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">運営会社情報</div></div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">会社名</span><span style="font-weight:500">株式会社スマイルリンク・ソリューションズ</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">有料職業紹介</span><span style="font-weight:500">40-ユ-301675</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--text-secondary)">登録支援機関</span><span style="font-weight:500">25登-012327</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 0"><span style="color:var(--text-secondary)">所在地</span><span style="font-weight:500;font-size:11px">福岡県久留米市六ツ門町17-23 橘センタービル401号</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">管理者アカウント</div><button class="abt abt-b">追加</button></div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border)"><div style="width:28px;height:28px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;flex-shrink:0">管</div><div style="flex:1"><div style="font-weight:500">管理者（スーパーアドミン）</div><div style="color:var(--text-tertiary);font-size:10px">admin@smilelink.co.jp</div></div><span class="badge badge-green">有効</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0"><div style="width:28px;height:28px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;color:var(--blue-dark);font-size:11px;flex-shrink:0">副</div><div style="flex:1"><div style="font-weight:500">副管理者</div><div style="color:var(--text-tertiary);font-size:10px">sub@smilelink.co.jp</div></div><span class="badge badge-blue">有効</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- 書類審査モーダル -->
+<div class="modal-bg" id="review-modal">
+  <div class="modal">
+    <div class="modal-title">書類審査 — <span id="review-id"></span><button class="modal-close" onclick="closeModal('review-modal')">×</button></div>
+    <div style="background:var(--gray-bg);border-radius:var(--radius-md);padding:12px;margin-bottom:1rem">
+      <div class="modal-row"><span style="color:var(--text-secondary)">管理番号</span><span style="font-weight:500" id="review-id2"></span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">希望職種</span><span><span class="badge badge-green">介護 / Perawatan</span></span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">日本語レベル</span><span style="font-weight:500">JLPT N3</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">技能評価試験</span><span style="font-weight:500">合格済み ✓</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">在留カード（表）</span><span style="font-weight:500;color:var(--green-dark)">📷 アップロード済み ✓</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">在留カード（裏）</span><span style="font-weight:500;color:var(--green-dark)">📷 アップロード済み ✓</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">パスポート</span><span style="font-weight:500;color:var(--green-dark)">📷 アップロード済み ✓</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">技能評価試験合格証</span><span style="font-weight:500;color:var(--green-dark)">📷 アップロード済み ✓</span></div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeModal('review-modal')">閉じる</button>
+      <button class="btn" style="background:var(--red);color:#fff" onclick="closeModal('review-modal')">却下</button>
+      <button class="btn btn-green" onclick="closeModal('review-modal')">承認して掲載する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 入金承認モーダル -->
+<div class="modal-bg" id="payment-approve-modal">
+  <div class="modal">
+    <div class="modal-title">入金確認・承認 — <span id="payment-id"></span><button class="modal-close" onclick="closeModal('payment-approve-modal')">×</button></div>
+    <div class="info-box">承認すると、企業側に求職者の氏名・メール・SNS・在留カード・パスポート・合格証が開示されます。必ず入金を確認してから承認してください。</div>
+    <div style="background:var(--gray-bg);border-radius:var(--radius-md);padding:12px;margin-bottom:1rem">
+      <div class="modal-row"><span style="color:var(--text-secondary)">採用者番号</span><span style="font-weight:500" id="payment-id2"></span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">企業名</span><span style="font-weight:500">サンシャインケア株式会社</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">振込報告日</span><span style="font-weight:500">2026/04/14</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">振込金額（報告値）</span><span style="font-weight:500;color:var(--amber-dark)">¥33,000</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">振込日（報告値）</span><span style="font-weight:500">2026/04/14</span></div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeModal('payment-approve-modal')">キャンセル</button>
+      <button class="btn btn-green" onclick="closeModal('payment-approve-modal')">入金確認済み・情報を開示する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 企業詳細モーダル -->
+<div class="modal-bg" id="company-modal">
+  <div class="modal">
+    <div class="modal-title">企業審査<button class="modal-close" onclick="closeModal('company-modal')">×</button></div>
+    <div style="background:var(--gray-bg);border-radius:var(--radius-md);padding:12px;margin-bottom:1rem">
+      <div class="modal-row"><span style="color:var(--text-secondary)">会社名</span><span style="font-weight:500">株式会社東京メディカル</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">業種</span><span><span class="badge badge-green">介護</span></span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">所在地</span><span style="font-weight:500">東京都新宿区西新宿2-1-1</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">担当者名</span><span style="font-weight:500">鈴木 一郎</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">メールアドレス</span><span style="font-weight:500">suzuki@t-medical.co.jp</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">登録支援機関</span><span style="font-weight:500">スマイルリンク・ソリューションズ</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">特定技能雇用実績</span><span style="font-weight:500">なし（初回）</span></div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeModal('company-modal')">閉じる</button>
+      <button class="btn" style="background:var(--red);color:#fff" onclick="closeModal('company-modal')">却下</button>
+      <button class="btn btn-green" onclick="closeModal('company-modal')">承認する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 紹介報酬詳細モーダル -->
+<div class="modal-bg" id="referral-modal">
+  <div class="modal">
+    <div class="modal-title">紹介報酬 振込確認<button class="modal-close" onclick="closeModal('referral-modal')">×</button></div>
+    <div style="background:var(--gray-bg);border-radius:var(--radius-md);padding:12px;margin-bottom:1rem">
+      <div class="modal-row"><span style="color:var(--text-secondary)">採用者番号</span><span style="font-weight:500">TL-2026-0042</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">登録支援機関</span><span style="font-weight:500">株式会社ジャカルタ人材サービス</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">登録番号</span><span style="font-weight:500">25登-099001</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">振込先口座</span><span style="font-weight:500;font-size:11px">三菱UFJ銀行 新宿支店 7654321</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">口座名義</span><span style="font-weight:500;font-size:11px">（カ）ジャカルタジンザイサービス</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">紹介報酬額（税別）</span><span style="font-weight:500">¥20,000</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">紹介報酬額（税込）</span><span style="font-weight:500;color:var(--green-dark);font-size:14px">¥22,000</span></div>
+      <div class="modal-row"><span style="color:var(--text-secondary)">振込期限</span><span style="font-weight:500;color:var(--amber-dark)">2026/05/31（翌月末）</span></div>
+    </div>
+    <div style="font-size:11px;color:var(--text-secondary);background:var(--amber-light);border-radius:var(--radius-md);padding:8px 12px;margin-bottom:1rem">振込完了としてマークすると登録支援機関側の受取ステータスが「受取済み」に更新されます。実際の振込は銀行窓口・ネットバンキングで別途行ってください。</div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeModal('referral-modal')">キャンセル</button>
+      <button class="btn btn-green" onclick="closeModal('referral-modal')">振込完了としてマークする</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tabTitles = {dashboard:'ダッシュボード',jobseekers:'求職者管理',companies:'企業アカウント管理',jobs:'求人掲載管理',payment:'入金確認・承認',referral:'紹介報酬管理',agencies:'登録支援機関管理',settings:'システム設定'};
+
+  function switchTab(id, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sidenav-item').forEach(i => i.classList.remove('active'));
+    const tab = document.getElementById('tab-' + id);
+    if(tab) tab.classList.add('active');
+    if(el) el.classList.add('active');
+    document.getElementById('topbar-title').textContent = tabTitles[id] || id;
+  }
+
+  function switchSubTab(id, btn) {
+    const prefix = id.split('-')[0] + '-' + id.split('-')[1].charAt(0);
+    const group = id.substring(0, id.lastIndexOf('-'));
+    document.querySelectorAll('[id^="sub-' + id.split('-')[0] + '-' + id.split('-')[1].charAt(0) + '"]').forEach(el => el.style.display = 'none');
+    document.getElementById('sub-' + id).style.display = 'block';
+    if(btn) {
+      btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+  function showReviewModal(id) {
+    document.getElementById('review-id').textContent = id;
+    document.getElementById('review-id2').textContent = id;
+    document.getElementById('review-modal').classList.add('show');
+  }
+  function showPaymentApproveModal(id) {
+    document.getElementById('payment-id').textContent = id;
+    document.getElementById('payment-id2').textContent = id;
+    document.getElementById('payment-approve-modal').classList.add('show');
+  }
+  function showCompanyModal() { document.getElementById('company-modal').classList.add('show'); }
+  function showReferralModal() { document.getElementById('referral-modal').classList.add('show'); }
+
+  function approveJobseeker(btn) {
+    const row = btn.closest('tr');
+    row.querySelectorAll('.abt').forEach(b => b.remove());
+    const td = row.querySelector('td:last-child');
+    td.innerHTML = '<span class="sp sp-approved"><span class="dot"></span>承認済み</span>';
+    row.style.background = '';
+  }
+  function approveCompany(btn) {
+    const row = btn.closest('tr');
+    row.querySelectorAll('.abt').forEach(b => b.remove());
+    row.querySelector('td:last-child').innerHTML = '<span class="sp sp-approved"><span class="dot"></span>承認済み</span>';
+    row.style.background = '';
+  }
+  function approvePayment(btn) {
+    const row = btn.closest('tr');
+    row.querySelector('.sp').className = 'sp sp-paid';
+    row.querySelector('.sp').innerHTML = '<span class="dot"></span>承認済み';
+    row.style.background = '';
+    btn.closest('td').innerHTML = '<button class="abt">詳細</button>';
+  }
+  function approveReferral(btn) {
+    const row = btn.closest('tr');
+    row.querySelector('.sp').className = 'sp sp-paid';
+    row.querySelector('.sp').innerHTML = '<span class="dot"></span>振込済み';
+    row.style.background = '';
+    btn.closest('td').innerHTML = '<button class="abt">詳細</button>';
+  }
+
+  document.querySelectorAll('.modal-bg').forEach(m => {
+    m.addEventListener('click', e => { if(e.target === m) m.classList.remove('show'); });
+  });
+</script>
+</body>
+</html>
